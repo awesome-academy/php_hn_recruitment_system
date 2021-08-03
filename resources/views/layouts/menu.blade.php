@@ -67,8 +67,8 @@
                         <li class="parent"><a href="about.html">About-Us</a></li>
                         <li class="parent"><a href="404%20error.html">404</a></li>
                         <li class="parent"><a href="add_postin.html">Add-Posting</a></li>
-                        <li class="parent"><a href="login.html">Login</a></li>
-                        <li class="parent"><a href="register.html">Register</a></li>
+                        <li class="parent"><a href="{{ route('login') }}">{{ __('messages.login') }}</a></li>
+                        <li class="parent"><a href="{{ route('register') }}">{{ __('messages.register') }}</a></li>
                         <li class="parent"><a href="pricing.html">Pricing</a></li>
                     </ul>
                 </li>
@@ -195,39 +195,40 @@
                                             <li><a href="about.html">About-Us</a></li>
                                             <li><a href="404%20error.html">404</a></li>
                                             <li><a href="add_postin.html">Add-Posting</a></li>
-                                            <li><a href="login.html">Login</a></li>
-                                            <li><a href="register.html">Register</a></li>
-                                            <li><a href="pricing.html">Pricing</a></li>
+                                            <li><a href="{{ route('login') }}">{{ __('messages.login') }}</a></li>
+                                            <li><a href="{{ route('register') }}">{{ __('messages.register') }}</a></li>
                                         </ul>
                                     </li>
-                                    <li class="has-children">
-                                        <a href="#">Blog</a>
+                                </ul>
+                                </li>
+                                <li class="has-children">
+                                    <a href="#">Blog</a>
 
-                                        <ul class="cd-secondary-dropdown is-hidden">
-                                            <li class="go-back"><a href="#0">Menu</a></li>
-                                            <li>
-                                                <a href="blog_left.html">Blog-Left</a>
-                                            </li>
-                                            <li>
-                                                <a href="blog_right.html">Blog-Right</a>
-                                            </li>
-                                            <li>
-                                                <a href="blog_single_left.html">Blog-Single-Left</a>
-                                            </li>
-                                            <li>
-                                                <a href="blog_single_right.html">Blog-Single-Left</a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li>
-                                        <a href="contact.html">Contact</a>
-                                    </li>
-                                    <li>
-                                        <a href="register.html">Sign Up</a>
-                                    </li>
-                                    <li>
-                                        <a href="login.html">Login</a>
-                                    </li>
+                                    <ul class="cd-secondary-dropdown is-hidden">
+                                        <li class="go-back"><a href="#0">Menu</a></li>
+                                        <li>
+                                            <a href="blog_left.html">Blog-Left</a>
+                                        </li>
+                                        <li>
+                                            <a href="blog_right.html">Blog-Right</a>
+                                        </li>
+                                        <li>
+                                            <a href="blog_single_left.html">Blog-Single-Left</a>
+                                        </li>
+                                        <li>
+                                            <a href="blog_single_right.html">Blog-Single-Left</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="contact.html">Contact</a>
+                                </li>
+                                <li>
+                                    <a href="{{ route('register') }}">{{ __('messages.register') }}</a>
+                                </li>
+                                <li>
+                                    <a href="{{ route('login') }}">{{ __('messages.login') }}</a>
+                                </li>
                                 </ul>
                             </nav>
                         </div>
