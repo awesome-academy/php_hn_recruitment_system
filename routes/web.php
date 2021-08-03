@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\EmployeeProfileController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -16,12 +17,28 @@ use App\Http\Controllers\HomeController;
 |
 */
 
-Auth::routes();
-
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 Route::get('/change-language/{locale}', [
     HomeController::class,
-    'changeLanguage'
-])->name('change-language')->middleware('auth');
+    'changeLanguage',
+])->name('change-language');
+
+Auth::routes([
+    'register' => false,
+]);
+Route::get('/register', [
+    RegisterController::class,
+    'showRegistrationForm',
+])->name('register');
+Route::name('register.')->group(function () {
+    Route::post('/register-employee', [
+        RegisterController::class,
+        'registerEmployee',
+    ])->name('employee');
+    Route::post('/register-employer', [
+        RegisterController::class,
+        'registerEmployer',
+    ])->name('employer');
+});
