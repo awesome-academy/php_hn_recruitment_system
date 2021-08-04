@@ -42,3 +42,6 @@ Route::name('register.')->group(function () {
         'registerEmployer',
     ])->name('employer');
 });
+
+Route::post('change-avatar/{id}', [EmployeeProfileController::class, 'changeAvatar'])->name('change-avatar');
+Route::resource('employee-profiles', EmployeeProfileController::class);

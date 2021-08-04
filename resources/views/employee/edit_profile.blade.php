@@ -7,7 +7,9 @@
                 </div>
                 <div class="col-md-9">
                     <div class="avt-model">
-                        <img src="{{ asset('bower_components/job_light/images/content/blog_client_img.jpg') }}" alt="">
+                        <img class="avt-img"
+                            src="{{ $profile->avatar ? asset('images/' . $profile->avatar) : asset('images/avt.png') }}"
+                            alt="">
                         <div class="m-t-25">
                             <button data-toggle="modal" data-target="#modal-lg"
                                 class="btn btn-info avt-upload-btn">{{ __('messages.select-image') }}</button>
@@ -19,7 +21,8 @@
                                     <div class="container">
                                         <div class="wrapper">
                                             <div class="image">
-                                                <img src="" class="avt-upload-image">
+                                                <img src="{{ asset('images/' . $profile->avatar) }}"
+                                                    class="avt-upload-image">
                                             </div>
                                             <div class="content">
                                                 <div class="icon">
@@ -37,34 +40,55 @@
                                             </div>
                                         </div>
                                         <button id="custom-btn">{{ __('messages.choose-file') }}</button>
-                                        <input id="default-btn" type="file" hidden>
-                                        <div class="modal-btn">
-                                            <button class="btn btn-cancel"
-                                                data-dismiss="modal">{{ __('messages.cancel') }}</button>
-                                            <button class="btn btn-save"
-                                                data-dismiss="modal">{{ __('messages.save') }}</button>
-                                        </div>
+                                        <form method="post" enctype="multipart/form-data"
+                                            action="{{ route('change-avatar', ['id' => $profile->id]) }}">
+                                            @csrf
+                                            <input id="default-btn" name="avatar" type="file" hidden>
+                                            <div class="">
+                                                <button class="btn btn-cancel"
+                                                    data-dismiss="modal">{{ __('messages.cancel') }}</button>
+                                                <button type="submit"
+                                                    class="btn btn-save">{{ __('messages.save') }}</button>
+                                            </div>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="p-h-10">
-                        <form class="m-t-15" method="POST" action="">
+                        @if (Session::get('success'))
+                            <div class="alert alert-success">
+                                {{ Session::get('success') }}
+                            </div>
+                        @endif
+                        @error('avatar')
+                            <div class="alert alert-danger">{{ $message }}</div>
+                        @enderror
+                        <form class="m-t-15" method="POST"
+                            action="{{ route('employee-profiles.update', ['employee_profile' => $profile->id]) }}">
                             @csrf
-                            @method("PATCH")
+                            @method("PUT")
                             <div class="form-group row">
                                 <label
                                     class="col-sm-2 col-form-label control-label text-sm-right">{{ __('messages.name') }}</label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control" placeholder="{{ __('messages.name') }}">
+                                    <input type="text" class="form-control" name="name"
+                                        placeholder="{{ __('messages.name') }}" value="{{ $profile->name }}">
+                                    @error('name')
+                                        <p class="text-danger">{{ $message }}</p>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label
                                     class="col-sm-2 col-form-label control-label text-sm-right">{{ __('messages.phone') }}</label>
                                 <div class="col-sm-10">
-                                    <input type="password" class="form-control" placeholder="{{ __('messages.phone') }}">
+                                    <input type="tel" class="form-control" placeholder="{{ __('messages.phone') }}"
+                                        value="{{ $profile->phone_number }}" name="phone_number">
+                                    @error('phone_number')
+                                        <p class="text-danger">{{ $message }}</p>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -73,13 +97,20 @@
                                 <div class="col-sm-10">
                                     <div class="m-t-10">
                                         <div class="radio d-inline m-r-15">
-                                            <input id="horizontalFormRadio1" name="horizontalForm" type="radio" checked="">
+                                            <input id="horizontalFormRadio1" type="radio"
+                                                {{ $profile->gender == config('user.gender.male') ? 'checked' : '' }}
+                                                value="{{ config('user.gender.male') }}" name="gender">
                                             <label for="horizontalFormRadio1">{{ __('messages.male') }}</label>
                                         </div>
                                         <div class="radio d-inline m-r-15">
-                                            <input id="horizontalFormRadio2" name="horizontalForm" type="radio">
+                                            <input id="horizontalFormRadio2" type="radio"
+                                                {{ $profile->gender == config('user.gender.female') ? 'checked' : '' }}
+                                                value="{{ config('user.gender.female') }}" name="gender">
                                             <label for="horizontalFormRadio2">{{ __('messages.female') }}</label>
                                         </div>
+                                        @error('gender')
+                                            <p class="text-danger">{{ $message }}</p>
+                                        @enderror
                                     </div>
                                 </div>
                             </div>
@@ -87,52 +118,66 @@
                                 <label
                                     class="col-sm-2 col-form-label control-label text-sm-right">{{ __('messages.dob') }}</label>
                                 <div class="col-sm-10">
-                                    <div class="input-daterange" data-plugin="datepicker">
-                                        <div class="row align-items-center">
-                                            <div class="col">
-                                                <div class="icon-input">
-                                                    <i class="mdi mdi-calendar"></i>
-                                                    <input type="text" class="form-control" name="start">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    <input type="date" class="form-control" name="birthday"
+                                        value="{{ $profile->birthday->format('Y-m-d') }}">
+                                    @error('birthday')
+                                        <p class="text-danger">{{ $message }}</p>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label
                                     class="col-sm-2 col-form-label control-label text-sm-right">{{ __('messages.address') }}</label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control" placeholder="{{ __('messages.address') }}">
+                                    <input type="text" class="form-control" placeholder="{{ __('messages.address') }}"
+                                        value="{{ $profile->address }}" name="address">
+                                    @error('address')
+                                        <p class="text-danger">{{ $message }}</p>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label
                                     class="col-sm-2 col-form-label control-label text-sm-right">{{ __('messages.description') }}</label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control"
-                                        placeholder="{{ __('messages.description') }}">
+                                    <input type="text" class="form-control" value="{{ $profile->description }}"
+                                        placeholder="{{ __('messages.description') }}" name="description">
+                                    @error('description')
+                                        <p class="text-danger">{{ $message }}</p>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label
                                     class="col-sm-2 col-form-label control-label text-sm-right">{{ __('messages.skill') }}</label>
                                 <div class="col-sm-10">
-                                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                                    <textarea class="form-control" name="skills" id="exampleFormControlTextarea1"
+                                        rows="3">{{ $profile->skills }}</textarea>
+                                    @error('skills')
+                                        <p class="text-danger">{{ $message }}</p>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label
                                     class="col-sm-2 col-form-label control-label text-sm-right">{{ __('messages.certification') }}</label>
                                 <div class="col-sm-10">
-                                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                                    <textarea class="form-control" name="certifications" id="exampleFormControlTextarea1"
+                                        rows="3">{{ $profile->certifications }}</textarea>
+                                    @error('certifications')
+                                        <p class="text-danger">{{ $message }}</p>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label
                                     class="col-sm-2 col-form-label control-label text-sm-right">{{ __('messages.industry') }}</label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control" placeholder="{{ __('messages.industry') }}">
+                                    <input type="text" class="form-control" placeholder="{{ __('messages.industry') }}"
+                                        value="{{ $profile->industry }}" name="industry">
+                                    @error('industry')
+                                        <p class="text-danger">{{ $message }}</p>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="text-sm-right">
