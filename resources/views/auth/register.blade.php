@@ -26,25 +26,38 @@
                             <!-- Tab panes -->
                             <div class="tab-content">
                                 <div class="tab-pane fade in active register_left_form" id="contentOne-1">
-                                    <form action="" method="post" id="employee-register">
+                                    <form action="{{ route('register.employee') }}" method="post" id="employee-register">
                                         @csrf
                                         <div class="row">
                                             <div class="form-group col-md-6 col-sm-6 col-xs-12">
-                                                <input type="text" name="name" value=""
+                                                <input type="text" name="name" value="{{ old('name') }}"
                                                     placeholder="{{ __('messages.name') }}*">
+                                                @error('name', 'employee_registration')
+                                                    <p class="text-danger">{{ $message }}</p>
+                                                @enderror
                                             </div>
+
                                             <div class="form-group col-md-6 col-sm-6 col-xs-12">
-                                                <input type="text" name="field-name" value=""
+                                                <input type="text" name="email" value="{{ old('email') }}"
                                                     placeholder="{{ __('messages.email') }}*">
+                                                @error('email', 'employee_registration')
+                                                    <p class="text-danger">{{ $message }}</p>
+                                                @enderror
                                             </div>
+
                                             <div class="form-group col-md-6 col-sm-6 col-xs-12">
-                                                <input type="password" name="field-name" value=""
+                                                <input type="password" name="password" value="{{ old('password') }}"
                                                     placeholder=" {{ __('messages.password') }}*">
+                                                @error('password', 'employee_registration')
+                                                    <p class="text-danger">{{ $message }}</p>
+                                                @enderror
                                             </div>
+
                                             <div class="form-group col-md-6 col-sm-6 col-xs-12">
-                                                <input type="password" name="field-name" value=""
+                                                <input type="password" name="password_confirmation" value=""
                                                     placeholder="{{ __('messages.confirm-password') }}*">
                                             </div>
+
                                             <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                                 <div class="check-box text-center">
                                                     <input type="checkbox" name="shipping-option" id="account-option_1">
@@ -59,49 +72,78 @@
                                         </div>
                                     </form>
                                     <div class="login_message">
-                                        <p>{{ __('messages.already-member') }} <a href="">
-                                                {{ __('messages.login-here') }} </a> </p>
+                                        <p>
+                                            {{ __('messages.already-member') }}
+                                            <a href="{{ route('login') }}"> {{ __('messages.login-here') }} </a>
+                                        </p>
                                     </div>
                                 </div>
 
                                 <div class="tab-pane fade register_left_form" id="contentOne-2">
-                                    <form action="" method="post" id="employer-register">
+                                    <form action="{{ route('register.employer') }}" method="post" id="employer-register">
                                         @csrf
                                         <div class="row clearfix">
                                             <div class="form-group col-md-6 col-sm-6 col-xs-12">
-                                                <input type="text" name="field-name" value=""
+                                                <input type="text" name="name" value="{{ old('name') }}"
                                                     placeholder="{{ __('messages.company-name') }}*">
+                                                @error('name', 'employer_registration')
+                                                    <p class="text-danger">{{ $message }}</p>
+                                                @enderror
                                             </div>
-                                            <div class="form-group col-md-6 col-sm-6 col-xs-12">
-                                                <input type="text" name="field-name" value="" placeholder="Email*">
-                                            </div>
-                                            <div class="form-group col-md-6 col-sm-6 col-xs-12">
 
-                                                <input type="password" name="field-name" value=""
+                                            <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                                                <input type="text" name="email" value="{{ old('email') }}"
+                                                    placeholder="{{ __('messages.email') }}*">
+                                                @error('email', 'employer_registration')
+                                                    <p class="text-danger">{{ $message }}</p>
+                                                @enderror
+                                            </div>
+
+                                            <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                                                <input type="password" name="password" value="{{ old('password') }}"
                                                     placeholder="{{ __('messages.password') }}*">
+                                                @error('password', 'employer_registration')
+                                                    <p class="text-danger">{{ $message }}</p>
+                                                @enderror
                                             </div>
-                                            <div class="form-group col-md-6 col-sm-6 col-xs-12">
 
-                                                <input type="password" name="field-name" value=""
+                                            <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                                                <input type="password" name="password_confirmation" value=""
                                                     placeholder="{{ __('messages.confirm-password') }}*">
                                             </div>
-                                            <div class="form-group col-md-6 col-sm-6 col-xs-12">
-                                                <input type="text" name="field-name" value=""
-                                                    placeholder="{{ __('messages.phone') }}">
-                                            </div>
-                                            <div class="form-group col-md-6 col-sm-6 col-xs-12">
 
-                                                <input type="text" name="field-name" value=""
+                                            <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                                                <input type="text" name="phone_number" value="{{ old('phone_number') }}"
+                                                    placeholder="{{ __('messages.phone') }}">
+                                                @error('phone_number', 'employer_registration')
+                                                    <p class="text-danger">{{ $message }}</p>
+                                                @enderror
+                                            </div>
+
+                                            <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                                                <input type="text" name="website" value="{{ old('website') }}"
                                                     placeholder="{{ __('messages.website') }}">
+                                                @error('website', 'employer_registration')
+                                                    <p class="text-danger">{{ $message }}</p>
+                                                @enderror
                                             </div>
+
                                             <div class="form-group col-md-6 col-sm-6 col-xs-12">
-                                                <input type="text" name="field-name" value=""
+                                                <input type="text" name="address" value="{{ old('address') }}"
                                                     placeholder="{{ __('messages.address') }}">
+                                                @error('address', 'employer_registration')
+                                                    <p class="text-danger">{{ $message }}</p>
+                                                @enderror
                                             </div>
+
                                             <div class="form-group col-md-6 col-sm-6 col-xs-12">
-                                                <input type="text" name="field-name" value=""
+                                                <input type="text" name="industry" value="{{ old('industry') }}"
                                                     placeholder="{{ __('messages.industry') }}">
+                                                @error('industry', 'employer_registration')
+                                                    <p class="text-danger">{{ $message }}</p>
+                                                @enderror
                                             </div>
+
                                             <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                                 <div class="check-box text-center">
                                                     <input type="checkbox" name="shipping-option" id="account-option_2">
@@ -117,7 +159,7 @@
                                     </form>
                                     <div class="login_message">
                                         <p>{{ __('messages.already-member') }}
-                                            <a href="">{{ __('messages.login-here') }}</a>
+                                            <a href="{{ route('login') }}">{{ __('messages.login-here') }}</a>
                                         </p>
                                     </div>
                                 </div>
