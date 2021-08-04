@@ -6,7 +6,8 @@
                 <div class="jp_top_header_left_wrapper">
                     <div class="jp_top_header_left_cont">
                         <p><i class="fa fa-phone"></i> &nbsp;{{ __('messages.phone') }} &nbsp;+1234567</p>
-                        <p class=""><i class="fa fa-envelope"></i> &nbsp;{{ __('messages.email') }} :&nbsp;<a href="#">ha@gmail.com</a>
+                        <p class=""><i class="fa fa-envelope"></i> &nbsp;{{ __('messages.email') }} :&nbsp;<a
+                                href="#">ha@gmail.com</a>
                         </p>
                     </div>
                 </div>
@@ -15,8 +16,10 @@
                 <div class="jp_top_header_right_wrapper">
                     <div class="jp_top_header_right_cont">
                         <ul>
-                            <li><a href="register.html"><i class="fa fa-user"></i>&nbsp; {{ __('messages.register') }}</a></li>
-                            <li><a href="login.html"><i class="fa fa-sign-in"></i>&nbsp; {{ __('messages.login') }}</a></li>
+                            <li><a href="{{ route('register') }}"><i class="fa fa-user"></i>&nbsp;
+                                    {{ __('messages.register') }}</a></li>
+                            <li><a href="{{ route('login') }}"><i class="fa fa-sign-in"></i>&nbsp;
+                                    {{ __('messages.login') }}</a></li>
                         </ul>
                     </div>
                     <div class="jp_top_header_right__social_cont">
