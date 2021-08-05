@@ -71,8 +71,8 @@ return [
     'school' => 'Tên Trường',
     'degree' => 'Bằng Cấp',
     'field-of-study' => 'Ngành Học',
-    'start-date' => 'Ngày Bắt Đầu',
-    'end-date' => 'Ngày Kết Thúc',
+    'start-date' => 'Bắt Đầu',
+    'end-date' => 'Kết Thúc',
     'grade' => 'Xếp Loại',
     'confirmation' => 'Xác Nhận',
     'delete-sure' => 'Bạn có chắc muốn xóa không?',
@@ -81,4 +81,7 @@ return [
     'present' => 'Hiện tại',
     'cv-download' => 'Tải CV',
     'choose-cv' => 'Chọn mẫu CV để chỉnh sửa',
+    'position' => 'Vị Trí',
+    'employment-type' => 'Loại Việc Làm',
+    'company' => 'Tên Công Ty',
 ];

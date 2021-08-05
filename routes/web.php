@@ -1,10 +1,13 @@
 <?php
 
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\EducationController;
 use App\Http\Controllers\EmployeeProfileController;
+use App\Http\Controllers\ExperienceController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Models\Experience;
 
 /*
 |--------------------------------------------------------------------------
@@ -47,3 +50,9 @@ Route::post('change-avatar/{id}', [EmployeeProfileController::class, 'changeAvat
 Route::resource('employee-profiles', EmployeeProfileController::class);
 Route::get('cv-template', [EmployeeProfileController::class, 'showCVTemplateList'])->name('template.cv');
 Route::get('cv/{template}', [EmployeeProfileController::class, 'makeCV'])->name('edit.cv');
+Route::resource('education', EducationController::class)->except([
+    'create', 'show', 'edit'
+]);
+Route::resource('experiences', ExperienceController::class)->except([
+    'create', 'show', 'edit'
+]);

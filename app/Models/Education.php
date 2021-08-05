@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Education extends Model
 {
@@ -19,8 +20,33 @@ class Education extends Model
         'grade',
     ];
 
+    protected $casts = [
+        'start_date' => 'date',
+        'end_date' => 'date',
+    ];
+
     public function employeeProfile()
     {
         return $this->belongsTo(EmployeeProfile::class);
+    }
+
+    public function setSchoolAttribute($value)
+    {
+        $this->attributes['school'] = Str::title($value);
+    }
+
+    public function setDegreeAttribute($value)
+    {
+        $this->attributes['degree'] = Str::title($value);
+    }
+
+    public function setFieldOfStudyAttribute($value)
+    {
+        $this->attributes['field_of_study'] = Str::title($value);
+    }
+
+    public function setGradeAttribute($value)
+    {
+        $this->attributes['grade'] = Str::ucfirst($value);
     }
 }
