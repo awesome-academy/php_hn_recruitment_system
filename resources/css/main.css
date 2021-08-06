@@ -145,3 +145,18 @@
 .btn-cancel {
     background: linear-gradient(to right, #8e9eab, #eef2f3) !important;
 }
+
+.cv-list-container {
+    margin-top: 10%;
+}
+
+.cv-list-title {
+    text-align: center;
+    margin-bottom: 5%;
+}
+
+.cv-img {
+    height: 350px;
+    width: 35%;
+    margin-left: 10%;
+}

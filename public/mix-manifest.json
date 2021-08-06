@@ -1,6 +1,8 @@
 {
     "/js/app.js": "/js/app.js",
     "/js/main.js": "/js/main.js",
+    "/js/my_cv.js": "/js/my_cv.js",
     "/css/app.css": "/css/app.css",
+    "/css/style_cv.css": "/css/style_cv.css",
     "/css/main.css": "/css/main.css"
 }
