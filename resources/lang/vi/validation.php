@@ -1,12 +1,8 @@
 <?php
 
 return [
-    'required' => ':Attribute không được để trống.',
     'min' => [
         'string' => ':Attribute tối thiểu :min ký tự.',
-    ],
-    'max' => [
-        'string' => ':Attribute tối đa :max ký tự.',
     ],
     'email' => ':Attribute không hợp lệ.',
     'unique' => ':Attribute đã được sử dụng.',
@@ -15,12 +11,25 @@ return [
     'digits' => ':Attribute phải có :digits chữ số.',
     'starts_with' => ':Attribute phải bắt đầu với: :values.',
     'url' => ':Attribute không phải URL hợp lệ.',
+    'required' => ':attribute không được để trống.',
+    'max' => [
+        'string' => ':attribute không được vượt quá :max kí tự.',
+    ],
+    'numeric' => ':attribute không hợp lệ.',
+    'image' => ':attribute không đúng định dạng.',
+    'date' => ':attribute không hợp lệ.',
+    'in' => ':attribute được chọn không hợp lệ.',
 
     'attributes' => [
-        'name' => 'tên',
         'password' => 'mật khẩu',
-        'address' => 'địa chỉ',
-        'industry' => 'lĩnh vực',
-        'phone_number' => 'số điện thoại',
+        'name' => 'Tên',
+        'phone_number' => 'Số điện thoại',
+        'gender' => 'Giới tính',
+        'description' => 'Mô tả',
+        'birthday' => 'Ngày sinh',
+        'address' => 'Địa chỉ',
+        'skills' => 'Kỹ năng',
+        'certifications' => 'Chứng chỉ',
+        'industry' => 'Lĩnh vực',
     ],
 ];

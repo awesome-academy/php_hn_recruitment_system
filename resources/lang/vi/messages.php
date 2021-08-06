@@ -67,4 +67,14 @@ return [
     'certification' => 'Chứng Chỉ',
     'industry' => 'Lĩnh Vực',
     'reset' => 'Hủy',
+    'update-success' => 'Cập nhật thành công!',
+    'school' => 'Tên Trường',
+    'degree' => 'Bằng Cấp',
+    'field-of-study' => 'Ngành Học',
+    'start-date' => 'Ngày Bắt Đầu',
+    'end-date' => 'Ngày Kết Thúc',
+    'grade' => 'Xếp Loại',
+    'confirmation' => 'Xác Nhận',
+    'delete-sure' => 'Bạn có chắc muốn xóa không?',
+    'confirm' => 'Xác Nhận'
 ];

@@ -21,7 +21,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('bower_components/job_light/css/flaticon.css') }}" />
     <link rel="stylesheet" type="text/css" href="{{ asset('bower_components/job_light/css/style_II.css') }}" />
     <link rel="stylesheet" type="text/css" href="{{ asset('bower_components/job_light/css/responsive2.css') }}" />
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/main.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/intro.css') }}" />
     <link rel="shortcut icon" type="image/png"
         href="{{ asset('bower_components/job_light/images/header/favicon.ico') }}" />
 </head>
