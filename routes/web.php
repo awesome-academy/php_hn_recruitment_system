@@ -45,3 +45,5 @@ Route::name('register.')->group(function () {
 
 Route::post('change-avatar/{id}', [EmployeeProfileController::class, 'changeAvatar'])->name('change-avatar');
 Route::resource('employee-profiles', EmployeeProfileController::class);
+Route::get('cv-template', [EmployeeProfileController::class, 'showCVTemplateList'])->name('template.cv');
+Route::get('cv/{template}', [EmployeeProfileController::class, 'makeCV'])->name('edit.cv');

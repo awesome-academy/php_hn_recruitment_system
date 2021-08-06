@@ -77,4 +77,8 @@ return [
     'confirmation' => 'Confirmation',
     'delete-sure' => 'Are you sure to delete?',
     'confirm' => 'Confirm',
+    'contact' => 'Contact',
+    'present' => 'Present',
+    'cv-download' => 'Download CV',
+    'choose-cv' => 'Choose a template to make your own CV',
 ];

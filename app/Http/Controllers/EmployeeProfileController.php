@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\UpdateEmployeeProfileRequest;
 use Illuminate\Http\Request;
 use App\Models\EmployeeProfile;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\UpdateEmployeeProfileRequest;
 
 class EmployeeProfileController extends Controller
 {
@@ -117,5 +118,25 @@ class EmployeeProfileController extends Controller
 
             return back()->with('success', __('messages.update-success'));
         }
+    }
+
+    public function showCVTemplateList()
+    {
+        return view('employee.my_cv');
+    }
+
+    public function makeCV($template)
+    {
+        $user = Auth::user();
+        $profile = $user->employeeProfile;
+        $experienceList = $profile->experiences;
+        $educationList = $profile->education;
+
+        return view('employee.' . $template, [
+            'user' => $user,
+            'profile' => $profile,
+            'experienceList' => $experienceList,
+            'educationList' => $educationList,
+        ]);
     }
 }

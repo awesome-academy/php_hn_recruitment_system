@@ -39,7 +39,7 @@ class EmployeeProfile extends Model
         return $this->hasMany(Education::class);
     }
 
-    public function experience()
+    public function experiences()
     {
         return $this->hasMany(Experience::class);
     }

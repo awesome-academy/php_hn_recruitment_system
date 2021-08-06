@@ -76,5 +76,9 @@ return [
     'grade' => 'Xếp Loại',
     'confirmation' => 'Xác Nhận',
     'delete-sure' => 'Bạn có chắc muốn xóa không?',
-    'confirm' => 'Xác Nhận'
+    'confirm' => 'Xác Nhận',
+    'contact' => 'Thông tin liên hệ',
+    'present' => 'Hiện tại',
+    'cv-download' => 'Tải CV',
+    'choose-cv' => 'Chọn mẫu CV để chỉnh sửa',
 ];
