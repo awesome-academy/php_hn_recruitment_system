@@ -14,6 +14,12 @@
         href="{{ asset('bower_components/job_light/admin/assets/vendor/PACE/themes/blue/pace-theme-minimal.css') }}" />
     <link rel="stylesheet"
         href="{{ asset('bower_components/job_light/admin/assets/vendor/perfect-scrollbar/css/perfect-scrollbar.min.css') }}" />
+    <link rel="stylesheet"
+        href="{{ asset('bower_components/job_light/admin/assets/vendor/selectize/dist/css/selectize.default.css') }}" />
+    <link rel="stylesheet"
+        href="{{ asset('bower_components/job_light/admin/assets/vendor/summernote/dist/summernote-bs4.css') }}" />
+    <link rel="stylesheet"
+        href="{{ asset('bower_components/job_light/admin/assets/vendor/bootstrap-datepicker/dist/css/bootstrap-datepicker3.css') }}" />
     <link href="{{ asset('bower_components/job_light/admin/assets/css/font-awesome.min.css') }}" rel="stylesheet">
     <link href="{{ asset('bower_components/job_light/admin/assets/css/themify-icons.css') }}" rel="stylesheet">
     <link href="{{ asset('bower_components/job_light/admin/assets/css/materialdesignicons.min.css') }}" rel="stylesheet">

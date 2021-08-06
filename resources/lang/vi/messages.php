@@ -84,4 +84,8 @@ return [
     'position' => 'Vị Trí',
     'employment-type' => 'Loại Việc Làm',
     'company' => 'Tên Công Ty',
+    'company-size' => 'Số nhân viên',
+    'company-type' => 'Loại công ty',
+    'description' => 'Mô tả',
+    'cover-photo' => 'Ảnh bìa',
 ];

@@ -18,7 +18,7 @@
                         <div class="modal fade" id="modal-lg">
                             <div class="modal-dialog modal-lg" role="document">
                                 <div class="modal-content">
-                                    <div class="container">
+                                    <div class="modal-content-container">
                                         <div class="wrapper">
                                             <div class="image">
                                                 <img src="{{ asset('images/' . $profile->avatar) }}"

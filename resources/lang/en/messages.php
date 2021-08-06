@@ -84,4 +84,9 @@ return [
     'position' => 'Position',
     'employment-type' => 'Employment Type',
     'company' => 'Company Name',
+    'company-size' => 'Company size',
+    'company-type' => 'Company type',
+    'description' => 'Description',
+    'logo' => 'Logo',
+    'cover-photo' => 'Cover photo',
 ];
