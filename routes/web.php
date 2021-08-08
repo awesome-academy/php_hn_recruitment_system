@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Models\Experience;
+use App\Http\Controllers\JobController;
 
 /*
 |--------------------------------------------------------------------------
@@ -47,10 +48,7 @@ Route::name('register.')->group(function () {
     ])->name('employer');
 });
 
-Route::post('change-avatar/{id}', [
-    EmployeeProfileController::class,
-    'changeAvatar',
-])->name('change-avatar');
+Route::post('change-image/{image}/{id}', [EmployeeProfileController::class, 'changeImage'])->name('change-image');
 Route::resource('employee-profiles', EmployeeProfileController::class);
 Route::get('cv-template', [EmployeeProfileController::class, 'showCVTemplateList'])->name('template.cv');
 Route::get('cv/{template}', [EmployeeProfileController::class, 'makeCV'])->name('edit.cv');
@@ -70,3 +68,4 @@ Route::prefix('employer')
             'update',
         ]);
     });
+Route::resource('jobs', JobController::class);

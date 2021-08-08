@@ -10,6 +10,7 @@
     <meta name="keywords" content="Job Pro" />
     <meta name="author" content="" />
     <meta name="MobileOptimized" content="320" />
+    <link href="{{ asset('bower_components/job_light/admin/assets/css/themify-icons.css') }}" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{{ asset('ç/css/animate.css') }}" />
     <link rel="stylesheet" type="text/css" href="{{ asset('bower_components/job_light/css/bootstrap.css') }}" />
     <link rel="stylesheet" type="text/css" href="{{ asset('bower_components/job_light/css/font-awesome.cs') }}s" />

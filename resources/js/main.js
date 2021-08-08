@@ -1,8 +1,3 @@
-document.querySelector(".logout-btn").addEventListener("click", function (event) {
-    event.preventDefault();
-    document.getElementById('logout-form').submit();
-});
-
 // Upload image
 const wrapper = document.querySelector(".wrapper");
 const fileName = document.querySelector(".file-name");
@@ -35,4 +30,9 @@ defaultBtn.addEventListener("change", function(){
     let valueStore = this.value.match(regExp);
     fileName.textContent = valueStore;
   }
+});
+
+document.querySelector(".logout-btn").addEventListener("click", function (event) {
+    event.preventDefault();
+    document.getElementById('logout-form').submit();
 });
