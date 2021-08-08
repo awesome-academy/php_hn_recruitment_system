@@ -196,3 +196,19 @@
     background-color: #23c0e9;
     color: #fff;
 }
+
+/* live search job */
+.live-search-res p {
+    color: #fff;
+    cursor: pointer;
+    padding: 10px 0;
+}
+
+.live-search-res p:hover {
+    background-color: rgb(119, 113, 113);
+}
+
+.job-search-btn {
+    background: none;
+    border: none;
+}

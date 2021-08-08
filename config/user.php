@@ -25,7 +25,8 @@ return [
         'contract' => 'contract',
         'remote' => 'remote',
         'temporary' => 'temporary',
+        'internship' => 'internship',
     ],
     'num_top_users' => 10,
-    'num_pages' => 4,
+    'num_pages' => 2,
 ];

@@ -33,27 +33,17 @@ class ExperienceController extends Controller
 
     public function update(StoreExperienceRequest $request, $id)
     {
-        $experience = Experience::find($id);
+        $experience = Experience::findOrFail($id);
+        $experience->update($request->all());
 
-        if (!empty($experience)) {
-            $experience->update($request->all());
-
-            return back()->with('success', __('messages.update-success'));
-        } else {
-            abort(404);
-        }
+        return back()->with('success', __('messages.update-success'));
     }
 
     public function destroy($id)
     {
-        $experience = Experience::find($id);
+        $experience = Experience::findOrFail($id);
+        $experience->delete();
 
-        if (!empty($experience)) {
-            $experience->delete();
-
-            return back()->with('success', __('messages.update-success'));
-        } else {
-            abort(404);
-        }
+        return back()->with('success', __('messages.update-success'));
     }
 }

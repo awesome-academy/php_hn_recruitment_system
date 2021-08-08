@@ -8,8 +8,8 @@ use App\Http\Controllers\EmployerProfileController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
-use App\Models\Experience;
 use App\Http\Controllers\JobController;
+use App\Http\Controllers\SearchController;
 
 /*
 |--------------------------------------------------------------------------
@@ -68,4 +68,8 @@ Route::prefix('employer')
             'update',
         ]);
     });
+
 Route::resource('jobs', JobController::class);
+Route::get('autocomplete-job', [SearchController::class, 'autocompleteJob'])->name('autocomplete_job');
+Route::get('search-job', [SearchController::class, 'searchJobGeneral'])->name('search_job');
+Route::get('filter-job', [SearchController::class, 'filterJobs'])->name('filter_job');

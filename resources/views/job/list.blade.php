@@ -14,27 +14,30 @@
                         </div>
                     </div>
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                        <div class="jp_header_form_wrapper">
-                            <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12">
-                                <input type="text" placeholder="{{ __('messages.job-keyword') }}">
-                            </div>
-                            <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
-                                <div class="jp_form_btn_wrapper">
-                                    <ul>
-                                        <li><a href="#"><i class="fa fa-search"></i> {{ __('messages.search') }}</a>
-                                        </li>
-                                    </ul>
+                        <form action="{{ route('search_job') }}" method="get" autocomplete="off">
+                            <div class="jp_header_form_wrapper">
+                                <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12">
+                                    <input type="text" placeholder="{{ __('messages.search-keyword') }}" class="typeahead"
+                                        name="keyword">
+                                    <input type="text" class="autocompleteUrl" value="{{ route('autocomplete_job') }}"
+                                        hidden>
+                                </div>
+                                <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
+                                    <div class="jp_form_btn_wrapper">
+                                        <ul>
+                                            <li>
+                                                <a>
+                                                    <button type="submit" class="job-search-btn">
+                                                        <i class="fa fa-search"></i> {{ __('messages.search') }}
+                                                    </button>
+                                                </a>
+
+                                            </li>
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                        <div class="jp_banner_main_jobs_wrapper">
-                            <div class="jp_banner_main_jobs">
-                                <ul>
-                                </ul>
-                            </div>
-                        </div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -106,7 +109,7 @@
                                                                             </li>
                                                                             <li><a href="#">{{ $job->job_type }}</a></li>
                                                                             <li><a
-                                                                                    href="#">{{ __('messages.view') }}</a>
+                                                                                    href="{{ route('jobs.show', ['job' => $job->id]) }}">{{ __('messages.view') }}</a>
                                                                             </li>
                                                                         </ul>
                                                                     </div>
@@ -168,7 +171,7 @@
                                                                                         class="fa fa-heart-o"></i></a></li>
                                                                             <li><a href="#">{{ $job->job_type }}</a></li>
                                                                             <li><a
-                                                                                    href="#">{{ __('messages.view') }}</a>
+                                                                                    href="{{ route('jobs.show', ['job' => $job->id]) }}">{{ __('messages.view') }}</a>
                                                                             </li>
                                                                         </ul>
                                                                     </div>
@@ -208,55 +211,33 @@
                                     <h4>{{ __('messages.job-type') }}</h4>
                                 </div>
                                 <div class="jp_rightside_job_categories_content">
-                                    <div class="handyman_sec1_wrapper">
-                                        <div class="content">
-                                            <div class="box">
-                                                @foreach (config('user.job_type') as $type)
-                                                    <p>
-                                                        <input type="checkbox" id="c136" name="{{ $type }}">
-                                                        <label for="c136">{{ $type }}</label>
-                                                    </p>
-                                                @endforeach
+                                    <form action="{{ route('filter_job') }}" method="get">
+                                        <div class="handyman_sec1_wrapper">
+                                            <div class="content">
+                                                <div class="box">
+                                                    @foreach (config('user.job_type') as $type)
+                                                        <p>
+                                                            <input type="checkbox" id="{{ $type }}"
+                                                                class="filter-selector job-type"
+                                                                value="{{ $type }}">
+                                                            <label for="{{ $type }}">{{ $type }}</label>
+                                                        </p>
+                                                    @endforeach
+                                                    <input type="text" hidden name="types" class="filter-types">
+                                                    <input type="text" hidden name="keyword"
+                                                        value="{{ isset($keyword) ? $keyword : '' }}">
+                                                </div>
                                             </div>
+                                            <ul>
+                                                <li><i class="fa fa-plus-circle"></i>
+                                                    <a> <button type="submit"
+                                                            class="job-search-btn">{{ __('messages.show') }}</button>
+                                                    </a>
+                                                </li>
+                                            </ul>
                                         </div>
-                                        <ul>
-                                            <li><i class="fa fa-plus-circle"></i> <a
-                                                    href="#">{{ __('messages.show') }}</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                            <div class="jp_rightside_job_categories_wrapper jp_job_location_wrapper">
-                                <div class="jp_rightside_job_categories_heading">
-                                    <h4>{{ __('messages.salary') }}</h4>
-                                </div>
-                                <div class="jp_rightside_job_categories_content">
-                                    <div class="handyman_sec1_wrapper">
-                                        <div class="content">
-                                            <div class="box">
-                                                <p>
-                                                    <input type="checkbox" id="c125" name="cb">
-                                                    <label for="c125">$500 - 1k</label>
+                                    </form>
 
-                                                <p>
-                                                    <input type="checkbox" id="c126" name="cb">
-                                                    <label for="c126">$1k - 2k</label>
-                                                </p>
-                                                <p>
-                                                    <input type="checkbox" id="c127" name="cb">
-                                                    <label for="c127">$2k - 3k</label>
-                                                </p>
-                                            </div>
-                                        </div>
-                                        <ul>
-                                            <li><i class="fa fa-plus-circle"></i> <a
-                                                    href="#">{{ __('messages.show') }}</a>
-                                            </li>
-                                        </ul>
-                                    </div>
                                 </div>
                             </div>
                         </div>

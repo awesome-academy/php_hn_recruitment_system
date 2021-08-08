@@ -72,15 +72,11 @@ class EmployeeProfileController extends Controller
      */
     public function edit($id)
     {
-        $profile = EmployeeProfile::find($id);
+        $profile = EmployeeProfile::findOrFail($id);
 
-        if (!empty($profile)) {
-            return view('employee.edit_profile', [
-                'profile' => $profile,
-            ]);
-        } else {
-            abort(404);
-        }
+        return view('employee.edit_profile', [
+            'profile' => $profile,
+        ]);
     }
 
     /**
@@ -92,15 +88,10 @@ class EmployeeProfileController extends Controller
      */
     public function update(UpdateEmployeeProfileRequest $request, $id)
     {
-        $profile = EmployeeProfile::find($id);
+        $profile = EmployeeProfile::findOrFail($id);
+        $profile->update($request->all());
 
-        if (!empty($profile)) {
-            $profile->update($request->all());
-
-            return back()->with('success', __('messages.update-success'));
-        } else {
-            abort(404);
-        }
+        return back()->with('success', __('messages.update-success'));
     }
 
     /**
@@ -120,7 +111,7 @@ class EmployeeProfileController extends Controller
             'avatar' => 'image',
         ]);
 
-        $profile = EmployeeProfile::find($id);
+        $profile = EmployeeProfile::findOrFail($id);
 
         if (isset($request->avatar)) {
             $fileName = time() . '-' . $profile->id . '.' .
