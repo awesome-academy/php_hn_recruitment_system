@@ -10,18 +10,16 @@ class EmployerProfile extends Model
     use HasFactory;
 
     protected $fillable = [
-        'user_id',
         'name',
+        'website',
         'address',
         'phone_number',
-        'gender',
-        'birthday',
+        'company_size',
+        'company_type',
         'description',
-        'skill',
-        'certification',
         'industry',
         'cover_photo',
-        'avatar',
+        'logo',
     ];
 
     public function user()

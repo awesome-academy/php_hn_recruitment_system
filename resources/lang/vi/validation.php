@@ -19,6 +19,7 @@ return [
     'image' => ':attribute không đúng định dạng.',
     'date' => ':attribute không hợp lệ.',
     'in' => ':attribute được chọn không hợp lệ.',
+    'digits_between' => ':Attribute phải có từ :min đến :max chữ số.',
 
     'attributes' => [
         'password' => 'mật khẩu',

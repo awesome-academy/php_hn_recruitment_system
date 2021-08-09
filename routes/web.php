@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\EducationController;
 use App\Http\Controllers\EmployeeProfileController;
 use App\Http\Controllers\ExperienceController;
+use App\Http\Controllers\EmployerProfileController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
@@ -46,7 +47,10 @@ Route::name('register.')->group(function () {
     ])->name('employer');
 });
 
-Route::post('change-avatar/{id}', [EmployeeProfileController::class, 'changeAvatar'])->name('change-avatar');
+Route::post('change-avatar/{id}', [
+    EmployeeProfileController::class,
+    'changeAvatar',
+])->name('change-avatar');
 Route::resource('employee-profiles', EmployeeProfileController::class);
 Route::get('cv-template', [EmployeeProfileController::class, 'showCVTemplateList'])->name('template.cv');
 Route::get('cv/{template}', [EmployeeProfileController::class, 'makeCV'])->name('edit.cv');
@@ -56,3 +60,13 @@ Route::resource('education', EducationController::class)->except([
 Route::resource('experiences', ExperienceController::class)->except([
     'create', 'show', 'edit'
 ]);
+
+Route::prefix('employer')
+    ->name('employer.')
+    ->group(function () {
+        Route::resource('profiles', EmployerProfileController::class)->only([
+            'show',
+            'edit',
+            'update',
+        ]);
+    });

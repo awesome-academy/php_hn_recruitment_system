@@ -20,7 +20,7 @@
     background-color: #23c0e9;
 }
 
-.container {
+.model-content-container {
     height: 480px;
     width: 430px;
     position: relative;
@@ -67,7 +67,7 @@
 .wrapper .text {
     font-size: 20px;
     font-weight: 500;
-    color: #5B5B7B;
+    color: #5b5b7b;
 }
 
 .wrapper #cancel-btn i {
@@ -159,4 +159,46 @@
     height: 350px;
     width: 35%;
     margin-left: 10%;
+}
+
+.image_info {
+    position: relative;
+}
+
+.image_info .cover_photo img {
+    width: 100%;
+}
+
+.image_info .logo {
+    position: absolute;
+    bottom: -85px;
+    left: 50px;
+
+    display: flex;
+    align-items: center;
+
+    height: 170px;
+
+    background-color: white;
+}
+
+.image_info .logo img {
+    width: 170px;
+}
+
+.description {
+    white-space: pre-wrap;
+}
+
+.employer_info {
+    margin-top: 50px;
+}
+
+.employer_info dt,
+.employer_info dd {
+    margin-top: 20px;
+}
+
+.employer_info a {
+    color: blue;
 }
