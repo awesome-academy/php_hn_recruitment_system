@@ -81,4 +81,7 @@ return [
     'present' => 'Present',
     'cv-download' => 'Download CV',
     'choose-cv' => 'Choose a template to make your own CV',
+    'position' => 'Position',
+    'employment-type' => 'Employment Type',
+    'company' => 'Company Name',
 ];

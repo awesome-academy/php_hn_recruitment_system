@@ -26,30 +26,24 @@
                                 <table id="dt-opt" class="table table-hover table-xl">
                                     <thead>
                                         <tr>
-                                            <th>{{ __('messages.school') }}</th>
-                                            <th>{{ __('messages.degree') }}</th>
-                                            <th>{{ __('messages.field-of-study') }}</th>
+                                            <th>{{ __('messages.position') }}</th>
+                                            <th>{{ __('messages.employment-type') }}</th>
                                             <th>{{ __('messages.start-date') }}</th>
                                             <th>{{ __('messages.end-date') }}</th>
-                                            <th>{{ __('messages.grade') }}</th>
+                                            <th>{{ __('messages.company') }}</th>
                                             <th></th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($educationList as $education)
+                                        @foreach ($experienceList as $experience)
                                             <tr>
-                                                <td>{{ $education->school }}</td>
-                                                <td>{{ $education->degree }}</td>
-                                                <td>{{ $education->field_of_study }}</td>
-                                                <td>{{ $education->start_date->format('d/m/Y') }}</td>
+                                                <td>{{ $experience->position }}</td>
+                                                <td>{{ $experience->employment_type }}</td>
+                                                <td>{{ $experience->start_date->format('d/m/Y') }}</td>
                                                 <td>
-                                                    {{ $education->end_date ? $education->end_date->format('d/m/Y') : 'Now' }}
+                                                    {{ $experience->end_date ? $experience->end_date->format('d/m/Y') : 'Now' }}
                                                 </td>
-                                                <td>
-                                                    <span class="badge badge-pill badge-gradient-success">
-                                                        {{ $education->grade }}
-                                                    </span>
-                                                </td>
+                                                <td>{{ $experience->company }}</td>
                                                 <td class="text-center font-size-18">
                                                     <a href="" data-toggle="modal" data-target="#edit-modal-l"
                                                         class="text-gray m-r-15"><i class="ti-pencil"></i></a>
@@ -67,7 +61,7 @@
                                                             <p>{{ __('messages.delete-sure') }}</p>
                                                             <div class="m-t-20 text-right">
                                                                 <form
-                                                                    action="{{ route('education.destroy', ['education' => $education->id]) }}"
+                                                                    action="{{ route('experiences.destroy', ['experience' => $experience->id]) }}"
                                                                     method="POST">
                                                                     @csrf
                                                                     @method("DELETE")
@@ -83,7 +77,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            {{-- Edit Education Modal --}}
+                                            {{-- Edit Experience Modal --}}
                                             <div class="modal modal-left fade " id="edit-modal-l">
                                                 <div class="modal-dialog" role="document">
                                                     <div class="modal-content">
@@ -93,37 +87,31 @@
                                                                     <div class="modal-body">
                                                                         <div class="p-h-15">
                                                                             <form
-                                                                                action="{{ route('education.update', ['education' => $education->id]) }}"
+                                                                                action="{{ route('experiences.update', ['experience' => $experience->id]) }}"
                                                                                 method="POST">
                                                                                 @csrf
                                                                                 @method("PUT")
                                                                                 <div class="form-group">
                                                                                     <input type="text"
-                                                                                        class="form-control @error('school') is-invalid @enderror"
-                                                                                        name="school"
-                                                                                        value="{{ $education->school }}"
-                                                                                        placeholder="{{ __('messages.school') }}*">
+                                                                                        class="form-control @error('position') is-invalid @enderror"
+                                                                                        name="position"
+                                                                                        value="{{ $experience->position }}"
+                                                                                        placeholder="{{ __('messages.position') }}*">
                                                                                 </div>
                                                                                 <div class="form-group">
-                                                                                    <input type="text"
-                                                                                        class="form-control @error('degree') is-invalid @enderror"
-                                                                                        name="degree"
-                                                                                        value="{{ $education->degree }}"
-                                                                                        placeholder="{{ __('messages.degree') }}">
-                                                                                </div>
-                                                                                <div class="form-group">
-                                                                                    <input type="text"
-                                                                                        class="form-control @error('field_of_study') is-invalid @enderror"
-                                                                                        name="field_of_study"
-                                                                                        value="{{ $education->field_of_study }}"
-                                                                                        placeholder="{{ __('messages.field-of-study') }}">
-                                                                                </div>
-                                                                                <div class="form-group">
-                                                                                    <input type="text"
-                                                                                        class="form-control @error('grade') is-invalid @enderror"
-                                                                                        name="grade"
-                                                                                        value="{{ $education->grade }}"
-                                                                                        placeholder="{{ __('messages.grade') }}">
+                                                                                    <label
+                                                                                        class="control-label">{{ __('messages.employment-type') }}*</label>
+                                                                                    <select
+                                                                                        class="form-control @error('employment_type') is-invalid @enderror"
+                                                                                        name="employment_type"
+                                                                                        value="{{ $experience->employment_type }}">
+                                                                                        @foreach (config('user.employment_type') as $type)
+                                                                                            <option
+                                                                                                value="{{ $type }}">
+                                                                                                {{ $type }}
+                                                                                            </option>
+                                                                                        @endforeach
+                                                                                    </select>
                                                                                 </div>
                                                                                 <div class="form-group row">
                                                                                     <label
@@ -134,7 +122,7 @@
                                                                                         <input type="date"
                                                                                             class="form-control @error('start_date') is-invalid @enderror"
                                                                                             name="start_date"
-                                                                                            value="{{ $education->start_date->format('Y-m-d') }}">
+                                                                                            value="{{ $experience->start_date->format('Y-m-d') }}">
                                                                                     </div>
                                                                                 </div>
                                                                                 <div class="form-group row">
@@ -146,8 +134,15 @@
                                                                                         <input type="date"
                                                                                             class="form-control @error('end_date') is-invalid @enderror"
                                                                                             name="end_date"
-                                                                                            value="{{ $education->end_date ? $education->end_date->format('Y-m-d') : '' }}">
+                                                                                            value="{{ $experience->end_date ? $experience->end_date->format('Y-m-d') : '' }}">
                                                                                     </div>
+                                                                                </div>
+                                                                                <div class="form-group">
+                                                                                    <input type="text"
+                                                                                        class="form-control @error('company') is-invalid @enderror"
+                                                                                        name="company"
+                                                                                        value="{{ $experience->company }}"
+                                                                                        placeholder="{{ __('messages.company') }}">
                                                                                 </div>
                                                                                 <div class="m-t-20 text-right">
                                                                                     <button type="reset"
@@ -173,7 +168,7 @@
                                 <button class="btn btn-success" data-toggle="modal" data-target="#side-modal-r">
                                     <i class="ti-plus"></i>&nbsp ADD
                                 </button>
-                                {{-- Create Education Modal --}}
+                                {{-- Create Experience Modal --}}
                                 <div class="modal modal-right fade " id="side-modal-r">
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
@@ -182,32 +177,26 @@
                                                     <div class="table-cell">
                                                         <div class="modal-body">
                                                             <div class="p-h-15">
-                                                                <form action="{{ route('education.store') }}"
+                                                                <form action="{{ route('experiences.store') }}"
                                                                     method="POST">
                                                                     @csrf
                                                                     <div class="form-group">
                                                                         <input type="text"
-                                                                            class="form-control @error('school') is-invalid @enderror"
-                                                                            name="school"
-                                                                            placeholder="{{ __('messages.school') }}*">
+                                                                            class="form-control @error('position') is-invalid @enderror"
+                                                                            name="position"
+                                                                            placeholder="{{ __('messages.position') }}*">
                                                                     </div>
                                                                     <div class="form-group">
-                                                                        <input type="text"
-                                                                            class="form-control @error('degree') is-invalid @enderror"
-                                                                            name="degree"
-                                                                            placeholder="{{ __('messages.degree') }}">
-                                                                    </div>
-                                                                    <div class="form-group">
-                                                                        <input type="text"
-                                                                            class="form-control @error('field_of_study') is-invalid @enderror"
-                                                                            name="field_of_study"
-                                                                            placeholder="{{ __('messages.field-of-study') }}">
-                                                                    </div>
-                                                                    <div class="form-group">
-                                                                        <input type="text"
-                                                                            class="form-control @error('grade') is-invalid @enderror"
-                                                                            name="grade"
-                                                                            placeholder="{{ __('messages.grade') }}">
+                                                                        <label
+                                                                            class="control-label">{{ __('messages.employment-type') }}*</label>
+                                                                        <select
+                                                                            class="form-control @error('employment_type') is-invalid @enderror"
+                                                                            name="employment_type">
+                                                                            @foreach (config('user.employment_type') as $type)
+                                                                                <option value="{{ $type }}">
+                                                                                    {{ $type }}</option>
+                                                                            @endforeach
+                                                                        </select>
                                                                     </div>
                                                                     <div class="form-group row">
                                                                         <label
@@ -230,6 +219,12 @@
                                                                                 class="form-control @error('end_date') is-invalid @enderror"
                                                                                 name="end_date">
                                                                         </div>
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <input type="text"
+                                                                            class="form-control @error('company') is-invalid @enderror"
+                                                                            name="company"
+                                                                            placeholder="{{ __('messages.company') }}">
                                                                     </div>
                                                                     <div class="m-t-20 text-right">
                                                                         <button type="reset" class="btn btn-default">

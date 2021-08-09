@@ -9,4 +9,11 @@ return [
         'male' => 1,
         'female' => 0,
     ],
+    'employment_type' => [
+        'Full-time',
+        'Part-time',
+        'Freelance',
+        'Contract',
+        'Internship',
+    ]
 ];
