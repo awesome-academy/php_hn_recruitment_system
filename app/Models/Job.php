@@ -33,7 +33,7 @@ class Job extends Model
 
     public function employerProfile()
     {
-        return $this->belongsTo(EmployeeProfile::class);
+        return $this->belongsTo(EmployerProfile::class);
     }
 
     public function employeeProfiles()

@@ -4,7 +4,6 @@ return [
     'admin' => 'admin',
     'employee' => 'employee',
     'employer' => 'employer',
-    'activated' => true,
     'gender' => [
         'male' => 1,
         'female' => 0,
@@ -15,5 +14,18 @@ return [
         'Freelance',
         'Contract',
         'Internship',
-    ]
+    ],
+    'status' => [
+        'active' => 1,
+        'inactive' => 0,
+    ],
+    'job_type' => [
+        'full-time' => 'full-time',
+        'part-time' => 'part-time',
+        'contract' => 'contract',
+        'remote' => 'remote',
+        'temporary' => 'temporary',
+    ],
+    'num_top_users' => 10,
+    'num_pages' => 4,
 ];

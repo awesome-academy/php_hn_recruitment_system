@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\EmployeeProfile;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\UpdateEmployeeProfileRequest;
+use App\Models\User;
 
 class EmployeeProfileController extends Controller
 {
@@ -48,7 +49,19 @@ class EmployeeProfileController extends Controller
      */
     public function show($id)
     {
-        //
+        $profile = EmployeeProfile::findOrFail($id);
+        $educationList = $profile->education;
+        $experienceList = $profile->experiences;
+        $userList = User::where('is_activated', config('user.status.active'))
+            ->where('role', config('user.employee'))
+            ->orderBy('created_at')->take(config('user.num_top_users'))->get();
+
+        return view('employee.profile', [
+            'profile' => $profile,
+            'educationList' => $educationList,
+            'experienceList' => $experienceList,
+            'userList' => $userList,
+        ]);
     }
 
     /**
@@ -101,7 +114,7 @@ class EmployeeProfileController extends Controller
         //
     }
 
-    public function changeAvatar(Request $request, $id)
+    public function changeImage(Request $request, $image, $id)
     {
         $request->validate([
             'avatar' => 'image',
@@ -113,7 +126,7 @@ class EmployeeProfileController extends Controller
             $fileName = time() . '-' . $profile->id . '.' .
                 $request->avatar->extension();
             $request->avatar->move(public_path('images'), $fileName);
-            $profile->avatar = $fileName;
+            $profile->$image = $fileName;
             $profile->save();
 
             return back()->with('success', __('messages.update-success'));

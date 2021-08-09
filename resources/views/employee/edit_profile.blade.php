@@ -41,7 +41,7 @@
                                         </div>
                                         <button id="custom-btn">{{ __('messages.choose-file') }}</button>
                                         <form method="post" enctype="multipart/form-data"
-                                            action="{{ route('change-avatar', ['id' => $profile->id]) }}">
+                                            action="{{ route('change-image', ['image' => 'avatar', 'id' => $profile->id]) }}">
                                             @csrf
                                             <input id="default-btn" name="avatar" type="file" hidden>
                                             <div class="">
@@ -119,7 +119,7 @@
                                     class="col-sm-2 col-form-label control-label text-sm-right">{{ __('messages.dob') }}</label>
                                 <div class="col-sm-10">
                                     <input type="date" class="form-control" name="birthday"
-                                        value="{{ $profile->birthday->format('Y-m-d') }}">
+                                        value="{{ $profile->birthday ? $profile->birthday->format('Y-m-d') : '' }}">
                                     @error('birthday')
                                         <p class="text-danger">{{ $message }}</p>
                                     @enderror
