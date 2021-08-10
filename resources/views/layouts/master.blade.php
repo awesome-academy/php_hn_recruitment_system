@@ -32,6 +32,7 @@
     <div class="app header-default side-nav-dark">
         <div class="layout">
             @include('layouts.user_header')
+            @include('layouts.employee_nav');
             @yield('main-content')
         </div>
     </div>

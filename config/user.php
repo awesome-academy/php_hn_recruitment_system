@@ -33,4 +33,9 @@ return [
         'hidden' => 0,
         'active' => 1,
     ],
+    'application_form_status' => [
+        'pending' => 0,
+        'accepted' => 1,
+        'rejected' => 2,
+    ]
 ];
