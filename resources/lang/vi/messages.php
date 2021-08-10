@@ -133,4 +133,8 @@ return [
     'applied-date' => 'Ngày Ứng Tuyển',
     'apply-fail' => 'Bạn đã ứng tuyển cho vị trí này!',
     'apply-success' => 'Gửi đơn ứng tuyển thành công!',
+    'vietnamese' => 'Tiếng Việt',
+    'english' => 'Tiếng Anh',
+    'inactivated-account' => 'Tài Khoản Chưa Được Kích Hoạt',
+    'wait-activated' => 'Hãy đợi tài khoản của bạn được kích hoạt nhé!'
 ];

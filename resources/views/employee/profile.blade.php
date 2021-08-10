@@ -218,8 +218,7 @@
     <script src="{{ asset('bower_components/job_light/jobhunt/js/select-chosen.js') }}" type="text/javascript"></script>
     <script src="{{ asset('bower_components/job_light/jobhunt/js/jquery.scrollbar.min.js') }}" type="text/javascript">
     </script>
-    <script src="{{ asset('js/main.js') }}"></script>
-
+    <script src="{{ asset('js/upload.js') }}"></script>
 </body>
 
 </html>

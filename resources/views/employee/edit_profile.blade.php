@@ -14,43 +14,46 @@
                             <button data-toggle="modal" data-target="#modal-lg"
                                 class="btn btn-info avt-upload-btn">{{ __('messages.select-image') }}</button>
                         </div>
+
                         <!-- Modal START-->
                         <div class="modal fade" id="modal-lg">
-                            <div class="modal-dialog modal-lg" role="document">
+                            <div class="modal-dialog modal-lg modal-content-container" role="document">
                                 <div class="modal-content">
-                                    <div class="modal-content-container">
-                                        <div class="wrapper">
-                                            <div class="image">
-                                                <img src="{{ asset('images/' . $profile->avatar) }}"
-                                                    class="avt-upload-image">
-                                            </div>
-                                            <div class="content">
-                                                <div class="icon">
-                                                    <i class="fas fa-cloud-upload-alt"></i>
+                                    <div class="modal-body">
+                                        <div class="container">
+                                            <div class="wrapper">
+                                                <div class="image">
+                                                    <img src="{{ asset('images/' . $profile->avatar) }}"
+                                                        class="avt-upload-image">
                                                 </div>
-                                                <div class="text">
-                                                    {{ __('messages.no-file') }}
+                                                <div class="content">
+                                                    <div class="icon">
+                                                        <i class="fas fa-cloud-upload-alt"></i>
+                                                    </div>
+                                                    <div class="text">
+                                                        {{ __('messages.no-file') }}
+                                                    </div>
+                                                </div>
+                                                <div id="cancel-btn">
+                                                    <i class="fas fa-times"></i>
+                                                </div>
+                                                <div class="file-name">
+                                                    {{ __('messages.filename-here') }}
                                                 </div>
                                             </div>
-                                            <div id="cancel-btn">
-                                                <i class="fas fa-times"></i>
-                                            </div>
-                                            <div class="file-name">
-                                                {{ __('messages.filename-here') }}
-                                            </div>
+                                            <button id="custom-btn">{{ __('messages.choose-file') }}</button>
+                                            <form method="post" enctype="multipart/form-data"
+                                                action="{{ route('change-image', ['image' => 'avatar', 'id' => $profile->id]) }}">
+                                                @csrf
+                                                <input id="default-btn" name="avatar" type="file" hidden>
+                                                <div>
+                                                    <button class="btn btn-cancel"
+                                                        data-dismiss="modal">{{ __('messages.cancel') }}</button>
+                                                    <button type="submit"
+                                                        class="btn btn-save">{{ __('messages.save') }}</button>
+                                                </div>
+                                            </form>
                                         </div>
-                                        <button id="custom-btn">{{ __('messages.choose-file') }}</button>
-                                        <form method="post" enctype="multipart/form-data"
-                                            action="{{ route('change-image', ['image' => 'avatar', 'id' => $profile->id]) }}">
-                                            @csrf
-                                            <input id="default-btn" name="avatar" type="file" hidden>
-                                            <div class="">
-                                                <button class="btn btn-cancel"
-                                                    data-dismiss="modal">{{ __('messages.cancel') }}</button>
-                                                <button type="submit"
-                                                    class="btn btn-save">{{ __('messages.save') }}</button>
-                                            </div>
-                                        </form>
                                     </div>
                                 </div>
                             </div>

@@ -132,4 +132,8 @@ return [
     'applied-date' => 'Applied Date',
     'apply-fail' => 'You had already applied this job!',
     'apply-success' => 'You have sent your application form successfully!',
+    'vietnamese' => 'Vietnamese',
+    'english' => 'English',
+    'inactivated-account' => 'Inactivated Account',
+    'wait-activated' => 'Please wait for being activated!'
 ];

@@ -21,3 +21,4 @@ mix.postCss('resources/css/style_cv.css', 'public/css');
 mix.js('resources/js/main.js', 'public/js');
 mix.js('resources/js/my_cv.js', 'public/js');
 mix.js('resources/js/create_summernote.js', 'public/js');
+mix.js('resources/js/upload.js', 'public/js');
