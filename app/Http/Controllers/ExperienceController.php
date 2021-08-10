@@ -8,6 +8,11 @@ use Illuminate\Support\Facades\Auth;
 
 class ExperienceController extends Controller
 {
+    public function __construct()
+    {
+        $this->authorizeResource(Experience::class, 'experience');
+    }
+
     public function index()
     {
         $experienceList = Auth::user()->employeeProfile->experiences;
@@ -31,17 +36,15 @@ class ExperienceController extends Controller
         return back()->with('success', __('messages.update-success'));
     }
 
-    public function update(StoreExperienceRequest $request, $id)
+    public function update(StoreExperienceRequest $request, Experience $experience)
     {
-        $experience = Experience::findOrFail($id);
         $experience->update($request->all());
 
         return back()->with('success', __('messages.update-success'));
     }
 
-    public function destroy($id)
+    public function destroy(Experience $experience)
     {
-        $experience = Experience::findOrFail($id);
         $experience->delete();
 
         return back()->with('success', __('messages.update-success'));

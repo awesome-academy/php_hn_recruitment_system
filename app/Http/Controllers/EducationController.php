@@ -8,6 +8,11 @@ use Illuminate\Support\Facades\Auth;
 
 class EducationController extends Controller
 {
+    public function __construct()
+    {
+        $this->authorizeResource(Education::class, 'education');
+    }
+
     public function index()
     {
         $educationList = Auth::user()->employeeProfile->education;
@@ -32,29 +37,17 @@ class EducationController extends Controller
         return back()->with('success', __('messages.update-success'));
     }
 
-    public function update(StoreEducationRequest $request, $id)
+    public function update(StoreEducationRequest $request, Education $education)
     {
-        $education = Education::find($id);
+        $education->update($request->all());
 
-        if (!empty($education)) {
-            $education->update($request->all());
-
-            return back()->with('success', __('messages.update-success'));
-        } else {
-            abort(404);
-        }
+        return back()->with('success', __('messages.update-success'));
     }
 
-    public function destroy($id)
+    public function destroy(Education $education)
     {
-        $education = Education::find($id);
+        $education->delete();
 
-        if (!empty($education)) {
-            $education->delete();
-
-            return back()->with('success', __('messages.update-success'));
-        } else {
-            abort(404);
-        }
+        return back()->with('success', __('messages.update-success'));
     }
 }

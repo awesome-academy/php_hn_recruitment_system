@@ -2,10 +2,20 @@
 
 namespace App\Providers;
 
+use App\Models\Comment;
+use App\Models\Education;
+use App\Models\User;
 use App\Models\EmployerProfile;
-use App\Policies\EmployerProfilePolicy;
-use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use App\Models\Experience;
+use App\Models\Job;
+use App\Policies\CommentPolicy;
+use App\Policies\EducationPolicy;
 use Illuminate\Support\Facades\Gate;
+use App\Policies\EmployerProfilePolicy;
+use App\Policies\ExperiencePolicy;
+use App\Policies\JobPolicy;
+use App\Policies\UserPolicy;
+use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -15,7 +25,14 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
+        EmployeeProfile::class => EmployeeProfilePolicy::class,
         EmployerProfile::class => EmployerProfilePolicy::class,
+        Education::class => EducationPolicy::class,
+        Experience::class => ExperiencePolicy::class,
+        Comment::class => CommentPolicy::class,
+        Experience::class => ExperiencePolicy::class,
+        Job::class => JobPolicy::class,
+        User::class => UserPolicy::class,
     ];
 
     /**
@@ -27,6 +44,14 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+        Gate::define('is-admin', function (User $user) {
+            return $user->isAdministrator();
+        });
+        Gate::define('is-employee', function (User $user) {
+            return $user->isEmployee();
+        });
+        Gate::define('is-employer', function (User $user) {
+            return $user->isEmployer();
+        });
     }
 }

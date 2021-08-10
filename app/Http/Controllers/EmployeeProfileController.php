@@ -7,102 +7,41 @@ use App\Models\EmployeeProfile;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\UpdateEmployeeProfileRequest;
 use App\Models\User;
+use Illuminate\Auth\Middleware\Authorize;
 
 class EmployeeProfileController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function show(EmployeeProfile $employeeProfile)
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        $profile = EmployeeProfile::findOrFail($id);
-        $educationList = $profile->education;
-        $experienceList = $profile->experiences;
+        $educationList = $employeeProfile->education;
+        $experienceList = $employeeProfile->experiences;
         $userList = User::where('is_activated', config('user.status.active'))
             ->where('role', config('user.employee'))
             ->orderBy('created_at')->take(config('user.num_top_users'))->get();
 
         return view('employee.profile', [
-            'profile' => $profile,
+            'profile' => $employeeProfile,
             'educationList' => $educationList,
             'experienceList' => $experienceList,
             'userList' => $userList,
         ]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
+    public function edit(EmployeeProfile $employeeProfile)
     {
-        $profile = EmployeeProfile::findOrFail($id);
+        $this->authorize('update', $employeeProfile);
 
         return view('employee.edit_profile', [
-            'profile' => $profile,
+            'profile' => $employeeProfile,
         ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(UpdateEmployeeProfileRequest $request, $id)
+    public function update(UpdateEmployeeProfileRequest $request, EmployeeProfile $employeeProfile)
     {
-        $profile = EmployeeProfile::findOrFail($id);
-        $profile->update($request->all());
+        $this->authorize('update', $employeeProfile);
+        $employeeProfile->update($request->all());
 
         return back()->with('success', __('messages.update-success'));
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
     }
 
     public function changeImage(Request $request, $image, $id)
@@ -110,8 +49,8 @@ class EmployeeProfileController extends Controller
         $request->validate([
             'avatar' => 'image',
         ]);
-
         $profile = EmployeeProfile::findOrFail($id);
+        $this->authorize('changeImage', $profile);
 
         if (isset($request->avatar)) {
             $fileName = time() . '-' . $profile->id . '.' .
