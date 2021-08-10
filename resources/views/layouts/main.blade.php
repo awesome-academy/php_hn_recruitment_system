@@ -11,7 +11,7 @@
     <meta name="author" content="" />
     <meta name="MobileOptimized" content="320" />
     <link href="{{ asset('bower_components/job_light/admin/assets/css/themify-icons.css') }}" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="{{ asset('ç/css/animate.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('bower_components/job_light/css/animate.css') }}" />
     <link rel="stylesheet" type="text/css" href="{{ asset('bower_components/job_light/css/bootstrap.css') }}" />
     <link rel="stylesheet" type="text/css" href="{{ asset('bower_components/job_light/css/font-awesome.cs') }}s" />
     <link rel="stylesheet" type="text/css" href="{{ asset('bower_components/job_light/css/fonts.css') }}" />
@@ -50,6 +50,8 @@
     <script src="{{ asset('bower_components/job_light/js/modernizr.js') }}"></script>
     <script src="{{ asset('bower_components/job_light/js/jquery.magnific-popup.js') }}"></script>
     <script src="{{ asset('bower_components/job_light/js/custom_II.js') }}"></script>
+    <script src="{{ asset('bower_components/job_light/js/bootstrap3-typeahead.min.js') }}"></script>
+    <script src="{{ asset('js/main.js') }}"></script>
 </body>
 
 </html>

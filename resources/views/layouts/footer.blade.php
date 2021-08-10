@@ -1,3 +1,32 @@
+<!-- jp downlord Wrapper Start -->
+<div class="jp_downlord_main_wrapper">
+    <div class="jp_downlord_img_overlay"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 hidden-sm hidden-xs">
+                <div class="jp_down_mob_img_wrapper">
+                    <img src="{{ asset('bower_components/job_light/images/content/mobail.png') }}" alt="mobail_img" />
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                <div class="ss_download_wrapper_details">
+                    <h1><span>Download</span><br>Job Pro App</h1>
+                    <a href="#" class="ss_appstore"><span><i class="fa fa-apple" aria-hidden="true"></i></span> App
+                        Store</a>
+                    <a href="#" class="ss_playstore"><span><i class="fa fa-android" aria-hidden="true"></i></span> Play
+                        Store</a>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 visible-sm visible-xs">
+                <div class="jp_down_mob_img_wrapper">
+                    <img src="{{ asset('bower_components/job_light/images/content/mobail.png') }}"
+                        class="img-responsive" alt="mobail_img" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- jp downlord Wrapper End -->
 <div class="jp_main_footer_img_wrapper">
     <div class="jp_newsletter_img_overlay_wrapper"></div>
     <!-- jp footer Wrapper Start -->
@@ -18,7 +47,8 @@
                         <div class="jp_footer_first_cont_wrapper">
                             <div class="jp_footer_first_cont">
                                 <h2>Who We Are</h2>
-                                <p>There we have a large number of good jobs in every fields for you to choose. Let's find
+                                <p>There we have a large number of good jobs in every fields for you to choose. Let's
+                                    find
                                     the job which is suitable for you and apply for it now</p>
                             </div>
                         </div>
