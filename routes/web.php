@@ -25,11 +25,6 @@ use App\Http\Controllers\SearchController;
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
-Route::get('/change-language/{locale}', [
-    HomeController::class,
-    'changeLanguage',
-])->name('change-language');
-
 Auth::routes([
     'register' => false,
 ]);
@@ -48,10 +43,28 @@ Route::name('register.')->group(function () {
     ])->name('employer');
 });
 
-Route::post('change-image/{image}/{id}', [EmployeeProfileController::class, 'changeImage'])->name('change-image');
+Route::middleware('auth')->group(function () {
+    Route::get('/change-language/{locale}', [
+        HomeController::class,
+        'changeLanguage',
+    ])->name('change-language');
+    Route::middleware('can:is-employee')->group(function () {
+        Route::get('cv-template', [
+            EmployeeProfileController::class,
+            'showCVTemplateList',
+        ])->name('template.cv');
+        Route::get('cv/{template}', [
+            EmployeeProfileController::class,
+            'makeCV',
+        ])->name('edit.cv');
+        Route::post('change-image/{image}/{id}', [
+            EmployeeProfileController::class,
+            'changeImage',
+        ])->name('change-image');
+    });
+});
+
 Route::resource('employee-profiles', EmployeeProfileController::class);
-Route::get('cv-template', [EmployeeProfileController::class, 'showCVTemplateList'])->name('template.cv');
-Route::get('cv/{template}', [EmployeeProfileController::class, 'makeCV'])->name('edit.cv');
 Route::resource('education', EducationController::class)->except([
     'create', 'show', 'edit'
 ]);
@@ -73,3 +86,10 @@ Route::resource('jobs', JobController::class);
 Route::get('autocomplete-job', [SearchController::class, 'autocompleteJob'])->name('autocomplete_job');
 Route::get('search-job', [SearchController::class, 'searchJobGeneral'])->name('search_job');
 Route::get('filter-job', [SearchController::class, 'filterJobs'])->name('filter_job');
+
+Route::prefix('admin')
+    ->name('admin.')
+    ->middleware('auth', 'can:is-admin')
+    ->group(function () {
+        // Admin routes
+    });
