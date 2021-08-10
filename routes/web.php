@@ -65,11 +65,16 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::resource('employee-profiles', EmployeeProfileController::class);
+
 Route::resource('education', EducationController::class)->except([
-    'create', 'show', 'edit'
+    'create',
+    'show',
+    'edit',
 ]);
 Route::resource('experiences', ExperienceController::class)->except([
-    'create', 'show', 'edit'
+    'create',
+    'show',
+    'edit',
 ]);
 
 Route::prefix('employer')
@@ -83,9 +88,19 @@ Route::prefix('employer')
     });
 
 Route::resource('jobs', JobController::class);
-Route::get('autocomplete-job', [SearchController::class, 'autocompleteJob'])->name('autocomplete_job');
-Route::get('search-job', [SearchController::class, 'searchJobGeneral'])->name('search_job');
-Route::get('filter-job', [SearchController::class, 'filterJobs'])->name('filter_job');
+Route::post('/jobs/{job}/hide', [JobController::class, 'hide'])->name(
+    'jobs.hide'
+);
+Route::get('autocomplete-job', [
+    SearchController::class,
+    'autocompleteJob',
+])->name('autocomplete_job');
+Route::get('search-job', [SearchController::class, 'searchJobGeneral'])->name(
+    'search_job'
+);
+Route::get('filter-job', [SearchController::class, 'filterJobs'])->name(
+    'filter_job'
+);
 
 Route::prefix('admin')
     ->name('admin.')

@@ -23,6 +23,8 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('bower_components/job_light/css/style_II.css') }}" />
     <link rel="stylesheet" type="text/css" href="{{ asset('bower_components/job_light/css/responsive2.css') }}" />
     <link rel="stylesheet" type="text/css" href="{{ asset('css/intro.css') }}" />
+    <link rel="stylesheet"
+        href="{{ asset('bower_components/job_light/admin/assets/vendor/summernote/dist/summernote-bs4.css') }}" />
     <link rel="shortcut icon" type="image/png"
         href="{{ asset('bower_components/job_light/images/header/favicon.ico') }}" />
 </head>
@@ -52,6 +54,16 @@
     <script src="{{ asset('bower_components/job_light/js/custom_II.js') }}"></script>
     <script src="{{ asset('bower_components/job_light/js/bootstrap3-typeahead.min.js') }}"></script>
     <script src="{{ asset('js/main.js') }}"></script>
+    <script
+        src="{{ asset('bower_components/job_light/admin/assets/vendor/selectize/dist/js/standalone/selectize.min.js') }}">
+    </script>
+    <script src="{{ asset('bower_components/job_light/admin/assets/vendor/summernote/dist/summernote-bs4.min.js') }}">
+    </script>
+    <script
+        src="{{ asset('bower_components/job_light/admin/assets/vendor/bootstrap-datepicker/dist/js/bootstrap-datepicker.js') }}">
+    </script>
+    <script src="{{ asset('bower_components/job_light/admin/assets/js/forms/form-elements.js') }}"></script>
+    <script src="{{ asset('js/create_summernote.js') }}"></script>
 </body>
 
 </html>

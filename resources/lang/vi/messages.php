@@ -98,7 +98,8 @@ return [
     'prev' => 'trc.',
     'next' => 'sau',
     'apply' => 'ứng tuyển',
-    'advertisement' => 'Nhận thông tin về các việc làm phù hợp. Hãy tạo CV của bạn!',
+    'advertisement' =>
+        'Nhận thông tin về các việc làm phù hợp. Hãy tạo CV của bạn!',
     'add-resume' => 'Tạo CV',
     'show' => 'HIỆN',
     'job-type' => 'Loại công việc',
@@ -116,4 +117,13 @@ return [
     'quantity' => 'Số lượng',
     'title-field' => 'Danh mục việc làm',
     'search-keyword' => 'Từ khóa (Lĩnh vực, Tên công ty, Tên việc làm',
+    'title' => 'Tiêu đề',
+    'location' => 'Địa điểm',
+    'contact-email' => 'Email liên hệ',
+    'quantity' => 'Số lượng',
+    'job-close' => 'Thời hạn',
+    'requirement' => 'Yêu cầu',
+    'benefit' => 'Quyền lợi',
+    'create-job' => 'Thêm việc làm',
+    'edit-job' => 'Chỉnh sửa việc làm',
 ];

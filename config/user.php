@@ -29,4 +29,8 @@ return [
     ],
     'num_top_users' => 10,
     'num_pages' => 2,
+    'job_status' => [
+        'hidden' => 0,
+        'active' => 1,
+    ],
 ];

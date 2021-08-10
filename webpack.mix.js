@@ -18,5 +18,6 @@ mix.js('resources/js/app.js', 'public/js')
 mix.postCss('resources/css/main.css', 'public/css');
 mix.postCss('resources/css/intro.css', 'public/css');
 mix.postCss('resources/css/style_cv.css', 'public/css');
-mix.js('resources/js/main.js', 'public/js')
+mix.js('resources/js/main.js', 'public/js');
 mix.js('resources/js/my_cv.js', 'public/js');
+mix.js('resources/js/create_summernote.js', 'public/js');

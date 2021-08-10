@@ -11,7 +11,7 @@ return [
     'digits' => ':Attribute phải có :digits chữ số.',
     'starts_with' => ':Attribute phải bắt đầu với: :values.',
     'url' => ':Attribute không phải URL hợp lệ.',
-    'required' => ':attribute không được để trống.',
+    'required' => ':Attribute không được để trống.',
     'max' => [
         'string' => ':attribute không được vượt quá :max kí tự.',
     ],
@@ -20,6 +20,7 @@ return [
     'date' => ':attribute không hợp lệ.',
     'in' => ':attribute được chọn không hợp lệ.',
     'digits_between' => ':Attribute phải có từ :min đến :max chữ số.',
+    'available' => ':Attribute không hợp lệ',
 
     'attributes' => [
         'password' => 'mật khẩu',
@@ -41,5 +42,15 @@ return [
         'position' => 'Vị trí',
         'employment_type' => 'Loại việc làm',
         'company' => 'Tên công ty',
+        'field_id' => 'lĩnh vực',
+        'job_type' => 'loại công việc',
+        'title' => 'tiêu đề',
+        'location' => 'địa điểm',
+        'salary' => 'mức lương',
+        'quantity' => 'địa điểm',
+        'contact_email' => 'email liên hệ',
+        'close_at' => 'thời hạn',
+        'requirement' => 'yêu cầu',
+        'benefit' => 'quyền lợi',
     ],
 ];

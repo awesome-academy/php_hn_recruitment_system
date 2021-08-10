@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\JobCreateOrUpdateRequest;
+use App\Models\Field;
 use App\Models\Job;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class JobController extends Controller
 {
@@ -30,7 +32,13 @@ class JobController extends Controller
      */
     public function create()
     {
-        //
+        $fields = Field::all();
+        $jobTypes = config('user.job_type');
+
+        return view('job.create', [
+            'fields' => $fields,
+            'jobTypes' => $jobTypes,
+        ]);
     }
 
     /**
@@ -39,9 +47,16 @@ class JobController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(JobCreateOrUpdateRequest $request)
     {
-        //
+        $user = Auth::user();
+        $employerProfile = $user->employerProfile;
+        $job = new Job($request->all());
+        $job->employer_profile_id = $employerProfile->id;
+        $job->status = config('user.job_status.active');
+        $job->save();
+
+        return back();
     }
 
     /**
@@ -65,9 +80,16 @@ class JobController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Job $job)
     {
-        //
+        $fields = Field::all();
+        $jobTypes = config('user.job_type');
+
+        return view('job.edit', [
+            'job' => $job,
+            'fields' => $fields,
+            'jobTypes' => $jobTypes,
+        ]);
     }
 
     /**
@@ -77,9 +99,11 @@ class JobController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(JobCreateOrUpdateRequest $request, Job $job)
     {
-        //
+        $job->update($request->all());
+
+        return back();
     }
 
     /**
@@ -88,8 +112,19 @@ class JobController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Job $job)
     {
-        //
+        $job->delete();
+
+        return back();
+    }
+
+    public function hide(Job $job)
+    {
+        $job->update([
+            'status' => config('user.job_status.hidden'),
+        ]);
+
+        return back();
     }
 }
