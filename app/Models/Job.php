@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -10,11 +11,11 @@ class Job extends Model
     use HasFactory;
 
     protected $fillable = [
-        'employer_profile_id',
         'field_id',
         'title',
         'description',
         'location',
+        'contact_email',
         'job_type',
         'quantity',
         'salary',
@@ -22,8 +23,7 @@ class Job extends Model
         'benefit',
         'image',
         'status',
-        'started_at',
-        'closed_at',
+        'close_at',
     ];
 
     public function field()
@@ -38,7 +38,15 @@ class Job extends Model
 
     public function employeeProfiles()
     {
-        return $this->belongsToMany(EmployeeProfile::class)->as('application')
+        return $this->belongsToMany(EmployeeProfile::class)
+            ->as('application')
             ->withPivot('status', 'created_at', 'updated_at');
+    }
+
+    public function getCloseAtAttribute($value)
+    {
+        $date = new Carbon($value);
+
+        return $date->format('Y-m-d');
     }
 }

@@ -116,4 +116,13 @@ return [
     'quantity' => 'Quantity',
     'title-field' => 'Job title or field',
     'search-keyword' => 'Keyword e.g. (Field, Company Name, Job Title)',
+    'location' => 'Location',
+    'title' => 'Title',
+    'contact-email' => 'Contact email',
+    'quantity' => 'Quantity',
+    'job-close' => 'Closed at',
+    'requirement' => 'Requirement',
+    'benefit' => 'Benefit',
+    'create-job' => 'Create job',
+    'edit-job' => 'Edit job',
 ];
