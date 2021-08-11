@@ -47,7 +47,7 @@ class EmployeeProfile extends Model
     public function jobs()
     {
         return $this->belongsToMany(Job::class)->as('application')
-            ->withPivot('status');
+            ->withPivot('job_id', 'status', 'created_at', 'updated_at', 'cover_letter', 'cv');
     }
 
     public function setNameAttribute($value)

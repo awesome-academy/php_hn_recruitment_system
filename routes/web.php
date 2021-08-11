@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ApplyJobController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\EducationController;
 use App\Http\Controllers\EmployeeProfileController;
@@ -48,6 +49,7 @@ Route::middleware('auth')->group(function () {
         HomeController::class,
         'changeLanguage',
     ])->name('change-language');
+
     Route::middleware('can:is-employee')->group(function () {
         Route::get('cv-template', [
             EmployeeProfileController::class,
@@ -61,6 +63,35 @@ Route::middleware('auth')->group(function () {
             EmployeeProfileController::class,
             'changeImage',
         ])->name('change-image');
+
+        Route::get('applied-jobs', [
+            EmployeeProfileController::class,
+            'showAppliedJobs'
+        ])->name('applied_jobs');
+
+        Route::prefix('apply-jobs')
+            ->name('apply_jobs.')
+            ->group(function () {
+                Route::get('/{jobId}', [
+                    ApplyJobController::class,
+                    'create'
+                ])->name('create');
+
+                Route::post('/{jobId}', [
+                    ApplyJobController::class,
+                    'store',
+                ])->name('store');
+
+                Route::put('/{jobId}', [
+                    ApplyJobController::class,
+                    'update',
+                ])->name('update');
+
+                Route::delete('/{jobId}', [
+                    ApplyJobController::class,
+                    'destroy',
+                ])->name('destroy');
+            });
     });
 });
 

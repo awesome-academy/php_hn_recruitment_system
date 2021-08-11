@@ -7,7 +7,6 @@ use App\Models\EmployeeProfile;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\UpdateEmployeeProfileRequest;
 use App\Models\User;
-use Illuminate\Auth\Middleware\Authorize;
 
 class EmployeeProfileController extends Controller
 {
@@ -81,5 +80,12 @@ class EmployeeProfileController extends Controller
             'experienceList' => $experienceList,
             'educationList' => $educationList,
         ]);
+    }
+
+    public function showAppliedJobs()
+    {
+        $jobs = Auth::user()->employeeProfile->jobs;
+
+        return view('employee.applied_jobs', compact('jobs'));
     }
 }

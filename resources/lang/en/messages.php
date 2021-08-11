@@ -125,4 +125,11 @@ return [
     'benefit' => 'Benefit',
     'create-job' => 'Create job',
     'edit-job' => 'Edit job',
+    'application-from' => 'Application Form',
+    'cover-letter' => 'Cover Letter',
+    'attach-cv' => 'Attach CV',
+    'status' => 'Status',
+    'applied-date' => 'Applied Date',
+    'apply-fail' => 'You had already applied this job!',
+    'apply-success' => 'You have sent your application form successfully!',
 ];

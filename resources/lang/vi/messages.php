@@ -126,4 +126,11 @@ return [
     'benefit' => 'Quyền lợi',
     'create-job' => 'Thêm việc làm',
     'edit-job' => 'Chỉnh sửa việc làm',
+    'application-from' => 'Đơn Ứng Tuyển',
+    'cover-letter' => 'Thư Xin Việc',
+    'attach-cv' => 'Đính Kèm CV',
+    'status' => 'Trạng Thái',
+    'applied-date' => 'Ngày Ứng Tuyển',
+    'apply-fail' => 'Bạn đã ứng tuyển cho vị trí này!',
+    'apply-success' => 'Gửi đơn ứng tuyển thành công!',
 ];

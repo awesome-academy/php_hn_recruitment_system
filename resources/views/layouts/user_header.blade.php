@@ -119,4 +119,3 @@
 </div>
 <!-- Header END -->
 
-@include('layouts.employee_nav');
