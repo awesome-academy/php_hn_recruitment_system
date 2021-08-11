@@ -2,6 +2,11 @@
     margin-top: 4.4%;
 }
 
+.flag-img {
+    width: 8%;
+    margin-right: 10px;
+}
+
 /* Upload avt */
 .avt-model {
     margin-left: 40%;
@@ -16,14 +21,13 @@
 }
 
 .avt-model .avt-upload-btn {
-    margin-left: 12%;
+    margin-left: 9%;
     background-color: #23c0e9;
 }
 
-.model-content-container {
+.modal-content-container {
     height: 480px;
-    width: 430px;
-    position: relative;
+    width: 480px;
 }
 
 .container .wrapper {

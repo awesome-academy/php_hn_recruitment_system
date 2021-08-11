@@ -25,6 +25,7 @@ use App\Http\Controllers\SearchController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::get('/inactive', [HomeController::class, 'showInactive'])->name('inactive');
 
 Auth::routes([
     'register' => false,

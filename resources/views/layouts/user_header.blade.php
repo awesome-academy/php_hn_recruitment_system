@@ -2,7 +2,7 @@
 <div class="header navbar">
     <div class="header-container">
         <div class="nav-logo">
-            <a href="index.html">
+            <a href="{{ route('home') }}">
                 <div class="logo logo-dark"
                     style="background-image: url('{{ asset('bower_components/job_light/images/header/logo2.png') }}')">
                 </div>
@@ -41,7 +41,8 @@
                                                 src="{{ asset('bower_components/job_light/admin/assets/images/avatars/thumb-3.jpg') }}">
                                         </div>
                                         <div class="info">
-                                            <span class="title p-t-10">Debra Stewart</span>
+                                            <span
+                                                class="title p-t-10">{{ Auth::user()->employeeProfile->name }}</span>
                                         </div>
                                     </a>
                                 </li>
@@ -78,7 +79,8 @@
                                             src="{{ asset('bower_components/job_light/admin/assets/images/avatars/thumb-13.jpg') }}">
                                     </div>
                                     <div class="info">
-                                        <span class="title text-semibold">Marshall Nichols</span>
+                                        <span
+                                            class="title text-semibold">{{ Auth::user()->employeeProfile->name }}</span>
                                         <span class="sub-title">{{ __('messages.profile') }}</span>
                                     </div>
                                 </a>
@@ -87,19 +89,32 @@
                     </li>
                     <li role="separator" class="divider"></li>
                     <li>
+                        <a href="{{ route('change-language', ['locale' => 'vi']) }}">
+                            <img src="{{ asset('bower_components/job_light/images/vn_flag.png') }}" class="flag-img"
+                                alt="">{{ __('messages.vietnamese') }}
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('change-language', ['locale' => 'en']) }}">
+                            <img src="{{ asset('bower_components/job_light/images/en_flag.png') }}" class="flag-img"
+                                alt="">{{ __('messages.english') }}
+                        </a>
+                    </li>
+                    <li>
                         <a href="#">
                             <i class="ti-settings p-r-10"></i>
                             <span>{{ __('messages.setting') }}</span>
                         </a>
                     </li>
                     <li>
-                        <a href="#">
+                        <a
+                            href="{{ route('employee-profiles.edit', ['employee_profile' => Auth::user()->employeeProfile->id]) }}">
                             <i class="ti-pencil p-r-10"></i>
                             <span>{{ __('messages.edit-profile') }}</span>
                         </a>
                     </li>
                     <li>
-                        <a href="#">
+                        <a href="{{ route('template.cv') }}">
                             <i class="ti-email p-r-10"></i>
                             <span>{{ __('messages.cv') }}</span> </a>
                     </li>
@@ -118,4 +133,3 @@
     </div>
 </div>
 <!-- Header END -->
-

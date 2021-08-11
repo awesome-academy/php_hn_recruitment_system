@@ -19,4 +19,9 @@ class HomeController extends Controller
 
         return redirect()->back();
     }
+
+    public function showInactive()
+    {
+        return view('inactive');
+    }
 }

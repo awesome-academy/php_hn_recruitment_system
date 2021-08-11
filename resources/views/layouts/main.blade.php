@@ -77,6 +77,7 @@
     <script src="{{ asset('bower_components/job_light/js/jquery.magnific-popup.js') }}"></script>
     <script src="{{ asset('bower_components/job_light/js/custom_II.js') }}"></script>
     <script src="{{ asset('bower_components/job_light/js/bootstrap3-typeahead.min.js') }}"></script>
+    <script src="{{ asset('js/upload.js') }}"></script>
     <script src="{{ asset('js/main.js') }}"></script>
 
     <script src="{{ asset('bower_components/job_light/admin/assets/js/vendor.js') }}"></script>

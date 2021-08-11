@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
 
@@ -29,13 +28,19 @@ class LoginController extends Controller
 
     protected function redirectTo()
     {
-        $role = Auth()->user()->role;
-        if ($role == config('user.admin')) {
-            //return admin dashboard
-        } elseif ($role == config('user.employee')) {
-            //return employee dashboard
-        } elseif ($role == config('user.employer')) {
-            //return employer dashboard
+        $role = Auth::user()->role;
+        $isActivated = Auth::user()->is_activated;
+
+        if ($isActivated == config('user.status.active')) {
+            if ($role == config('user.admin')) {
+                //return admin dashboard
+            } elseif ($role == config('user.employee')) {
+                return route('jobs.index');
+            } elseif ($role == config('user.employer')) {
+                return route('home');
+            }
+        } else {
+            return route('inactive');
         }
     }
 }

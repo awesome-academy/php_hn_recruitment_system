@@ -40,6 +40,7 @@
     <script src="{{ asset('bower_components/job_light/admin/assets/js/app.min.js') }}"></script>
     <script src="{{ asset('bower_components/job_light/admin/assets/vendor/chart.js/dist/Chart.min.js') }}"></script>
     <script src="{{ asset('bower_components/job_light/admin/assets/js/dashboard/analytical.js') }}"></script>
+    <script src="{{ asset('js/upload.js') }}"></script>
     <script src="{{ asset('js/main.js') }}"></script>
     <script src="{{ asset('bower_components/job_light/admin/assets/vendor/moment/min/moment.min.js') }}"></script>
     <script
