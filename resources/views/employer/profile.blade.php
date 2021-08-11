@@ -39,7 +39,7 @@
                     <div class="jp_listing_left_sidebar_wrapper">
                         <div class="jp_job_des">
                             <h2>{{ __('messages.description') }}</h2>
-                            <p class="description">{{ $profile['description'] }}</p>
+                            <div class="description">{{ $profile['description'] }}</div>
                             <dl class="employer_info">
                                 <dt class="col-lg-4 col-md-4 col sm-6 col-xs-6">
                                     {{ __('messages.website') }}
@@ -86,6 +86,35 @@
                                 </dd>
 
                             </dl>
+                        </div>
+                    </div>
+                </div>
+                <div class="recent-jobs col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                    <div class="jp_job_des recent-jobs-header">
+                        <h2>{{ __('messages.recent-jobs') }}</h2>
+                    </div>
+                    <ul class="recent-jobs-list">
+                        @foreach ($recentJobs as $job)
+                            <li class="job-item">
+                                <a href="{{ route('jobs.show', ['job' => $job]) }}">
+                                    <div class="job-title">{{ $job->title }}</div>
+                                    <div class="job-location">
+                                        <i class="mdi mdi-map-marker"></i>
+                                        {{ $job->location }}
+                                    </div>
+                                </a>
+                            </li>
+                        @endforeach
+                    </ul>
+                    <div class="jp_listing_right_bar_btn_wrapper">
+                        <div class="jp_listing_right_bar_btn">
+                            <ul>
+                                <li>
+                                    <a href="{{ route('search_job', ['keyword' => $profile->name]) }}">
+                                        {{ __('messages.more') }}
+                                    </a>
+                                </li>
+                            </ul>
                         </div>
                     </div>
                 </div>

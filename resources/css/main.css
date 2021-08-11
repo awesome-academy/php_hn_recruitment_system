@@ -192,6 +192,7 @@
 
 .description {
     white-space: pre-wrap;
+    margin-top: 40px;
 }
 
 .employer_info {
@@ -485,4 +486,37 @@ main {
     -ms-border-radius: 2px;
     -o-border-radius: 2px;
     border-radius: 2px;
+}
+
+.recent-jobs {
+    background-color: hsl(0, 0%, 100%);
+}
+
+.recent-jobs-header {
+    float: unset;
+    margin-top: 60px;
+    margin-left: 40px;
+}
+
+.recent-jobs-list {
+    padding: 10px;
+}
+
+.recent-jobs-list .job-item {
+    margin-top: 20px;
+    padding: 20px 40px;
+}
+
+.recent-jobs-list .job-item:hover {
+    background-color: hsl(0, 0%, 90%);
+}
+
+.recent-jobs-list .job-title {
+    font-weight: bold;
+    font-size: 1.2em;
+}
+
+.recent-jobs-list .job-title,
+.recent-jobs-list .job-location {
+    color: hsl(0, 0%, 20%);
 }

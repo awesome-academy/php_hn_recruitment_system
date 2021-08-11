@@ -146,4 +146,6 @@ return [
     'hide' => 'Hide',
     'delete' => 'Delete',
     'manage-jobs' => 'Manage jobs',
+    'recent-jobs' => 'Recently posted jobs',
+    'more' => 'More',
 ];

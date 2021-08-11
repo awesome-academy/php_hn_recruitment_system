@@ -31,4 +31,11 @@ class EmployerProfile extends Model
     {
         return $this->hasMany(Job::class);
     }
+
+    public function recentJobs()
+    {
+        return $this->jobs()
+            ->orderBy('created_at', 'desc')
+            ->limit(config('user.num_top_recent_jobs'));
+    }
 }
