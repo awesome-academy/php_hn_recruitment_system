@@ -23,6 +23,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('bower_components/job_light/css/style_II.css') }}" />
     <link rel="stylesheet" type="text/css" href="{{ asset('bower_components/job_light/css/responsive2.css') }}" />
     <link rel="stylesheet" type="text/css" href="{{ asset('css/intro.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/main.css') }}" />
     <link rel="stylesheet"
         href="{{ asset('bower_components/job_light/admin/assets/vendor/summernote/dist/summernote-bs4.css') }}" />
     <link rel="shortcut icon" type="image/png"
@@ -59,7 +60,11 @@
         </div>
     </div>
     @if (Auth::check())
-        @include('layouts.user_header')
+        @if (Auth::user()->isEmployee())
+            @include('layouts.employee_header')
+        @elseif (Auth::user()->isEmployer())
+            @include('layouts.employer_header')
+        @endif
     @else
         @include('layouts.header')
     @endif

@@ -29,6 +29,6 @@ class EmployerProfile extends Model
 
     public function jobs()
     {
-        return $this->hasMany(Job::class)->as('applications');
+        return $this->hasMany(Job::class);
     }
 }

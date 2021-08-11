@@ -17,47 +17,14 @@
                     <i class="mdi mdi-menu"></i>
                 </a>
             </li>
-            <li class="search-box">
-                <a class="search-toggle" href="javascript:void(0);">
-                    <i class="search-icon mdi mdi-magnify"></i>
-                    <i class="search-icon-close mdi mdi-close-circle-outline"></i>
-                </a>
-            </li>
-            <li class="search-input">
-                <input class="form-control" type="text" placeholder="Type to search...">
-                <div class="search-predict">
-                    <div class="search-wrapper scrollable">
-                        <div class="m-h-20 border top"></div>
-                        <div class="p-v-10">
-                            <span class="display-block m-v-5 p-h-20 text-gray">
-                                <i class="ti-user p-r-5"></i>
-                                <span>Members</span>
-                            </span>
-                            <ul class="list-media">
-                                <li class="list-item">
-                                    <a href="javascript:void(0);" class="conversation-toggler media-hover p-h-20">
-                                        <div class="media-img">
-                                            <img
-                                                src="{{ asset('bower_components/job_light/admin/assets/images/avatars/thumb-3.jpg') }}">
-                                        </div>
-                                        <div class="info">
-                                            <span
-                                                class="title p-t-10">{{ Auth::user()->employeeProfile->name }}</span>
-                                        </div>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="search-footer">
-                        <span>You are Searching for '<b class="text-dark"><span
-                                    class="serach-text-bind"></span></b>'</span>
-                    </div>
-                </div>
-            </li>
         </ul>
 
         <ul class="nav-right">
+            <li class="work scale-left">
+                <a href="{{ route('jobs.index') }}">
+                    <i class="mdi mdi-briefcase"></i>
+                </a>
+            </li>
             <li class="notifications dropdown dropdown-animated scale-left">
                 <span class="counter">2</span>
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -73,14 +40,14 @@
                     <li>
                         <ul class="list-media">
                             <li class="list-item p-15">
-                                <a href="">
+                                <a href="{{ route('employer.profiles.show', ['profile' => Auth::user()->employerProfile]) }}">
                                     <div class="media-img">
                                         <img
                                             src="{{ asset('bower_components/job_light/admin/assets/images/avatars/thumb-13.jpg') }}">
                                     </div>
                                     <div class="info">
                                         <span
-                                            class="title text-semibold">{{ Auth::user()->employeeProfile->name }}</span>
+                                            class="title text-semibold">{{ Auth::user()->employerProfile->name }}</span>
                                         <span class="sub-title">{{ __('messages.profile') }}</span>
                                     </div>
                                 </a>
@@ -107,16 +74,16 @@
                         </a>
                     </li>
                     <li>
-                        <a
-                            href="{{ route('employee-profiles.edit', ['employee_profile' => Auth::user()->employeeProfile->id]) }}">
+                        <a href="{{ route('employer.profiles.edit', ['profile' => Auth::user()->employerProfile]) }}">
                             <i class="ti-pencil p-r-10"></i>
                             <span>{{ __('messages.edit-profile') }}</span>
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('template.cv') }}">
-                            <i class="ti-email p-r-10"></i>
-                            <span>{{ __('messages.cv') }}</span> </a>
+                        <a href="{{ route('employer.jobs', ['profile' => Auth::user()->employerProfile]) }}">
+                            <i class="mdi mdi-briefcase"></i>
+                            <span>{{ __('messages.my-jobs') }}</span>
+                        </a>
                     </li>
                     <li>
                         <a href="#" class="logout-btn">

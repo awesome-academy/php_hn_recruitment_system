@@ -136,5 +136,15 @@ return [
     'vietnamese' => 'Tiếng Việt',
     'english' => 'Tiếng Anh',
     'inactivated-account' => 'Tài Khoản Chưa Được Kích Hoạt',
-    'wait-activated' => 'Hãy đợi tài khoản của bạn được kích hoạt nhé!'
+    'wait-activated' => 'Hãy đợi tài khoản của bạn được kích hoạt nhé!',
+    'view-profile' => 'Xem hồ sơ',
+    'view-cv' => 'Xem CV',
+    'my-jobs' => 'Các việc đã đăng',
+    'applied' => 'đã ứng tuyển',
+    'hidden' => 'Ẩn',
+    'active' => 'Hoạt động',
+    'applications' => 'Ứng tuyển',
+    'hide' => 'Ẩn',
+    'delete' => 'Xóa',
+    'manage-jobs' => 'Quản lý việc làm',
 ];

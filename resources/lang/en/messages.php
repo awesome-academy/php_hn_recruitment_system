@@ -135,5 +135,15 @@ return [
     'vietnamese' => 'Vietnamese',
     'english' => 'English',
     'inactivated-account' => 'Inactivated Account',
-    'wait-activated' => 'Please wait for being activated!'
+    'wait-activated' => 'Please wait for being activated!',
+    'view-profile' => 'View profile',
+    'view-cv' => 'View CV',
+    'my-jobs' => 'My jobs',
+    'applied' => 'applied',
+    'hidden' => 'Hidden',
+    'active' => 'Active',
+    'applications' => 'Applications',
+    'hide' => 'Hide',
+    'delete' => 'Delete',
+    'manage-jobs' => 'Manage jobs',
 ];

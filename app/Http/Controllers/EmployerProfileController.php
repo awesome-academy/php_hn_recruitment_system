@@ -71,4 +71,11 @@ class EmployerProfileController extends Controller
             $profile->update([$attributeName => $photoPath]);
         }
     }
+
+    public function showEmployerJobs(EmployerProfile $profile)
+    {
+        $jobs = $profile->jobs()->withCount('employeeProfiles')->get();
+
+        return view('employer.jobs', ['jobs' => $jobs]);
+    }
 }

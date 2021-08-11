@@ -147,10 +147,13 @@
                                     <div class="jp_listing_right_bar_btn_wrapper">
                                         <div class="jp_listing_right_bar_btn">
                                             <ul>
-                                                <li><a href="#"><i class="fa fa-eye"></i>
+                                                <li><a href="{{ route('employer.profiles.show', ['profile' => $job->employerProfile]) }}"><i class="fa fa-eye"></i>
                                                         &nbsp;{{ __('messages.view-company') }}</a></li>
-                                                <li><a href="#"><i class="fa fa-plus-circle"></i>
-                                                        &nbsp;{{ __('messages.apply') }}</a></li>
+                                                @if (Auth::user()->isEmployee())
+                                                    <li><a href="{{ route('apply_jobs.create', ['jobId' => $job->id]) }}"><i class="fa fa-plus-circle"></i>
+                                                            &nbsp;{{ __('messages.apply') }}</a>
+                                                    </li>
+                                                @endif
                                             </ul>
                                         </div>
                                     </div>
