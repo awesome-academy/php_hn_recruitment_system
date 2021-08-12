@@ -37,5 +37,6 @@ return [
         'pending' => 0,
         'accepted' => 1,
         'rejected' => 2,
-    ]
+    ],
+    'num_top_recent_jobs' => 5,
 ];

@@ -15,7 +15,12 @@ class EmployerProfileController extends Controller
      */
     public function show(EmployerProfile $profile)
     {
-        return view('employer.profile', ['profile' => $profile]);
+        $recentJobs = $profile->recentJobs;
+
+        return view('employer.profile', [
+            'profile' => $profile,
+            'recentJobs' => $recentJobs,
+        ]);
     }
 
     /**

@@ -147,4 +147,6 @@ return [
     'hide' => 'Ẩn',
     'delete' => 'Xóa',
     'manage-jobs' => 'Quản lý việc làm',
+    'recent-jobs' => 'Các việc đã đăng gần đây',
+    'more' => 'Thêm',
 ];
