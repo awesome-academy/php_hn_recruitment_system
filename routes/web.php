@@ -67,7 +67,7 @@ Route::middleware('auth')->group(function () {
 
         Route::get('applied-jobs', [
             EmployeeProfileController::class,
-            'showAppliedJobs'
+            'showAppliedJobs',
         ])->name('applied_jobs');
 
         Route::prefix('apply-jobs')
@@ -75,7 +75,7 @@ Route::middleware('auth')->group(function () {
             ->group(function () {
                 Route::get('/{jobId}', [
                     ApplyJobController::class,
-                    'create'
+                    'create',
                 ])->name('create');
 
                 Route::post('/{jobId}', [
@@ -117,12 +117,27 @@ Route::prefix('employer')
             'edit',
             'update',
         ]);
+
+        Route::get('/{profile}/jobs', [
+            EmployerProfileController::class,
+            'showEmployerJobs',
+        ])->name('jobs');
     });
 
 Route::resource('jobs', JobController::class);
-Route::post('/jobs/{job}/hide', [JobController::class, 'hide'])->name(
-    'jobs.hide'
-);
+Route::prefix('/jobs')
+    ->name('jobs.')
+    ->group(function () {
+        Route::post('/{job}/hide', [JobController::class, 'hide'])->name(
+            'hide'
+        );
+
+        Route::get('/{job}/candidates', [
+            JobController::class,
+            'showCandidates',
+        ])->name('candidates');
+    });
+
 Route::get('autocomplete-job', [
     SearchController::class,
     'autocompleteJob',

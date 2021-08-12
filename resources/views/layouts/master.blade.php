@@ -25,14 +25,20 @@
     <link href="{{ asset('bower_components/job_light/admin/assets/css/materialdesignicons.min.css') }}" rel="stylesheet">
     <link href="{{ asset('bower_components/job_light/admin/assets/css/animate.min.css') }}" rel="stylesheet">
     <link href="{{ asset('bower_components/job_light/admin/assets/css/app.css') }}" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{{ asset('bower_components/job_light/jobhunt/css/icons.css') }}" />
     <link href="{{ asset('css/main.css') }}" rel="stylesheet">
 </head>
 
 <body>
     <div class="app header-default side-nav-dark">
         <div class="layout">
-            @include('layouts.user_header')
-            @include('layouts.employee_nav');
+            @if (Auth::user()->isEmployee())
+                @include('layouts.employee_header')
+                @include('layouts.employee_nav')
+            @elseif (Auth::user()->isEmployer())
+                @include('layouts.employer_header')
+                @include('layouts.employer_nav')
+            @endif
             @yield('main-content')
         </div>
     </div>
@@ -52,6 +58,7 @@
         src="{{ asset('bower_components/job_light/admin/assets/vendor/bootstrap-datepicker/dist/js/bootstrap-datepicker.js') }}">
     </script>
     <script src="{{ asset('bower_components/job_light/admin/assets/js/forms/form-elements.js') }}"></script>
+    @yield('addtional_scripts')
 </body>
 
 </html>

@@ -127,4 +127,14 @@ class JobController extends Controller
 
         return back();
     }
+
+    public function showCandidates(Job $job)
+    {
+        $candidates = $job->employeeProfiles;
+
+        return view('job.candidates', [
+            'candidates' => $candidates,
+            'job' => $job,
+        ]);
+    }
 }
