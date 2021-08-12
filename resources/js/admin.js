@@ -6,7 +6,7 @@ $.ajaxSetup({
 
 $(document).ready(function () {
     var urlData = $('#userData').val();
-    var table = $('#user_table').DataTable({
+    var userTable = $('#user_table').DataTable({
         processing: true,
         serverSide: true,
         pageLength: 4,
@@ -54,10 +54,67 @@ $(document).ready(function () {
     });
 
     $('.filter-select').change(function () {
-        table.columns($(this).data('column'))
+        userTable.columns($(this).data('column'))
             .search($(this).val())
             .draw();
-    })
+    });
+
+    var path = $('#companyData').val();
+    var companyTable = $('#company_table').DataTable({
+        processing: true,
+        serverSide: true,
+        pageLength: 4,
+        ajax: {
+            url: path,
+        },
+        columns: [
+            {
+                data: 'user_id',
+                name: 'user_id'
+            },
+            {
+                data: 'name',
+                name: 'name',
+            },
+            {
+                data: 'logo',
+                name: 'logo',
+                orderable: false
+            },
+            {
+                data: 'email',
+                name: 'email',
+            },
+            {
+                data: 'website',
+                name: 'website',
+            },
+            {
+                data: 'industry',
+                name: 'industry',
+            },
+            {
+                data: 'status',
+                name: 'status',
+            },
+            {
+                data: 'view',
+                name: 'view',
+                orderable: false
+            },
+            {
+                data: 'action',
+                name: 'action',
+                orderable: false
+            }
+        ]
+    });
+
+    $('.filter-selector').change(function () {
+        companyTable.columns($(this).data('column'))
+            .search($(this).val())
+            .draw();
+    });
 
     $user_id = null;
     $(document).on('click', '.block-btn', function () {
@@ -73,6 +130,7 @@ $(document).ready(function () {
             },
             success: function (data) {
                 $('#user_table').DataTable().ajax.reload();
+                $('#company_table').DataTable().ajax.reload();
             }
         })
     });

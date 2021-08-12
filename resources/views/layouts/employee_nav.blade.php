@@ -65,11 +65,27 @@
                 </li>
             @else
                 <li class="nav-item dropdown">
-                    <a class="dropdown-toggle" href="{{ route('applied_jobs') }}">
+                    <a class="dropdown-toggle" href="{{ route('admin.employee-profiles.index') }}">
                         <span class="icon-holder">
-                            <i class="ti-list"></i>
+                            <i class="fa fa-user-circle-o" aria-hidden="true"></i>
                         </span>
-                        <span class="title">{{ __('messages.applied-jobs') }}</span>
+                        <span class="title">{{ __('messages.employee-account') }}</span>
+                    </a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="dropdown-toggle" href="{{ route('admin.employer-profiles.index') }}">
+                        <span class="icon-holder">
+                            <i class="fa fa-building" aria-hidden="true"></i>
+                        </span>
+                        <span class="title">{{ __('messages.employer-account') }}</span>
+                    </a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="dropdown-toggle" href="">
+                        <span class="icon-holder">
+                            <i class="fa fa-briefcase" aria-hidden="true"></i>
+                        </span>
+                        <span class="title">{{ __('messages.job-management') }}</span>
                     </a>
                 </li>
             @endif

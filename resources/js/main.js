@@ -31,4 +31,3 @@ function get_filter(class_name) {
 $('.filter-selector').click(function () {
     filter_data();
 });
-

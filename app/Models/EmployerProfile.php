@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class EmployerProfile extends Model
 {
@@ -37,5 +38,25 @@ class EmployerProfile extends Model
         return $this->jobs()
             ->orderBy('created_at', 'desc')
             ->limit(config('user.num_top_recent_jobs'));
+    }
+
+    public function setNameAttribute($value)
+    {
+        $this->attributes['name'] = Str::title($value);
+    }
+
+    public function setIndustryAttribute($value)
+    {
+        $this->attributes['industry'] = Str::title($value);
+    }
+
+    public function setDescriptionAttribute($value)
+    {
+        $this->attributes['description'] = Str::ucfirst($value);
+    }
+
+    public function setAddressAttribute($value)
+    {
+        $this->attributes['address'] = Str::title($value);
     }
 }
