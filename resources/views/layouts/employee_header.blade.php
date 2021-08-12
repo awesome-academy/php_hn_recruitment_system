@@ -1,4 +1,8 @@
 <!-- Header START -->
+@php
+$employeeProfile = Auth::user()->employeeProfile;
+$role = Auth::user()->role;
+@endphp
 <div class="header navbar">
     <div class="header-container">
         <div class="nav-logo">
@@ -41,8 +45,7 @@
                                                 src="{{ asset('bower_components/job_light/admin/assets/images/avatars/thumb-3.jpg') }}">
                                         </div>
                                         <div class="info">
-                                            <span
-                                                class="title p-t-10">{{ Auth::user()->employeeProfile->name }}</span>
+                                            <span class="title p-t-10"></span>
                                         </div>
                                     </a>
                                 </li>
@@ -58,11 +61,6 @@
         </ul>
 
         <ul class="nav-right">
-            <li class="work scale-left">
-                <a href="{{ route('jobs.index') }}">
-                    <i class="mdi mdi-briefcase"></i>
-                </a>
-            </li>
             <li class="notifications dropdown dropdown-animated scale-left">
                 <span class="counter">2</span>
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -71,24 +69,38 @@
             </li>
             <li class="user-profile dropdown dropdown-animated scale-left">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                    <img class="profile-img img-fluid"
-                        src="{{ asset('bower_components/job_light/admin/assets/images/avatars/thumb-13.jpg') }}">
+                    @if ($role == config('user.employee'))
+                        <img class="profile-img img-fluid"
+                            src="{{ $employeeProfile->avatar ? asset('images/' . $employeeProfile->avatar) : asset('bower_components/job_light/images/avatar.png') }}">
+                    @else
+                        <img class="profile-img img-fluid"
+                            src="{{ asset('bower_components/job_light/admin/assets/images/avatars/thumb-13.jpg') }}">
+                    @endif
                 </a>
                 <ul class="dropdown-menu dropdown-md p-v-0">
                     <li>
                         <ul class="list-media">
                             <li class="list-item p-15">
-                                <a href="">
+                                @if ($role == config('user.employee'))
+                                    <a href="">
+                                        <div class="media-img">
+                                            <img
+                                                src="{{ $employeeProfile->avatar ? asset('images/' . $employeeProfile->avatar) : asset('bower_components/job_light/images/avatar.png') }}">
+                                        </div>
+                                        <div class="info">
+                                            <span class="title text-semibold">{{ $employeeProfile->name }}</span>
+                                            <span class="sub-title">{{ __('messages.profile') }}</span>
+                                        </div>
+                                    </a>
+                                @else
                                     <div class="media-img">
                                         <img
                                             src="{{ asset('bower_components/job_light/admin/assets/images/avatars/thumb-13.jpg') }}">
                                     </div>
                                     <div class="info">
-                                        <span
-                                            class="title text-semibold">{{ Auth::user()->employeeProfile->name }}</span>
-                                        <span class="sub-title">{{ __('messages.profile') }}</span>
+                                        <span class="h3">ADMIN</span>
                                     </div>
-                                </a>
+                                @endif
                             </li>
                         </ul>
                     </li>
@@ -105,24 +117,26 @@
                                 alt="">{{ __('messages.english') }}
                         </a>
                     </li>
-                    <li>
-                        <a href="#">
-                            <i class="ti-settings p-r-10"></i>
-                            <span>{{ __('messages.setting') }}</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a
-                            href="{{ route('employee-profiles.edit', ['employee_profile' => Auth::user()->employeeProfile->id]) }}">
-                            <i class="ti-pencil p-r-10"></i>
-                            <span>{{ __('messages.edit-profile') }}</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{{ route('template.cv') }}">
-                            <i class="ti-email p-r-10"></i>
-                            <span>{{ __('messages.cv') }}</span> </a>
-                    </li>
+                    @if ($role == config('user.employee'))
+                        <li>
+                            <a href="#">
+                                <i class="ti-settings p-r-10"></i>
+                                <span>{{ __('messages.setting') }}</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a
+                                href="{{ route('employee-profiles.edit', ['employee_profile' => Auth::user()->employeeProfile->id]) }}">
+                                <i class="ti-pencil p-r-10"></i>
+                                <span>{{ __('messages.edit-profile') }}</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('template.cv') }}">
+                                <i class="ti-email p-r-10"></i>
+                                <span>{{ __('messages.cv') }}</span> </a>
+                        </li>
+                    @endif
                     <li>
                         <a href="#" class="logout-btn">
                             <i class="ti-power-off p-r-10"></i>

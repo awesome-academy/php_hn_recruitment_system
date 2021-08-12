@@ -35,7 +35,7 @@ return [
     'register-now' => 'Đăng ký ngay!',
     'employee-registered' => 'Đăng ký tài khoản thành công!',
     'employer-registered' =>
-        'Đăng ký tài khoản thành công! Vui lòng chờ xác nhận của admin.',
+    'Đăng ký tài khoản thành công! Vui lòng chờ xác nhận của admin.',
     'profile' => 'Hồ Sơ Của Tôi',
     'edit-profile' => 'Chỉnh Sửa Hồ Sơ',
     'cv' => 'Tạo CV',
@@ -99,7 +99,7 @@ return [
     'next' => 'sau',
     'apply' => 'ứng tuyển',
     'advertisement' =>
-        'Nhận thông tin về các việc làm phù hợp. Hãy tạo CV của bạn!',
+    'Nhận thông tin về các việc làm phù hợp. Hãy tạo CV của bạn!',
     'add-resume' => 'Tạo CV',
     'show' => 'HIỆN',
     'job-type' => 'Loại công việc',
@@ -149,4 +149,12 @@ return [
     'manage-jobs' => 'Quản lý việc làm',
     'recent-jobs' => 'Các việc đã đăng gần đây',
     'more' => 'Thêm',
+    'role' => 'Vai Trò',
+    'block' => 'Khóa',
+    'unblock' => 'Bỏ Khóa',
+    'active' => 'Hoạt động',
+    'inactive' => 'Bị Chặn',
+    'action' => 'Hành động',
+    'avatar' => 'Ảnh Đại Diện',
+    'sure-confirm' => 'Bạn có chắc chắn không?',
 ];
