@@ -8,23 +8,37 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="table-responsive">
-                            <input hidden value="{{ route('admin.employee-profiles.index') }}" id="userData">
+                            <input hidden value="{{ route('admin.employer-profiles.index') }}" id="companyData">
                             <input hidden value="{{ route('admin.change_user_status') }}" id="changeStatus">
-                            <div class="form-group">
-                                <select data-column="5" class="form-control filter-select">
-                                    <option value="">{{ __('messages.status') }}</option>
-                                    <option value="{{ __('messages.active') }}">{{ __('messages.active') }}</option>
-                                    <option value="{{ __('messages.inactive') }}">{{ __('messages.inactive') }}</option>
-                                </select>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <select data-column="6" class="form-control filter-selector">
+                                        <option value="">{{ __('messages.status') }}</option>
+                                        <option value="{{ __('messages.active') }}">{{ __('messages.active') }}</option>
+                                        <option value="{{ __('messages.inactive') }}">{{ __('messages.inactive') }}
+                                        </option>
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <select data-column="5" class="form-control filter-selector">
+                                        <option value="">{{ __('messages.industry') }}</option>
+                                        @foreach ($profiles as $profile)
+                                            <option value="{{ $profile->industry }}">{{ $profile->industry }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
                             </div>
-                            <table id="user_table" class="table table-hover table-xl">
+
+                            <table id="company_table" class="table table-hover table-xl">
                                 <thead>
                                     <tr>
                                         <th>ID</th>
                                         <th>{{ __('messages.name') }}</th>
-                                        <th>{{ __('messages.avatar') }}</th>
+                                        <th>{{ __('messages.logo') }}</th>
                                         <th>{{ __('messages.email') }}</th>
-                                        <th>{{ __('messages.phone') }}</th>
+                                        <th>{{ __('messages.website') }}</th>
+                                        <th>{{ __('messages.industry') }}</th>
                                         <th>{{ __('messages.status') }}</th>
                                         <th>{{ __('messages.view') }}</th>
                                         <th>{{ __('messages.action') }}</th>

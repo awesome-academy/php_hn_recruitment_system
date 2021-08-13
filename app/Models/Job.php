@@ -3,8 +3,11 @@
 namespace App\Models;
 
 use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Akaunting\Money\Money;
+use Illuminate\Support\Str;
+use Akaunting\Money\Currency;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Job extends Model
 {
@@ -47,5 +50,35 @@ class Job extends Model
         $date = new Carbon($value);
 
         return $date->format('Y-m-d');
+    }
+
+    public function getSalaryAttribute($value)
+    {
+        return Money::USD($value, true);
+    }
+
+    public function setTitleAttribute($value)
+    {
+        $this->attributes['title'] = Str::title($value);
+    }
+
+    public function setDescriptionAttribute($value)
+    {
+        $this->attributes['title'] = Str::ucfirst($value);
+    }
+
+    public function setLocationAttribute($value)
+    {
+        $this->attributes['title'] = Str::title($value);
+    }
+
+    public function setRequirementAttribute($value)
+    {
+        $this->attributes['title'] = Str::ucfirst($value);
+    }
+
+    public function setBenefitAttribute($value)
+    {
+        $this->attributes['title'] = Str::ucfirst($value);
     }
 }

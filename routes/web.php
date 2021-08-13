@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\EmployerProfile;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\JobController;
@@ -155,6 +157,7 @@ Route::prefix('admin')
     ->middleware('auth', 'can:is-admin')
     ->group(function () {
         Route::resource('employee-profiles', EmployeeProfileController::class);
+        Route::resource('employer-profiles', EmployerProfileController::class);
         Route::post('users/change-status', [
             UserController::class,
             'changeStatus',

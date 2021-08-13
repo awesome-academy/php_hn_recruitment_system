@@ -156,4 +156,7 @@ return [
     'action' => 'Action',
     'avatar' => 'Avatar',
     'sure-confirm' => 'Are you sure?',
+    'employee-account' => 'Personal Accounts',
+    'employer-account' => 'Company Accounts',
+    'job-management' => 'Job Management',
 ];

@@ -157,4 +157,7 @@ return [
     'action' => 'Hành động',
     'avatar' => 'Ảnh Đại Diện',
     'sure-confirm' => 'Bạn có chắc chắn không?',
+    'employee-account' => 'Tài Khoản Cá Nhân',
+    'employer-account' => 'Tài khoản Công Ty',
+    'job-management' => 'Quản Lý Việc Làm',
 ];
