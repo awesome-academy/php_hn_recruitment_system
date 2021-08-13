@@ -1,7 +1,10 @@
-document.querySelector(".logout-btn").addEventListener("click", function (event) {
-    event.preventDefault();
-    document.getElementById('logout-form').submit();
-});
+var logoutBtn = document.querySelector(".logout-btn");
+if (logoutBtn) {
+    logoutBtn.addEventListener("click", function (event) {
+        event.preventDefault();
+        document.getElementById('logout-form').submit();
+    });
+}
 
 /* autocomplete search */
 var path = document.querySelector('.autocompleteUrl').value;
@@ -19,7 +22,16 @@ $('input.typeahead').typeahead({
 var type = [];
 function filter_data() {
     type = get_filter('job-type');
-    $('.filter-types').val(type);
+    var keyword = $('.keyword').val();
+    type = type.toString();
+    $.ajax({
+        url: "/search-job",
+        method: "GET",
+        data: { types: type, keyword: keyword },
+        success: function (data) {
+            $('.job-data').html(data.html);
+        }
+    });
 }
 function get_filter(class_name) {
     var filter = [];

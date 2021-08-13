@@ -24,6 +24,30 @@ class SearchController extends Controller
     public function searchJobGeneral(Request $request)
     {
         $keyword = $request->keyword;
+        $types = $request->types;
+        $jobs = null;
+
+        if ($request->ajax()) {
+            $types = explode(',', $types);
+            $jobs = $this->searchByType($keyword, $types);
+            $cntJobs = $jobs->total();
+            $view = view('layouts.job_result', compact('jobs', 'keyword', 'cntJobs'))->render();
+
+            return response()->json(['html' => $view]);
+        }
+        if ($types == '') {
+            $jobs = $this->searchByKeyWord($keyword);
+        } else {
+            $types = explode(',', $types);
+            $jobs = $this->searchByType($keyword, $types);
+        }
+        $cntJobs = $jobs->total();
+
+        return view('job.list', compact('keyword', 'jobs', 'cntJobs'));
+    }
+
+    public function searchByKeyWord($keyword)
+    {
         $jobs = Job::select('jobs.*')
             ->join('fields', 'fields.id', '=', 'jobs.field_id')
             ->join('employer_profiles', 'employer_profiles.id', '=', 'jobs.employer_profile_id')
@@ -31,20 +55,12 @@ class SearchController extends Controller
             ->orWhere('employer_profiles.name', 'like', "%{$keyword}%")
             ->orWhere('jobs.title', 'like', "%{$keyword}%")
             ->paginate(config('user.num_pages'))->withQueryString();
-        $cntJobs = $jobs->total();
 
-        return view('job.list', [
-            'keyword' => $keyword,
-            'jobs' => $jobs,
-            'cntJobs' => $cntJobs,
-        ]);
+        return $jobs;
     }
 
-    public function filterJobs(Request $request)
+    public function searchByType($keyword, $types)
     {
-        $keyword = $request->keyword;
-        $types = explode(',', $request->types);
-
         $jobs = Job::select('jobs.*')
             ->join('fields', 'fields.id', '=', 'jobs.field_id')
             ->join('employer_profiles', 'employer_profiles.id', '=', 'jobs.employer_profile_id')
@@ -54,12 +70,7 @@ class SearchController extends Controller
                     ->orWhere('employer_profiles.name', 'like', "%{$keyword}%")
                     ->orWhere('jobs.title', 'like', "%{$keyword}%");
             })->paginate(config('user.num_pages'))->withQueryString();
-        $cntJobs = $jobs->total();
 
-        return view('job.list', [
-            'keyword' => $keyword,
-            'jobs' => $jobs,
-            'cntJobs' => $cntJobs,
-        ]);
+        return $jobs;
     }
 }

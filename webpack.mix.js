@@ -24,3 +24,4 @@ mix.js('resources/js/create_summernote.js', 'public/js');
 mix.js('resources/js/upload.js', 'public/js');
 mix.js('resources/js/candidates.js', 'public/js');
 mix.js('resources/js/admin.js', 'public/js');
+mix.js('resources/js/home.js', 'public/js');

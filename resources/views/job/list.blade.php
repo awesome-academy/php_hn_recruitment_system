@@ -27,7 +27,7 @@
                                         <ul>
                                             <li>
                                                 <a>
-                                                    <button type="submit" class="job-search-btn">
+                                                    <button type="submit" class="job-search-btn text-dark">
                                                         <i class="fa fa-search"></i> {{ __('messages.search') }}
                                                     </button>
                                                 </a>
@@ -73,132 +73,8 @@
                             </div>
                         </div>
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                            <div class="tab-content">
-                                <div id="grid" class="tab-pane fade in active">
-                                    <div class="row">
-                                        @if (!empty($jobs))
-                                            @foreach ($jobs as $job)
-                                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                                    <div
-                                                        class="jp_job_post_main_wrapper_cont jp_job_post_grid_main_wrapper_cont">
-                                                        <div class="jp_job_post_main_wrapper jp_job_post_grid_main_wrapper">
-                                                            <div class="row">
-                                                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                                                    <div class="jp_job_post_side_img">
-                                                                        <img class="company-logo-img"
-                                                                            src="{{ asset('images/' . $job->employerProfile->logo) }}">
-                                                                    </div>
-                                                                    <div
-                                                                        class="jp_job_post_right_cont jp_job_post_grid_right_cont">
-                                                                        <h4>{{ $job->title }}</h4>
-                                                                        <p>{{ $job->employerProfile->name }}</p>
-                                                                        <ul>
-                                                                            <li><i class="fa fa-cc-paypal"></i>&nbsp;
-                                                                                {{ $job->salary }}</li>
-                                                                            <li><i class="fa fa-map-marker"></i>&nbsp;
-                                                                                {{ $job->location }}</li>
-                                                                        </ul>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                                                    <div
-                                                                        class="jp_job_post_right_btn_wrapper jp_job_post_grid_right_btn_wrapper">
-                                                                        <ul>
-                                                                            <li><a href="#"><i
-                                                                                        class="fa fa-heart-o"></i></a>
-                                                                            </li>
-                                                                            <li><a href="#">{{ $job->job_type }}</a></li>
-                                                                            <li><a
-                                                                                    href="{{ route('jobs.show', ['job' => $job->id]) }}">{{ __('messages.view') }}</a>
-                                                                            </li>
-                                                                        </ul>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="jp_job_post_keyword_wrapper">
-                                                            <ul>
-                                                                <li>
-                                                                    <i class="fa fa-tags"></i>{{ __('messages.field') }}:
-                                                                </li>
-                                                                <li><a href="">{{ $job->field->name }}</a></li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            @endforeach
-                                        @endif
-                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 hidden-sm hidden-xs">
-                                            <div class="pager_wrapper gc_blog_pagination">
-                                                <ul class="pagination">
-                                                    {{ $jobs->links('layouts.pagination') }}
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div id="list" class="tab-pane fade">
-                                    <div class="row">
-                                        @if (!empty($jobs))
-                                            @foreach ($jobs as $job)
-                                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                                    <div
-                                                        class="jp_job_post_main_wrapper_cont jp_job_post_grid_main_wrapper_cont">
-                                                        <div class="jp_job_post_main_wrapper">
-                                                            <div class="row">
-                                                                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
-                                                                    <div class="jp_job_post_side_img">
-                                                                        <img class="company-logo-img"
-                                                                            src="{{ asset('images/' . $job->employerProfile->logo) }}">
-                                                                    </div>
-                                                                    <div class="jp_job_post_right_cont">
-                                                                        <h4>{{ $job->title }}</h4>
-                                                                        <p></p>
-                                                                        <ul>
-                                                                            <li><i
-                                                                                    class="fa fa-cc-paypal"></i>&nbsp;{{ $job->salary }}
-                                                                            </li>
-                                                                            <li><i class="fa fa-map-marker"></i>&nbsp;
-                                                                                {{ $job->location }}</li>
-                                                                        </ul>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-                                                                    <div class="jp_job_post_right_btn_wrapper">
-                                                                        <ul>
-                                                                            <li><a href="#"><i
-                                                                                        class="fa fa-heart-o"></i></a></li>
-                                                                            <li><a href="#">{{ $job->job_type }}</a></li>
-                                                                            <li><a
-                                                                                    href="{{ route('jobs.show', ['job' => $job->id]) }}">{{ __('messages.view') }}</a>
-                                                                            </li>
-                                                                        </ul>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="jp_job_post_keyword_wrapper">
-                                                            <ul>
-                                                                <li>
-                                                                    <i class="fa fa-tags"></i>{{ __('messages.field') }}:
-                                                                </li>
-                                                                <li><a href="">{{ $job->field->name }}</a></li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            @endforeach
-                                        @endif
-                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 hidden-sm hidden-xs">
-                                            <div class="pager_wrapper gc_blog_pagination">
-                                                <ul class="pagination">
-                                                    {{ $jobs->links('layouts.pagination') }}
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                            <div class="tab-content job-data">
+                                @include('layouts.job_result')
                             </div>
                         </div>
                     </div>
@@ -211,7 +87,6 @@
                                     <h4>{{ __('messages.job-type') }}</h4>
                                 </div>
                                 <div class="jp_rightside_job_categories_content">
-                                    <form action="{{ route('filter_job') }}" method="get">
                                         <div class="handyman_sec1_wrapper">
                                             <div class="content">
                                                 <div class="box">
@@ -220,24 +95,14 @@
                                                             <input type="checkbox" id="{{ $type }}"
                                                                 class="filter-selector job-type"
                                                                 value="{{ $type }}">
-                                                            <label for="{{ $type }}">{{ $type }}</label>
+                                                            <label for="{{ $type }}">{{ Str::ucfirst($type) }}</label>
                                                         </p>
                                                     @endforeach
-                                                    <input type="text" hidden name="types" class="filter-types">
-                                                    <input type="text" hidden name="keyword"
+                                                    <input type="text" hidden name="keyword" class="keyword"
                                                         value="{{ isset($keyword) ? $keyword : '' }}">
                                                 </div>
                                             </div>
-                                            <ul>
-                                                <li><i class="fa fa-plus-circle"></i>
-                                                    <a> <button type="submit"
-                                                            class="job-search-btn">{{ __('messages.show') }}</button>
-                                                    </a>
-                                                </li>
-                                            </ul>
                                         </div>
-                                    </form>
-
                                 </div>
                             </div>
                         </div>
