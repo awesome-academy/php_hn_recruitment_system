@@ -520,3 +520,44 @@ main {
 .recent-jobs-list .job-location {
     color: hsl(0, 0%, 20%);
 }
+
+.action-job i {
+    font-size: 2em;
+}
+
+.action-job .action:not(:first-child) {
+    margin-right: 20px;
+}
+
+.action-job .action {
+    position: relative;
+    float: right;
+}
+
+.action-job .action:hover {
+    color: hsl(0, 0%, 0%);
+}
+
+.action-job .hint {
+    position: absolute;
+    left: 50%;
+    bottom: 100%;
+    margin-left: -40px;
+    margin-bottom: 9px;
+    padding: 5px 0;
+    width: 80px;
+    border-radius: 8px;
+
+    opacity: 0;
+    visibility: hidden;
+    background: #0f36a5;
+    color: #ffffff;
+
+    font-size: 12px;
+    text-align: center;
+}
+
+.action-job .action:hover .hint {
+    opacity: 1;
+    visibility: visible;
+}

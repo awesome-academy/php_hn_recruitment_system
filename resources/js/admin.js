@@ -134,4 +134,53 @@ $(document).ready(function () {
             }
         })
     });
+
+    initJobsTable();
 });
+
+function initJobsTable() {
+    const getJobsUrl = $('#get-jobs-url').val();
+    $('#jobs-table').DataTable({
+        processing: true,
+        serverSide: true,
+        ajax: {
+            url: getJobsUrl,
+        },
+        columns: [
+            {
+                data: 'title',
+            },
+            {
+                data: 'employer_profile.name',
+            },
+            {
+                data: 'close_at',
+            },
+            {
+                data: 'status',
+            },
+            {
+                data: 'actions',
+                orderable: false,
+            },
+        ],
+    });
+
+    let deleteJobUrl = '';
+    $(document).on('click', 'button#delete', () => {
+        deleteJobUrl = $('button#delete').val();
+    });
+
+    $(document).on('click', '.btn-delete-confirm', function () {
+        $.ajax({
+            url: deleteJobUrl,
+            method: 'post',
+            data: {
+                _method: 'delete',
+            },
+            success: () => {
+                $('#jobs-table').DataTable().ajax.reload();
+            },
+        });
+    });
+}

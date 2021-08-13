@@ -131,10 +131,6 @@ Route::resource('jobs', JobController::class);
 Route::prefix('/jobs')
     ->name('jobs.')
     ->group(function () {
-        Route::post('/{job}/hide', [JobController::class, 'hide'])->name(
-            'hide'
-        );
-
         Route::get('/{job}/candidates', [
             JobController::class,
             'showCandidates',
@@ -162,4 +158,7 @@ Route::prefix('admin')
             UserController::class,
             'changeStatus',
         ])->name('change_user_status');
+
+        Route::get('manage-jobs', [JobController::class, 'showManagementForAdmin'])
+            ->name('manage-jobs');
     });

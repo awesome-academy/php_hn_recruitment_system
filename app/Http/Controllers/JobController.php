@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Http\Requests\JobCreateOrUpdateRequest;
 use App\Models\Field;
 use App\Models\Job;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Yajra\DataTables\Facades\DataTables;
 
 class JobController extends Controller
 {
@@ -119,15 +121,6 @@ class JobController extends Controller
         return back();
     }
 
-    public function hide(Job $job)
-    {
-        $job->update([
-            'status' => config('user.job_status.hidden'),
-        ]);
-
-        return back();
-    }
-
     public function showCandidates(Job $job)
     {
         $candidates = $job->employeeProfiles;
@@ -136,5 +129,72 @@ class JobController extends Controller
             'candidates' => $candidates,
             'job' => $job,
         ]);
+    }
+
+    public function showManagementForAdmin(Request $request)
+    {
+        if ($request->ajax()) {
+            $jobs = Job::with('employerProfile:id,name')->get();
+
+            return DataTables::of($jobs)
+                ->addColumn('status', function ($data) {
+                    return $this->createStatusColumn($data);
+                })
+                ->addColumn('actions', function ($data) {
+                    return $this->createActionColumn($data);
+                })
+                ->rawColumns(['status', 'actions'])
+                ->make(true);
+        }
+
+        return view('admin.jobs');
+    }
+
+    private function createStatusColumn($data)
+    {
+        switch ($data->status) {
+            case config('user.job_status.active'):
+                $status = __('messages.active');
+                $htmlClass = 'badge-gradient-success';
+                break;
+            case config('user.job_status.hidden'):
+                $status = __('messages.hidden');
+                $htmlClass = 'badge-gradient-danger';
+                break;
+            default:
+                $status = '';
+                $htmlClass = '';
+        }
+
+        return <<<HTML
+            <span class="badge badge-pill $htmlClass">$status</span>
+        HTML;
+    }
+
+    private function createActionColumn($data)
+    {
+        $viewJobUrl = route('jobs.show', ['job' => $data]);
+        $deleteJobUrl = route('jobs.destroy', ['job' => $data]);
+        $viewHint = __('messages.view');
+        $deleteHint = __('messages.delete');
+
+        return <<<HTML
+            <div class="action-job">
+                <button
+                    id="delete"
+                    value="$deleteJobUrl"
+                    class="action unstyled cursor-pointer"
+                    data-toggle="modal"
+                    data-target="#modal-sm"
+                >
+                    <span class="hint">$deleteHint</span>
+                    <i class="ti-trash"></i>
+                </button>
+                <a class="action" href="$viewJobUrl">
+                    <span class="hint">$viewHint</span>
+                    <i class="ti-eye"></i>
+                </a>
+            </div>
+        HTML;
     }
 }
