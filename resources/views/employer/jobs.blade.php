@@ -43,18 +43,6 @@
                             <td>
                                 <ul class="action_job">
                                     <li>
-                                        <span>{{ __('messages.hide') }}</span>
-                                        <form
-                                            action="{{ route('jobs.hide', ['job' => $job]) }}"
-                                            method="post"
-                                        >
-                                            @csrf
-                                            <button type="submit" class="unstyled cursor-pointer">
-                                                <i class="la la-eye"></i>
-                                            </button>
-                                        </form>
-                                    </li>
-                                    <li>
                                         <span>{{ __('messages.edit-job') }}</span>
                                         <a href="{{ route('jobs.edit', ['job' => $job]) }}">
                                             <i class="la la-pencil"></i>
@@ -79,6 +67,5 @@
                 </tbody>
             </table>
         </div>
-
     </main>
 @endsection
