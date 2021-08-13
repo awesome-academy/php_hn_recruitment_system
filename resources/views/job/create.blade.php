@@ -123,19 +123,6 @@
                                 <p class="text-danger">{{ $message }}</p>
                             @enderror
                         </div>
-
-                        <div class="jp_adp_form_wrapper">
-                            <label for="close">{{ __('messages.job-close') }}*</label>
-                            <input
-                                id="close"
-                                type="date"
-                                name="close_at"
-                                value="{{ old('close_at') }}"
-                            >
-                            @error('close_at')
-                                <p class="text-danger">{{ $message }}</p>
-                            @enderror
-                        </div>
                     </div>
 
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">

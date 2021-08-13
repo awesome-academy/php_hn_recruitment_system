@@ -15,8 +15,8 @@
                                 <div class="formsix-pos">
                                     <div class="form-group i-email">
                                         <input type="email" class="form-control" id="email"
-                                            placeholder="{{ __('E-Mail Address') }}"
-                                            name="email" value="{{ old('email') }}" autocomplete="email" autofocus>
+                                            placeholder="{{ __('E-Mail Address') }}" name="email"
+                                            value="{{ old('email') }}" autocomplete="email" autofocus>
                                         @error('email')
                                             <p class="text-danger">{{ $message }}</p>
                                         @enderror
@@ -25,8 +25,8 @@
                                 <div class="formsix-e">
                                     <div class="form-group i-password">
                                         <input type="password" class="form-control" id="password"
-                                            placeholder="{{ __('Password') }}"
-                                            name="password" autocomplete="current-password">
+                                            placeholder="{{ __('Password') }}" name="password"
+                                            autocomplete="current-password">
                                         @error('password')
                                             <p class="text-danger">{{ $message }}</p>
                                         @enderror
@@ -43,7 +43,9 @@
                                     <button id="login-submit">{{ __('Login') }}</button>
                                 </div>
                                 <div class="login_message">
-                                    <p>Don’t have an account ? <a href="#"> Register Now </a> </p>
+                                    <p>{{ __('messages.have-no-account') }}<a
+                                            href="{{ route('register') }}">&nbsp;{{ __('messages.register-now') }}</a>
+                                    </p>
                                 </div>
                             </div>
                         </form>

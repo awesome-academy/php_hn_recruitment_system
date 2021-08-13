@@ -73,6 +73,18 @@ class HomeController extends Controller
         return $jobs;
     }
 
+    public function getPendingCompanies()
+    {
+        $pendingCompanies = DB::table('employer_profiles')
+            ->join('users', 'users.id', '=', 'employer_profiles.user_id')
+            ->where('users.is_activated', config('user.status.inactive'))
+            ->orderByDesc('employer_profiles.created_at')
+            ->take(config('user.num_top_users'))
+            ->get();
+
+        return $pendingCompanies;
+    }
+
     public function getRecentEmployees()
     {
         $employees = DB::table('employee_profiles')
@@ -84,5 +96,20 @@ class HomeController extends Controller
             ->get();
 
         return $employees;
+    }
+
+    public function showAdminDashboard()
+    {
+        $cntJobs = Job::count();
+        $cntCompanies = EmployerProfile::count();
+        $cntEmployees = EmployeeProfile::count();
+        $pendingCompanies = $this->getPendingCompanies();
+
+        return view('admin.dashboard', compact(
+            'cntJobs',
+            'cntCompanies',
+            'cntEmployees',
+            'pendingCompanies'
+        ));
     }
 }

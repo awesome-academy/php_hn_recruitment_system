@@ -58,7 +58,9 @@ class JobController extends Controller
         $job->status = config('user.job_status.active');
         $job->save();
 
-        return back();
+        return redirect()
+            ->route('employer.jobs', ['profile' => $employerProfile])
+            ->with('success', __('messages.update-success'));
     }
 
     /**
