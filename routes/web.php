@@ -1,16 +1,17 @@
 <?php
 
-use App\Http\Controllers\ApplyJobController;
-use App\Http\Controllers\Auth\RegisterController;
-use App\Http\Controllers\EducationController;
-use App\Http\Controllers\EmployeeProfileController;
-use App\Http\Controllers\ExperienceController;
-use App\Http\Controllers\EmployerProfileController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\HomeController;
 use App\Http\Controllers\JobController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\SearchController;
+use App\Http\Controllers\ApplyJobController;
+use App\Http\Controllers\EducationController;
+use App\Http\Controllers\ExperienceController;
+use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\EmployeeProfileController;
+use App\Http\Controllers\EmployerProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -153,5 +154,9 @@ Route::prefix('admin')
     ->name('admin.')
     ->middleware('auth', 'can:is-admin')
     ->group(function () {
-        // Admin routes
+        Route::resource('employee-profiles', EmployeeProfileController::class);
+        Route::post('users/change-status', [
+            UserController::class,
+            'changeStatus',
+        ])->name('change_user_status');
     });

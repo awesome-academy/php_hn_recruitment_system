@@ -212,3 +212,8 @@
     background: none;
     border: none;
 }
+
+.flag-img {
+    width: 8%;
+    margin-right: 10px;
+}

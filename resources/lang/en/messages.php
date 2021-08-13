@@ -148,4 +148,12 @@ return [
     'manage-jobs' => 'Manage jobs',
     'recent-jobs' => 'Recently posted jobs',
     'more' => 'More',
+    'role' => 'Role',
+    'block' => 'Block',
+    'unblock' => 'Unblock',
+    'active' => 'Active',
+    'inactive' => 'Blocked',
+    'action' => 'Action',
+    'avatar' => 'Avatar',
+    'sure-confirm' => 'Are you sure?',
 ];
