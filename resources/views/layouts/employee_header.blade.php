@@ -28,32 +28,22 @@ $role = Auth::user()->role;
                 </a>
             </li>
             <li class="search-input">
-                <input class="form-control" type="text" placeholder="Type to search...">
+                <input class="form-control" id="search-member" type="text" placeholder="Type to search...">
+                <input class="form-control" id="search-member-url" value="{{ route('search_user') }}" type="hidden">
                 <div class="search-predict">
                     <div class="search-wrapper scrollable">
                         <div class="m-h-20 border top"></div>
                         <div class="p-v-10">
                             <span class="display-block m-v-5 p-h-20 text-gray">
                                 <i class="ti-user p-r-5"></i>
-                                <span>Members</span>
+                                <span>{{ __('messages.member') }}</span>
                             </span>
-                            <ul class="list-media">
-                                <li class="list-item">
-                                    <a href="javascript:void(0);" class="conversation-toggler media-hover p-h-20">
-                                        <div class="media-img">
-                                            <img
-                                                src="{{ asset('bower_components/job_light/admin/assets/images/avatars/thumb-3.jpg') }}">
-                                        </div>
-                                        <div class="info">
-                                            <span class="title p-t-10"></span>
-                                        </div>
-                                    </a>
-                                </li>
+                            <ul class="list-media" id="list-user">
                             </ul>
                         </div>
                     </div>
                     <div class="search-footer">
-                        <span>You are Searching for '<b class="text-dark"><span
+                        <span>{{ __('messages.searching-for') }} '<b class="text-dark"><span
                                     class="serach-text-bind"></span></b>'</span>
                     </div>
                 </div>
@@ -78,8 +68,7 @@ $role = Auth::user()->role;
                         <img class="profile-img img-fluid"
                             src="{{ $employeeProfile->avatar ? asset('images/' . $employeeProfile->avatar) : asset(config('user.default_avt')) }}">
                     @else
-                        <img class="profile-img img-fluid"
-                            src="{{ asset(config('user.default_avt')) }}">
+                        <img class="profile-img img-fluid" src="{{ asset(config('user.default_avt')) }}">
                     @endif
                 </a>
                 <ul class="dropdown-menu dropdown-md p-v-0">
@@ -99,8 +88,7 @@ $role = Auth::user()->role;
                                     </a>
                                 @else
                                     <div class="media-img">
-                                        <img
-                                            src="{{ asset(config('user.default_avt')) }}">
+                                        <img src="{{ asset(config('user.default_avt')) }}">
                                     </div>
                                     <div class="info">
                                         <span class="h3">ADMIN</span>

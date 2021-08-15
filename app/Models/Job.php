@@ -86,4 +86,11 @@ class Job extends Model
     {
         $this->attributes['benefit'] = Str::ucfirst($value);
     }
+
+    public function getCreatedAtAttribute($value)
+    {
+        $date = new Carbon($value);
+
+        return $date->format('d/m/Y');
+    }
 }

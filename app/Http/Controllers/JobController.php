@@ -106,8 +106,10 @@ class JobController extends Controller
     public function update(JobCreateOrUpdateRequest $request, Job $job)
     {
         $job->update($request->all());
+        $profile = $job->employerProfile;
 
-        return back();
+        return redirect()->route('employer.jobs', ['profile' => $profile])
+            ->with('success', __('messages.update-success'));
     }
 
     /**
@@ -121,6 +123,20 @@ class JobController extends Controller
         $job->delete();
 
         return back();
+    }
+
+    public function changeStatus(Request $request)
+    {
+        $jobId = $request->id;
+        $job = Job::findOrFail($jobId);
+        $job->status = !$job->status;
+        $job->save();
+
+        if ($request->ajax()) {
+            return __('messages.update-success');
+        } else {
+            return back()->with('success', __('messages.update-success'));
+        }
     }
 
     public function showCandidates(Job $job)

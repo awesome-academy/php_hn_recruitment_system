@@ -35,4 +35,50 @@ $(document).ready(function () {
             loadMoreJob(page);
         }
     });
+
+    function searchUser(query = '') {
+        var searchUrl = $('#search-member-url').val();
+
+        $.ajax({
+            url: searchUrl,
+            method: 'GET',
+            data: { query: query },
+            success: function (data) {
+                var html = '';
+                data.forEach(user => {
+                    if (user.logo != null) {
+                        image = user.logo.replace('public/','');
+                        imageUrl = `/storage/${image}`;
+                        profileUrl = `/employer/profiles/${user.id}`
+                    } else {
+                        imageUrl = `/images/${user.avatar}`;
+                        profileUrl = `/employee-profiles/${user.id}`;
+                    }
+                    html += renderUsers(user);
+                });
+                $('#list-user').html(html);
+            }
+        })
+    }
+
+    function renderUsers(user) {
+        html = `
+            <li class="list-item">
+                <a href="${profileUrl}" class="conversation-toggler media-hover p-h-20">
+                    <div class="media-img">
+                        <img src="${imageUrl}">
+                    </div>
+                    <div class="info">
+                        <span class="title p-t-10">${user.name}</span>
+                    </div>
+                </a>
+            </li>`;
+
+        return html
+    }
+
+    $("#search-member").keyup(function () {
+        var query = $(this).val();
+        searchUser(query);
+    });
 });

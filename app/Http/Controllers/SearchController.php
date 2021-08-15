@@ -6,6 +6,7 @@ use App\Models\Job;
 use App\Models\Field;
 use Illuminate\Http\Request;
 use App\Models\EmployerProfile;
+use Illuminate\Support\Facades\DB;
 
 class SearchController extends Controller
 {
@@ -72,5 +73,23 @@ class SearchController extends Controller
             })->paginate(config('user.num_pages'))->withQueryString();
 
         return $jobs;
+    }
+
+    public function searchUsers(Request $request)
+    {
+        $users = null;
+        $query = $request->get('query');
+
+        if ($query != '') {
+            $employees = DB::table('employee_profiles')
+                ->where('name', 'like', '%' . $query . '%')
+                ->get();
+            $employers = DB::table('employer_profiles')
+                ->where('name', 'like', '%' . $query . '%')
+                ->get();
+            $users = $employers->merge($employees);
+        }
+
+        return $users;
     }
 }

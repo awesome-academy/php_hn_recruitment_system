@@ -48,6 +48,8 @@
     <script src="{{ asset('bower_components/job_light/admin/assets/js/dashboard/analytical.js') }}"></script>
     <script src="{{ asset('js/upload.js') }}"></script>
     <script src="{{ asset('js/main.js') }}"></script>
+    <script src="{{ asset('js/home.js') }}"></script>
+
     <script src="{{ asset('bower_components/job_light/admin/assets/vendor/moment/min/moment.min.js') }}"></script>
     <script
         src="{{ asset('bower_components/job_light/admin/assets/vendor/selectize/dist/js/standalone/selectize.min.js') }}">
@@ -58,6 +60,9 @@
         src="{{ asset('bower_components/job_light/admin/assets/vendor/bootstrap-datepicker/dist/js/bootstrap-datepicker.js') }}">
     </script>
     <script src="{{ asset('bower_components/job_light/admin/assets/js/forms/form-elements.js') }}"></script>
+    <script src="{{ asset('bower_components/job_light/admin/assets/vendor/datatables/media/js/jquery.dataTables.js') }}"></script>
+    <script src="{{ asset('bower_components/job_light/admin/assets/vendor/datatables/media/js/dataTables.bootstrap4.min.js') }}"></script>
+    <script src="{{ asset('bower_components/job_light/admin/assets/js/tables/data-table.js') }}"></script>
     @yield('addtional_scripts')
 </body>
 
