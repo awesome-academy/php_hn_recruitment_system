@@ -183,4 +183,7 @@ return [
     'dashboard' => 'Trang Chủ',
     'comment' => 'Bình luận',
     'edit-comment' => 'Sửa bình luận',
+    'current-password' => 'Mật khẩu hiện tại',
+    'update' => 'Cập nhật',
+    'update-email-password' => 'Cập nhật địa chỉ email và mật khẩu',
 ];

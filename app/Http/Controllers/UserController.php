@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ChangeAccountInfoRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -44,9 +47,10 @@ class UserController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function show(User $user)
+    public function show()
     {
-        //
+        $user = Auth::user();
+        return view('user.account_info', ['user' => $user]);
     }
 
     /**
@@ -67,9 +71,25 @@ class UserController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(ChangeAccountInfoRequest $request)
     {
-        //
+        $user = Auth::user();
+        $currentPassword = $request->current_password;
+
+        $user->email = $request->email ?? $user->email;
+        if ($request->new_password !== null) {
+            $user->password = Hash::make($request->new_password);
+            $currentPassword = $request->new_password;
+        }
+        $user->save();
+
+        if ($user->wasChanged()) {
+            Auth::logoutOtherDevices($currentPassword);
+        }
+
+        return redirect()
+            ->route('account_info.show', ['user' => $user])
+            ->with('success', __('messages.update-success'));
     }
 
     /**
