@@ -25,3 +25,4 @@ mix.js('resources/js/upload.js', 'public/js');
 mix.js('resources/js/candidates.js', 'public/js');
 mix.js('resources/js/admin.js', 'public/js');
 mix.js('resources/js/home.js', 'public/js');
+mix.js('resources/js/comment.js', 'public/js');

@@ -45,6 +45,11 @@ class Job extends Model
             ->withPivot('job_id', 'status', 'created_at', 'updated_at', 'cover_letter', 'cv');
     }
 
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+
     public function getCloseAtAttribute($value)
     {
         $date = new Carbon($value);

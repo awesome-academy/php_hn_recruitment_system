@@ -181,4 +181,6 @@ return [
     'pending-companies' => 'Công Ty Chờ Duyệt',
     'user-account' => 'Tài Khoản Người Dùng',
     'dashboard' => 'Trang Chủ',
+    'comment' => 'Bình luận',
+    'edit-comment' => 'Sửa bình luận',
 ];

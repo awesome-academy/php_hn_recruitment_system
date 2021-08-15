@@ -180,4 +180,6 @@ return [
     'pending-companies' => 'Pending Companies',
     'user-account' => 'User Accounts',
     'dashboard' => 'Dashboard',
+    'comment' => 'Comment',
+    'edit-comment' => 'Edit comment',
 ];
