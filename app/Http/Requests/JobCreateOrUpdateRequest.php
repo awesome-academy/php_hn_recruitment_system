@@ -40,7 +40,6 @@ class JobCreateOrUpdateRequest extends FormRequest
             'salary' => ['required', 'numeric'],
             'requirement' => ['required', 'string'],
             'benefit' => ['required', 'string'],
-            'close_at' => ['required', 'date'],
             'field_id' => ['required', 'numeric', new JobFieldIdAvailable()],
         ];
     }

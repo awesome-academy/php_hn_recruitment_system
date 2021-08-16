@@ -69,21 +69,21 @@ class Job extends Model
 
     public function setDescriptionAttribute($value)
     {
-        $this->attributes['title'] = Str::ucfirst($value);
+        $this->attributes['description'] = Str::ucfirst($value);
     }
 
     public function setLocationAttribute($value)
     {
-        $this->attributes['title'] = Str::title($value);
+        $this->attributes['location'] = Str::title($value);
     }
 
     public function setRequirementAttribute($value)
     {
-        $this->attributes['title'] = Str::ucfirst($value);
+        $this->attributes['requirement'] = Str::ucfirst($value);
     }
 
     public function setBenefitAttribute($value)
     {
-        $this->attributes['title'] = Str::ucfirst($value);
+        $this->attributes['benefit'] = Str::ucfirst($value);
     }
 }

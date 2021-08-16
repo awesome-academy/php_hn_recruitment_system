@@ -62,6 +62,11 @@ $role = Auth::user()->role;
 
         <ul class="nav-right">
             <li class="notifications dropdown dropdown-animated scale-left">
+                <a href="{{ route('jobs.index') }}">
+                    <i class="mdi mdi-briefcase"></i>
+                </a>
+            </li>
+            <li class="notifications dropdown dropdown-animated scale-left">
                 <span class="counter">2</span>
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                     <i class="mdi mdi-bell-ring-outline"></i>
@@ -71,10 +76,10 @@ $role = Auth::user()->role;
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                     @if ($role == config('user.employee'))
                         <img class="profile-img img-fluid"
-                            src="{{ $employeeProfile->avatar ? asset('images/' . $employeeProfile->avatar) : asset('bower_components/job_light/images/avatar.png') }}">
+                            src="{{ $employeeProfile->avatar ? asset('images/' . $employeeProfile->avatar) : asset(config('user.default_avt')) }}">
                     @else
                         <img class="profile-img img-fluid"
-                            src="{{ asset('bower_components/job_light/admin/assets/images/avatars/thumb-13.jpg') }}">
+                            src="{{ asset(config('user.default_avt')) }}">
                     @endif
                 </a>
                 <ul class="dropdown-menu dropdown-md p-v-0">
@@ -85,7 +90,7 @@ $role = Auth::user()->role;
                                     <a href="">
                                         <div class="media-img">
                                             <img
-                                                src="{{ $employeeProfile->avatar ? asset('images/' . $employeeProfile->avatar) : asset('bower_components/job_light/images/avatar.png') }}">
+                                                src="{{ $employeeProfile->avatar ? asset('images/' . $employeeProfile->avatar) : asset(config('user.default_avt')) }}">
                                         </div>
                                         <div class="info">
                                             <span class="title text-semibold">{{ $employeeProfile->name }}</span>
@@ -95,7 +100,7 @@ $role = Auth::user()->role;
                                 @else
                                     <div class="media-img">
                                         <img
-                                            src="{{ asset('bower_components/job_light/admin/assets/images/avatars/thumb-13.jpg') }}">
+                                            src="{{ asset(config('user.default_avt')) }}">
                                     </div>
                                     <div class="info">
                                         <span class="h3">ADMIN</span>

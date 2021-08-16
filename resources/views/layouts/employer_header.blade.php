@@ -1,4 +1,7 @@
 <!-- Header START -->
+@php
+    $employerProfile = Auth::user()->employerProfile;
+@endphp
 <div class="header navbar">
     <div class="header-container">
         <div class="nav-logo">
@@ -34,20 +37,19 @@
             <li class="user-profile dropdown dropdown-animated scale-left">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                     <img class="profile-img img-fluid"
-                        src="{{ asset('bower_components/job_light/admin/assets/images/avatars/thumb-13.jpg') }}">
+                        src="{{ $employerProfile->logo ? Storage::url("{$employerProfile['logo']}") : asset(config('user.default_avt')) }}">
                 </a>
                 <ul class="dropdown-menu dropdown-md p-v-0">
                     <li>
                         <ul class="list-media">
                             <li class="list-item p-15">
-                                <a href="{{ route('employer.profiles.show', ['profile' => Auth::user()->employerProfile]) }}">
+                                <a href="{{ route('employer.profiles.show', ['profile' => $employerProfile]) }}">
                                     <div class="media-img">
                                         <img
-                                            src="{{ asset('bower_components/job_light/admin/assets/images/avatars/thumb-13.jpg') }}">
+                                            src="{{ $employerProfile->logo ? Storage::url("{$employerProfile['logo']}") : asset(config('user.default_avt')) }}">
                                     </div>
                                     <div class="info">
-                                        <span
-                                            class="title text-semibold">{{ Auth::user()->employerProfile->name }}</span>
+                                        <span class="title text-semibold">{{ $employerProfile->name }}</span>
                                         <span class="sub-title">{{ __('messages.profile') }}</span>
                                     </div>
                                 </a>
@@ -74,14 +76,14 @@
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('employer.profiles.edit', ['profile' => Auth::user()->employerProfile]) }}">
+                        <a href="{{ route('employer.profiles.edit', ['profile' => $employerProfile]) }}">
                             <i class="ti-pencil p-r-10"></i>
                             <span>{{ __('messages.edit-profile') }}</span>
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('employer.jobs', ['profile' => Auth::user()->employerProfile]) }}">
-                            <i class="mdi mdi-briefcase"></i>
+                        <a href="{{ route('employer.jobs', ['profile' => $employerProfile]) }}">
+                            <i class="ti-briefcase p-r-10"></i>
                             <span>{{ __('messages.my-jobs') }}</span>
                         </a>
                     </li>

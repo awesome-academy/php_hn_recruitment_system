@@ -12,23 +12,18 @@
                         </div>
                     </div>
                 </div>
-				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <!-- TODO: write css for cover photo and logo -->
-					<div class="image_info">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="image_info">
                         <div class="cover_photo">
                             <img
-                                src="{{ Storage::url("{$profile['cover_photo']}") }}"
-                                alt="cover"
-                            >
+                                src="{{ $profile->cover_photo ? Storage::url("{$profile['cover_photo']}") : asset(config('user.default_bg')) }}">
                         </div>
-						<div class="logo">
-							<img
-                                src="{{ Storage::url("{$profile['logo']}") }}"
-                                alt="job_img"
-                            >
-						</div>
-					</div>
-				</div>
+                        <div class="logo">
+                            <img
+                                src="{{ $profile->logo ? Storage::url("{$profile['logo']}") : asset(config('user.default_avt')) }}">
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -39,7 +34,7 @@
                     <div class="jp_listing_left_sidebar_wrapper">
                         <div class="jp_job_des">
                             <h2>{{ __('messages.description') }}</h2>
-                            <div class="description">{{ $profile['description'] }}</div>
+                            <div class="description">{!! $profile['description'] !!}</div>
                             <dl class="employer_info">
                                 <dt class="col-lg-4 col-md-4 col sm-6 col-xs-6">
                                     {{ __('messages.website') }}

@@ -24,15 +24,15 @@
                     <div class="jp_listing_left_sidebar_wrapper">
                         <div class="jp_job_des">
                             <h2>{{ __('messages.description') }}</h2>
-                            <p>{{ $job->description }}</p>
+                            <p>{!! $job->description !!}</p>
                         </div>
                         <div class="jp_job_res">
                             <h2>{{ __('messages.requirement') }}</h2>
-                            <p>{{ $job->requirement }}</p>
+                            <p>{!! $job->requirement !!}</p>
                         </div>
                         <div class="jp_job_res jp_job_qua">
                             <h2>{{ __('messages.benefit') }}</h2>
-                            <p>{{ $job->benefit }}</p>
+                            <p>{!! $job->benefit !!}</p>
                         </div>
                         <div class="jp_job_apply">
                             <h2>{{ __('messages.contact-email') }}</h2>
@@ -53,13 +53,15 @@
                                 </div>
                                 <div class="jp_jop_overview_img_wrapper">
                                     <div class="jp_jop_overview_img">
-                                        <img src="{{ asset('images/' . $job->employerProfile->logo) }}">
+                                        <img
+                                            src="{{ $job->employerProfile->logo ? Storage::url("{$job->employerProfile['logo']}") : asset(config('user.default_avt')) }}">
                                     </div>
                                 </div>
                                 <div class="jp_job_listing_single_post_right_cont">
                                     <div class="jp_job_listing_single_post_right_cont_wrapper">
                                         <h4>{{ $job->title }}</h4>
-                                        <a href="">
+                                        <a
+                                            href="{{ route('employer.profiles.show', ['profile' => $job->employerProfile]) }}">
                                             <p>{{ $job->employerProfile->name }}</p>
                                         </a>
                                     </div>
@@ -157,7 +159,8 @@
                                                     <li>
                                                         <a
                                                             href="{{ route('apply_jobs.create', ['jobId' => $job->id]) }}">
-                                                            <i class="fa fa-plus-circle"></i>&nbsp;{{ __('messages.apply') }}
+                                                            <i
+                                                                class="fa fa-plus-circle"></i>&nbsp;{{ __('messages.apply') }}
                                                         </a>
                                                     </li>
                                                 @endif

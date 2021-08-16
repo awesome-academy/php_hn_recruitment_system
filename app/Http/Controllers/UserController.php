@@ -90,6 +90,10 @@ class UserController extends Controller
         $user->is_activated = !$user->is_activated;
         $user->save();
 
-        return __('messages.update-success');
+        if ($request->ajax()) {
+            return __('messages.update-success');
+        } else {
+            return back()->with('success', __('messages.update-success'));
+        }
     }
 }

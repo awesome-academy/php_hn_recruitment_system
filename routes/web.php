@@ -178,18 +178,3 @@ Route::get('search-job', [SearchController::class, 'searchJobGeneral'])->name(
 Route::get('filter-job', [SearchController::class, 'filterJobs'])->name(
     'filter_job'
 );
-
-Route::prefix('admin')
-    ->name('admin.')
-    ->middleware('auth', 'can:is-admin')
-    ->group(function () {
-        Route::resource('employee-profiles', EmployeeProfileController::class);
-        Route::resource('employer-profiles', EmployerProfileController::class);
-        Route::post('users/change-status', [
-            UserController::class,
-            'changeStatus',
-        ])->name('change_user_status');
-
-        Route::get('manage-jobs', [JobController::class, 'showManagementForAdmin'])
-            ->name('manage-jobs');
-    });
