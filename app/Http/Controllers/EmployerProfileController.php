@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\EmployerProfile;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\Facades\DataTables;
 use App\Http\Requests\EmployerUpdateRequest;
 
@@ -149,7 +150,7 @@ class EmployerProfileController extends Controller
 
     private function addLogoColumn($data)
     {
-        $image = asset('images/' . $data->logo);
+        $image = $data->logo ? Storage::url($data->logo) : asset(config('user.default_avt'));
 
         return '<img height="80" width="80" src="' . $image . '">';
     }

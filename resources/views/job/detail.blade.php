@@ -53,7 +53,7 @@
                                 </div>
                                 <div class="jp_jop_overview_img_wrapper">
                                     <div class="jp_jop_overview_img">
-                                        <img
+                                        <img height = "200" width="200"
                                             src="{{ $job->employerProfile->logo ? Storage::url("{$job->employerProfile['logo']}") : asset(config('user.default_avt')) }}">
                                     </div>
                                 </div>
@@ -82,7 +82,7 @@
                                         <div class="jp_listing_list_icon_cont_wrapper">
                                             <ul>
                                                 <li>{{ __('messages.date-posted') }}:</li>
-                                                <li>{{ $job->created_at->format('d/m/Y') }}</li>
+                                                <li>{{ $job->created_at }}</li>
                                             </ul>
                                         </div>
                                     </div>

@@ -33,10 +33,8 @@ class LoginController extends Controller
 
         if ($isActivated == config('user.status.active')) {
             if ($role == config('user.admin')) {
-                //return admin dashboard
-            } elseif ($role == config('user.employee')) {
-                return route('jobs.index');
-            } elseif ($role == config('user.employer')) {
+                return route('admin.dashboard');
+            } else {
                 return route('home');
             }
         } else {

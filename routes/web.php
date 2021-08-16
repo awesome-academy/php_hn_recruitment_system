@@ -177,9 +177,13 @@ Route::get('autocomplete-job', [
     SearchController::class,
     'autocompleteJob',
 ])->name('autocomplete_job');
-Route::get('search-job', [SearchController::class, 'searchJobGeneral'])->name(
-    'search_job'
-);
-Route::get('filter-job', [SearchController::class, 'filterJobs'])->name(
-    'filter_job'
-);
+
+Route::get('search-job', [
+    SearchController::class,
+    'searchJobGeneral'
+])->name('search_job');
+
+Route::get('search-user', [
+    SearchController::class,
+    'searchUsers'
+])->name('search_user');

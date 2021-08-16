@@ -1,6 +1,6 @@
 <!-- Header START -->
 @php
-    $employerProfile = Auth::user()->employerProfile;
+$employerProfile = Auth::user()->employerProfile;
 @endphp
 <div class="header navbar">
     <div class="header-container">
@@ -19,6 +19,33 @@
                 <a class="sidenav-expand-toggler" href="javascript:void(0);">
                     <i class="mdi mdi-menu"></i>
                 </a>
+            </li>
+            <li class="search-box">
+                <a class="search-toggle" href="javascript:void(0);">
+                    <i class="search-icon mdi mdi-magnify"></i>
+                    <i class="search-icon-close mdi mdi-close-circle-outline"></i>
+                </a>
+            </li>
+            <li class="search-input">
+                <input class="form-control" id="search-member" type="text" placeholder="Type to search...">
+                <input class="form-control" id="search-member-url" value="{{ route('search_user') }}" type="hidden">
+                <div class="search-predict">
+                    <div class="search-wrapper scrollable">
+                        <div class="m-h-20 border top"></div>
+                        <div class="p-v-10">
+                            <span class="display-block m-v-5 p-h-20 text-gray">
+                                <i class="ti-user p-r-5"></i>
+                                <span>{{ __('messages.member') }}</span>
+                            </span>
+                            <ul class="list-media" id="list-user">
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="search-footer">
+                        <span>{{ __('messages.searching-for') }} '<b class="text-dark"><span
+                                    class="serach-text-bind"></span></b>'</span>
+                    </div>
+                </div>
             </li>
         </ul>
 

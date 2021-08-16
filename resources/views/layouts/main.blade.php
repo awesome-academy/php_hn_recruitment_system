@@ -53,12 +53,6 @@
 </head>
 
 <body>
-    <!-- preloader -->
-    <div id="preloader">
-        <div id="status"><img src="{{ asset('bower_components/job_light/images/header/loadinganimation.gif') }}"
-                id="preloader_image" alt="loader">
-        </div>
-    </div>
     @if (Auth::check())
         @if (Auth::user()->isEmployee())
             @include('layouts.employee_header')
@@ -84,6 +78,7 @@
     <script src="{{ asset('bower_components/job_light/js/bootstrap3-typeahead.min.js') }}"></script>
     <script src="{{ asset('js/upload.js') }}"></script>
     <script src="{{ asset('js/main.js') }}"></script>
+    <script src="{{ asset('js/home.js') }}"></script>
 
     <script src="{{ asset('bower_components/job_light/admin/assets/js/vendor.js') }}"></script>
     <script src="{{ asset('bower_components/job_light/admin/assets/js/app.min.js') }}"></script>
