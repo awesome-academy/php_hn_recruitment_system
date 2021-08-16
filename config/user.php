@@ -39,4 +39,7 @@ return [
         'rejected' => 2,
     ],
     'num_top_recent_jobs' => 5,
+    'num_top_companies' => 10,
+    'default_avt' => 'bower_components/job_light/images/avatar.png',
+    'default_bg' => 'bower_components/job_light/images/cover.png',
 ];
