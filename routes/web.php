@@ -1,18 +1,16 @@
 <?php
 
-use App\Models\EmployerProfile;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\JobController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\SearchController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ApplyJobController;
 use App\Http\Controllers\EducationController;
 use App\Http\Controllers\ExperienceController;
 use App\Http\Controllers\Auth\RegisterController;
-use App\Http\Controllers\CommentController;
 use App\Http\Controllers\EmployeeProfileController;
 use App\Http\Controllers\EmployerProfileController;
 
@@ -27,17 +25,26 @@ use App\Http\Controllers\EmployerProfileController;
 |
 */
 
+/* Routes do not need authenticating */
+
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::get('/inactive', [HomeController::class, 'showInactive'])->name('inactive');
 
+Route::get('/change-language/{locale}', [
+    HomeController::class,
+    'changeLanguage',
+])->name('change-language');
+
 Auth::routes([
     'register' => false,
 ]);
+
 Route::get('/register', [
     RegisterController::class,
     'showRegistrationForm',
 ])->name('register');
+
 Route::name('register.')->group(function () {
     Route::post('/register-employee', [
         RegisterController::class,
@@ -49,21 +56,49 @@ Route::name('register.')->group(function () {
     ])->name('employer');
 });
 
+Route::get('autocomplete-job', [
+    SearchController::class,
+    'autocompleteJob',
+])->name('autocomplete_job');
+
+Route::get('search-job', [SearchController::class, 'searchJobGeneral'])->name(
+    'search_job'
+);
+
+Route::get('search-user', [
+    SearchController::class,
+    'searchUsers'
+])->name('search_user');
+
+/* Routes need authenticating */
+
 Route::middleware('auth')->group(function () {
-    Route::get('/change-language/{locale}', [
-        HomeController::class,
-        'changeLanguage',
-    ])->name('change-language');
+
+    /* Employee */
 
     Route::middleware('can:is-employee')->group(function () {
+        Route::resource('education', EducationController::class)->except([
+            'create',
+            'show',
+            'edit',
+        ]);
+
+        Route::resource('experiences', ExperienceController::class)->except([
+            'create',
+            'show',
+            'edit',
+        ]);
+
         Route::get('cv-template', [
             EmployeeProfileController::class,
             'showCVTemplateList',
         ])->name('template.cv');
+
         Route::get('cv/{template}', [
             EmployeeProfileController::class,
             'makeCV',
         ])->name('edit.cv');
+
         Route::post('change-image/{image}/{id}', [
             EmployeeProfileController::class,
             'changeImage',
@@ -98,6 +133,28 @@ Route::middleware('auth')->group(function () {
                 ])->name('destroy');
             });
     });
+
+    /* Admin */
+
+    Route::prefix('admin')
+        ->name('admin.')
+        ->middleware('auth', 'can:is-admin')
+        ->group(function () {
+            Route::resource('employee-profiles', EmployeeProfileController::class);
+            Route::resource('employer-profiles', EmployerProfileController::class);
+            Route::get('dashboard', [
+                HomeController::class,
+                'showAdminDashboard'
+            ])->name('dashboard');
+
+            Route::post('users/change-status', [
+                UserController::class,
+                'changeStatus',
+            ])->name('change_user_status');
+
+            Route::get('manage-jobs', [JobController::class, 'showManagementForAdmin'])
+                ->name('manage-jobs');
+        });
 
     Route::prefix('/jobs')
         ->name('jobs.')
@@ -135,17 +192,6 @@ Route::middleware('auth')->group(function () {
 
 Route::resource('employee-profiles', EmployeeProfileController::class);
 
-Route::resource('education', EducationController::class)->except([
-    'create',
-    'show',
-    'edit',
-]);
-Route::resource('experiences', ExperienceController::class)->except([
-    'create',
-    'show',
-    'edit',
-]);
-
 Route::prefix('employer')
     ->name('employer.')
     ->group(function () {
@@ -159,6 +205,11 @@ Route::prefix('employer')
             EmployerProfileController::class,
             'showEmployerJobs',
         ])->name('jobs');
+
+        Route::post('change-application-status/{employeeProfile}', [
+            ApplyJobController::class,
+            'changeStatus',
+        ])->name('change_application_status');
     });
 
 Route::resource('jobs', JobController::class);
@@ -171,19 +222,6 @@ Route::prefix('/jobs')
                 'index'
             ])->name('index');
         });
+        Route::post('change-status', [JobController::class, 'changeStatus'])
+            ->name('change_status');
     });
-
-Route::get('autocomplete-job', [
-    SearchController::class,
-    'autocompleteJob',
-])->name('autocomplete_job');
-
-Route::get('search-job', [
-    SearchController::class,
-    'searchJobGeneral'
-])->name('search_job');
-
-Route::get('search-user', [
-    SearchController::class,
-    'searchUsers'
-])->name('search_user');

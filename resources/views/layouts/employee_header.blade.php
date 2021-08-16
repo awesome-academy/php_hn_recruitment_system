@@ -1,7 +1,7 @@
 <!-- Header START -->
 @php
-$employeeProfile = Auth::user()->employeeProfile;
-$role = Auth::user()->role;
+    $employeeProfile = Auth::user()->employeeProfile;
+    $role = Auth::user()->role;
 @endphp
 <div class="header navbar">
     <div class="header-container">
@@ -76,7 +76,8 @@ $role = Auth::user()->role;
                         <ul class="list-media">
                             <li class="list-item p-15">
                                 @if ($role == config('user.employee'))
-                                    <a href="">
+                                    <a
+                                        href="{{ route('employee-profiles.show', ['employee_profile' => $employeeProfile]) }}">
                                         <div class="media-img">
                                             <img
                                                 src="{{ $employeeProfile->avatar ? asset('images/' . $employeeProfile->avatar) : asset(config('user.default_avt')) }}">
@@ -128,6 +129,11 @@ $role = Auth::user()->role;
                             <a href="{{ route('template.cv') }}">
                                 <i class="ti-email p-r-10"></i>
                                 <span>{{ __('messages.cv') }}</span> </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('applied_jobs') }}">
+                                <i class="ti-briefcase p-r-10"></i>
+                                <span>{{ __('messages.applied-jobs') }}</span> </a>
                         </li>
                     @endif
                     <li>

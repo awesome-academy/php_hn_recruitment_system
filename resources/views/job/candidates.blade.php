@@ -1,51 +1,148 @@
 @extends('layouts.master')
 
 @section('main-content')
-    <main class="candidates-container">
-        <h3 class="job-title">{{ $job->title }}</h3>
-        <ul class="candidates-list">
-            @foreach ($candidates as $candidate)
-                <li class="candidate-item">
-                    <div class="avatar">
-                        <img
-                            src="{{ asset("images/{$candidate->avatar}") }}"
-                            onerror="this.src = '{{ asset('bower_components/job_light/images/avatar.png') }}'"
-                        >
-                    </div>
-                    <div class="candidate-info">
-                        <div class="name">
-                            {{ $candidate->name }}
+    <div class="page-container">
+        <div class="main-content">
+            <div class="container-fluid">
+                <div class="page-header">
+                    <h2 class="header-title">{{ __('messages.candidate') }} - {{ $job->title }}</h2>
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                        <div class="table-overflow">
+                            @if (Session::get('success'))
+                                <div class="alert alert-success">
+                                    {{ Session::get('success') }}
+                                </div>
+                            @endif
+                            <table id="dt-opt" class="table table-hover table-xl">
+                                <thead>
+                                    <tr>
+                                        <th>{{ __('messages.name') }}&nbsp;
+                                            <i class="fa fa-sort-alpha-asc text-info" aria-hidden="true"></i>
+                                        </th>
+                                        <th>{{ __('messages.applied-date') }}&nbsp;
+                                            <i class="fa fa-sort text-info" aria-hidden="true"></i>
+                                        </th>
+                                        <th>{{ __('messages.status') }}</th>
+                                        <th>{{ __('messages.view-cv') }}</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($candidates as $candidate)
+                                        <tr>
+                                            <td>
+                                                <div class="list-media">
+                                                    <a
+                                                        href="{{ route('employee-profiles.show', ['employee_profile' => $candidate]) }}">
+                                                        <div class="list-item">
+                                                            <div class="media-img">
+                                                                <img
+                                                                    src="{{ $candidate->avatar ? asset("images/{$candidate->avatar}") : asset(config('user.default_avt')) }}">
+                                                            </div>
+                                                            <div class="info">
+                                                                <span class="title">{{ $candidate->name }}</span>
+                                                                <span
+                                                                    class="sub-title">{{ $candidate->phone_number }}</span>
+                                                            </div>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                            </td>
+                                            @php
+                                                $status = $candidate->application->status;
+                                            @endphp
+                                            <td>{{ $candidate->application->created_at->format('d/m/Y') }}</td>
+                                            <td>
+                                                @if ($status == config('user.application_form_status.pending'))
+                                                    <span class="badge badge-pill badge-secondary">
+                                                        {{ __('messages.pending') }}
+                                                    </span>
+                                                @elseif ($status == config('user.application_form_status.accepted'))
+                                                    <span class="badge badge-pill badge-gradient-success">
+                                                        {{ __('messages.approved') }}
+                                                    </span>
+                                                @else
+                                                    <span class="badge badge-pill badge-danger">
+                                                        {{ __('messages.rejected') }}
+                                                    </span>
+                                                @endif
+                                            </td>
+                                            <td>
+                                                <button class="btn btn-info" data-toggle="modal"
+                                                    data-target="#modal-lg-{{ $candidate->id }}">
+                                                    <i class="fa fa-eye text-light" aria-hidden="true"></i>
+                                                </button>
+                                                <div class="modal fade" id="modal-lg-{{ $candidate->id }}">
+                                                    <div class="modal-dialog modal-lg" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-body">
+                                                                <embed
+                                                                    src="{{ asset("images/{$candidate->application->cv}") }}"
+                                                                    width="100%" height="600" type="application/pdf">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="text-center font-size-18">
+                                                @if ($status == config('user.application_form_status.pending'))
+                                                    <form
+                                                        action="{{ route('employer.change_application_status', ['employeeProfile' => $candidate]) }}"
+                                                        method="post">
+                                                        @csrf
+                                                        <input type="hidden" name="jobId" value="{{ $job->id }}">
+                                                        <input type="hidden" name="status"
+                                                            value="{{ config('user.application_form_status.accepted') }}">
+                                                        <button type="submit"
+                                                            class="btn btn-info btn-outline">{{ __('messages.approve') }}</button>
+                                                    </form>
+                                                    <form
+                                                        action="{{ route('employer.change_application_status', ['employeeProfile' => $candidate]) }}"
+                                                        method="post">
+                                                        @csrf
+                                                        <input type="hidden" name="jobId" value="{{ $job->id }}">
+                                                        <input type="hidden" name="status"
+                                                            value="{{ config('user.application_form_status.rejected') }}">
+                                                        <button type="submit"
+                                                            class="btn btn-danger btn-outline">{{ __('messages.reject') }}</button>
+                                                    </form>
+                                                @elseif ($status == config('user.application_form_status.accepted'))
+                                                    <form
+                                                        action="{{ route('employer.change_application_status', ['employeeProfile' => $candidate]) }}"
+                                                        method="post">
+                                                        @csrf
+                                                        <input type="hidden" name="jobId" value="{{ $job->id }}">
+                                                        <input type="hidden" name="status"
+                                                            value="{{ config('user.application_form_status.rejected') }}">
+                                                        <button type="submit"
+                                                            class="btn btn-danger btn-outline">{{ __('messages.reject') }}</button>
+                                                    </form>
+                                                @else
+                                                    <form
+                                                        action="{{ route('employer.change_application_status', ['employeeProfile' => $candidate]) }}"
+                                                        method="post">
+                                                        @csrf
+                                                        <input type="hidden" name="jobId" value="{{ $job->id }}">
+                                                        <input type="hidden" name="status"
+                                                            value="{{ config('user.application_form_status.accepted') }}">
+                                                        <button type="submit"
+                                                            class="btn btn-info btn-outline">{{ __('messages.approve') }}</button>
+                                                    </form>
+                                                @endif
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
                         </div>
-                        <div class="address">
-                            <i class="mdi mdi-map-marker"></i>
-                            {{ $candidate->address }}
-                        </div>
                     </div>
-                    <div class="actions">
-                        <a href="{{ route('employee-profiles.show', ['employee_profile' => $candidate]) }}">
-                            <button class="btn btn-success view-cv">
-                                {{ __('messages.view-profile') }}
-                            </button>
-                        </a>
-                        <button
-                            id="view-cv"
-                            class="btn btn-info"
-                            value="{{ asset("images/{$candidate->application->cv}") }}"
-                        >
-                            {{ __('messages.view-cv') }}
-                        </button>
-                    </div>
-                </li>
-            @endforeach
-        </ul>
-
-        <div class="cv-container hidden">
-            <div class="cv-overlay"></div>
-            <embed class="cv-viewer" type="application/pdf" >
+                </div>
+            </div>
         </div>
-    </main>
-@endsection
+    @endsection
 
-@section('addtional_scripts')
-    <script src="{{ asset('js/candidates.js') }}"></script>
-@endsection
+    @section('addtional_scripts')
+        <script src="{{ asset('js/candidates.js') }}"></script>
+    @endsection

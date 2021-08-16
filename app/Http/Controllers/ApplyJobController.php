@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Job;
 use Illuminate\Http\Request;
+use App\Models\EmployeeProfile;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use App\Http\Requests\StoreApplicationFormRequest;
 
 class ApplyJobController extends Controller
@@ -66,6 +68,20 @@ class ApplyJobController extends Controller
     {
         $employeeProfile = Auth::user()->employeeProfile;
         $employeeProfile->jobs()->detach($jobId);
+
+        return back()->with('success', __('messages.update-success'));
+    }
+
+    public function changeStatus(Request $request, EmployeeProfile $employeeProfile)
+    {
+        $jobId = $request->jobId;
+        $job = Job::findOrFail($jobId);
+        Gate::authorize('check-job-owner', $job);
+
+        $status = $request->status;
+        $employeeProfile->jobs()->updateExistingPivot($jobId, [
+            'status' => $status,
+        ]);
 
         return back()->with('success', __('messages.update-success'));
     }

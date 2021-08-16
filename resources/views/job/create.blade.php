@@ -21,22 +21,14 @@
     <!-- jp ad post Wrapper Start -->
     <div class="jp_adp_main_section_wrapper">
         <div class="container">
-            <form
-                action="{{ route('jobs.store') }}"
-                method="post"
-            >
+            <form action="{{ route('jobs.store') }}" method="post">
                 @csrf
 
                 <div class="row">
                     <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                         <div class="jp_adp_form_wrapper">
                             <label for="title">{{ __('messages.title') }}*</label>
-                            <input
-                                id="title"
-                                type="text"
-                                name="title"
-                                value="{{ old('title') }}"
-                            >
+                            <input id="title" type="text" name="title" value="{{ old('title') }}">
                             @error('title')
                                 <p class="text-danger">{{ $message }}</p>
                             @enderror
@@ -44,25 +36,15 @@
 
                         <div class="jp_adp_form_wrapper">
                             <label for="location">{{ __('messages.location') }}*</label>
-                            <input
-                                id="location"
-                                type="text"
-                                name="location"
-                                value="{{ old('location') }}"
-                            >
+                            <input id="location" type="text" name="location" value="{{ old('location') }}">
                             @error('location')
                                 <p class="text-danger">{{ $message }}</p>
                             @enderror
                         </div>
 
                         <div class="jp_adp_form_wrapper">
-                            <label for="salary">{{ __('messages.salary') }}*</label>
-                            <input
-                                id="salary"
-                                type="text"
-                                name="salary"
-                                value="{{ old('salary') }}"
-                            >
+                            <label for="salary">{{ __('messages.salary') }} ($)*</label>
+                            <input id="salary" type="text" name="salary" value="{{ old('salary') }}">
                             @error('salary')
                                 <p class="text-danger">{{ $message }}</p>
                             @enderror
@@ -70,12 +52,8 @@
 
                         <div class="jp_adp_form_wrapper">
                             <label for="contact_email">{{ __('messages.contact-email') }}*</label>
-                            <input
-                                id="contact_email"
-                                type="text"
-                                name="contact_email"
-                                value="{{ old('contact_email') }}"
-                            >
+                            <input id="contact_email" type="text" name="contact_email"
+                                value="{{ old('contact_email') }}">
                             @error('contact_email')
                                 <p class="text-danger">{{ $message }}</p>
                             @enderror
@@ -88,7 +66,7 @@
                             <select id="field" name="field_id">
                                 @foreach ($fields as $field)
                                     <option value="{{ $field->id }}">
-                                    {{ $field->name }}
+                                        {{ $field->name }}
                                     </option>
                                 @endforeach
                             </select>
@@ -102,7 +80,7 @@
                             <select id="type" name="job_type">
                                 @foreach ($jobTypes as $key => $jobType)
                                     <option value="{{ $key }}">
-                                    {{ $jobType }}
+                                        {{ Str::ucfirst($jobType) }}
                                     </option>
                                 @endforeach
                             </select>
@@ -113,12 +91,7 @@
 
                         <div class="jp_adp_form_wrapper">
                             <label for="quantity">{{ __('messages.quantity') }}*</label>
-                            <input
-                                id="quantity"
-                                type="text"
-                                name="quantity"
-                                value="{{ old('quantity') }}"
-                            >
+                            <input id="quantity" type="text" name="quantity" value="{{ old('quantity') }}">
                             @error('quantity')
                                 <p class="text-danger">{{ $message }}</p>
                             @enderror
@@ -126,12 +99,9 @@
                     </div>
 
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                        <label>{{ __('messages.description') }}*</label>
-                        <textarea
-                            id="description"
-                            class="summernote"
-                            name="description"
-                        >{{ old('description') }}</textarea>
+                        <label class="mt-4">{{ __('messages.description') }}*</label>
+                        <textarea id="description" class="summernote"
+                            name="description">{{ old('description') }}</textarea>
                         @error('description')
                             <p class="text-danger">{{ $message }}</p>
                         @enderror
@@ -139,11 +109,8 @@
 
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                         <label>{{ __('messages.requirement') }}*</label>
-                        <textarea
-                            id="requirement"
-                            name="requirement"
-                            class="summernote"
-                        >{{ old('requirement') }}</textarea>
+                        <textarea id="requirement" name="requirement"
+                            class="summernote">{{ old('requirement') }}</textarea>
                         @error('requirement')
                             <p class="text-danger">{{ $message }}</p>
                         @enderror
@@ -151,11 +118,7 @@
 
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                         <label>{{ __('messages.benefit') }}*</label>
-                        <textarea
-                            id="benefit"
-                            name="benefit"
-                            class="summernote"
-                        >{{ old('benefit') }}</textarea>
+                        <textarea id="benefit" name="benefit" class="summernote">{{ old('benefit') }}</textarea>
                         @error('benefit')
                             <p class="text-danger">{{ $message }}</p>
                         @enderror
