@@ -561,3 +561,38 @@ main {
     opacity: 1;
     visibility: visible;
 }
+
+.jp_blog_single_comment_box_wrapper .row {
+    padding: 20px 0;
+    border-bottom: solid 1px hsl(0, 0%, 80%);
+}
+
+.jp_blog_sin_com_img_wrapper {
+    width: 55px;
+}
+
+.jp_blog_sin_com_img_wrapper img {
+    width: 100%;
+}
+
+.jp_blog_sin_com_cont_wrapper {
+    padding-right: 100px;
+}
+
+.comment-action-wrapper {
+    position: absolute;
+    right: 0;
+    font-size: 2em;
+}
+
+.comment-action-wrapper button:not(:last-child) {
+    margin-right: 20px;
+}
+
+.comment-action-wrapper #edit-comment {
+    color: hsl(240, 100%, 70%);
+}
+
+.comment-action-wrapper #delete-comment {
+    color: hsl(0, 100%, 70%);
+}

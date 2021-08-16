@@ -169,8 +169,14 @@
                         </div>
                     </div>
                 </div>
+
+                @include('job.comments', ['job' => $job])
             </div>
         </div>
     </div>
     <!-- jp listing Single cont Wrapper End -->
+@endsection
+
+@section('additional_scripts')
+    <script src="{{ asset('js/comment.js') }}"></script>
 @endsection

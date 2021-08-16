@@ -12,6 +12,7 @@ use App\Http\Controllers\ApplyJobController;
 use App\Http\Controllers\EducationController;
 use App\Http\Controllers\ExperienceController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\EmployeeProfileController;
 use App\Http\Controllers\EmployerProfileController;
 
@@ -97,6 +98,34 @@ Route::middleware('auth')->group(function () {
                 ])->name('destroy');
             });
     });
+
+    Route::prefix('/jobs')
+        ->name('jobs.')
+        ->group(function () {
+            Route::get('/{job}/candidates', [
+                JobController::class,
+                'showCandidates',
+            ])
+                ->name('candidates')
+                ->middleware('can:is-employer');
+
+            Route::name('comments.')->group(function () {
+                Route::post('/{job}/comments', [
+                    CommentController::class,
+                    'store'
+                ])->name('store');
+            });
+        });
+
+    Route::name('comments.')->group(function () {
+        Route::match(
+            ['put', 'patch'],
+            '/comments',
+            [CommentController::class, 'update']
+        )->name('update');
+        Route::delete('/comments', [CommentController::class, 'destroy'])
+            ->name('destroy');
+    });
 });
 
 Route::resource('employee-profiles', EmployeeProfileController::class);
@@ -131,10 +160,12 @@ Route::resource('jobs', JobController::class);
 Route::prefix('/jobs')
     ->name('jobs.')
     ->group(function () {
-        Route::get('/{job}/candidates', [
-            JobController::class,
-            'showCandidates',
-        ])->name('candidates');
+        Route::name('comments.')->group(function () {
+            Route::get('/{job}/comments', [
+                CommentController::class,
+                'index'
+            ])->name('index');
+        });
     });
 
 Route::get('autocomplete-job', [
