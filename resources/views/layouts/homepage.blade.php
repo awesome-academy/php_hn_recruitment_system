@@ -53,12 +53,6 @@
 </head>
 
 <body>
-    <div id="preloader">
-        <div id="status"><img src="{{ asset('bower_components/job_light/images/header/loadinganimation.gif') }}"
-                id="preloader_image" alt="loader">
-        </div>
-    </div>
-
     @if (Auth::check())
         @includeWhen(Auth::user()->isEmployee() || Auth::user()->isAdministrator(), 'layouts.employee_header')
         @includeWhen(Auth::user()->isEmployer(), 'layouts.employer_header')

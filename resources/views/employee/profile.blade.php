@@ -29,7 +29,7 @@
         <div class="responsive-header">
             <div class="responsive-menubar">
                 <div class="res-logo">
-                    <a href="index.html" title="">
+                    <a href="{{ route('home') }}" title="">
                         <img src="{{ asset('bower_components/job_light/images/header/logo2.png') }}">
                     </a>
                 </div>
