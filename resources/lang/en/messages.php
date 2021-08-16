@@ -182,4 +182,7 @@ return [
     'dashboard' => 'Dashboard',
     'comment' => 'Comment',
     'edit-comment' => 'Edit comment',
+    'current-password' => 'Current password',
+    'update' => 'Update',
+    'update-email-password' => 'Update your email address and password',
 ];

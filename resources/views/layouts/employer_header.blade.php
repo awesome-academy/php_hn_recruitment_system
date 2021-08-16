@@ -70,7 +70,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="#">
+                        <a href="{{ route('account_info.show') }}">
                             <i class="ti-settings p-r-10"></i>
                             <span>{{ __('messages.setting') }}</span>
                         </a>

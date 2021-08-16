@@ -202,6 +202,7 @@
 .employer_info dt,
 .employer_info dd {
     margin-top: 20px;
+    height: 20px;
 }
 
 .employer_info a {

@@ -14,10 +14,10 @@
                 </a>
                 <ul class="dropdown-menu">
                     <li>
-                        <a href="">{{ __('messages.account-info') }}</a>
+                        <a href="{{ route('account_info.show') }}">{{ __('messages.account-info') }}</a>
                     </li>
-                    <li class="">
-                        <a href="">{{ __('messages.language') }}</a>
+                    <li>
+                        <a href="#">{{ __('messages.language') }}</a>
                     </li>
                 </ul>
             </li>

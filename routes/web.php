@@ -126,6 +126,11 @@ Route::middleware('auth')->group(function () {
         Route::delete('/comments', [CommentController::class, 'destroy'])
             ->name('destroy');
     });
+
+    Route::get('account_info', [UserController::class, 'show'])
+        ->name('account_info.show');
+    Route::patch('account_info', [UserController::class, 'update'])
+        ->name('account_info.update');
 });
 
 Route::resource('employee-profiles', EmployeeProfileController::class);
