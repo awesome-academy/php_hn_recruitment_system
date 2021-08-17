@@ -53,5 +53,8 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('is-employer', function (User $user) {
             return $user->isEmployer();
         });
+        Gate::define('check-job-owner', function (User $user, Job $job) {
+            return $user->employerProfile->id === $job->employer_profile_id;
+        });
     }
 }

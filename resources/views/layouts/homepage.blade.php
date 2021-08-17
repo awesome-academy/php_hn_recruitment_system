@@ -61,7 +61,7 @@
 
     @if (Auth::check())
         @includeWhen(Auth::user()->isEmployee() || Auth::user()->isAdministrator(), 'layouts.employee_header')
-        @includeWhen(Auth::user()->isEmployer(), 'layouts.employee_header')
+        @includeWhen(Auth::user()->isEmployer(), 'layouts.employer_header')
     @else
         @include('layouts.dark_header')
     @endif

@@ -21,7 +21,7 @@
     <div id="navbar" class="sidenav d-flex flex-column overflow-scroll">
         <nav class="navbar navbar-light">
             <div class="container-fluid">
-                <a href=""><img class="logo"
+                <a href="{{ route('home') }}"><img class="logo"
                         src="{{ asset('bower_components/job_light/images/header/logo2.png') }}"></a>
             </div>
         </nav>

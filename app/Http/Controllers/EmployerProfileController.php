@@ -96,9 +96,7 @@ class EmployerProfileController extends Controller
         $this->updateImageAttribute($request, $profile, 'logo');
         $this->updateImageAttribute($request, $profile, 'cover_photo');
 
-        return redirect()->route('employer.profiles.show', [
-            'profile' => $profile,
-        ]);
+        return back()->with('success', __('messages.update-success'));
     }
 
     private function updateImageAttribute($request, $profile, $attributeName)
