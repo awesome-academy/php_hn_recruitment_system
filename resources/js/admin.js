@@ -167,8 +167,8 @@ function initJobsTable() {
     });
 
     let deleteJobUrl = '';
-    $(document).on('click', 'button#delete', () => {
-        deleteJobUrl = $('button#delete').val();
+    $(document).on('click', 'button#delete', function () {
+        deleteJobUrl = $(this).val();
     });
 
     $(document).on('click', '.btn-delete-confirm', function () {
