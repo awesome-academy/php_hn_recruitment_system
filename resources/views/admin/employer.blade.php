@@ -5,6 +5,9 @@
         <!-- Content Wrapper START -->
         <div class="main-content">
             <div class="container-fluid">
+                <div class="page-header">
+                    <h2 class="header-title">{{ __('messages.company-account') }}</h2>
+                </div>
                 <div class="card">
                     <div class="card-body">
                         <div class="table-responsive">

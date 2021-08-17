@@ -4,6 +4,9 @@
     <div class="page-container">
         <div class="main-content">
             <div class="container-fluid">
+                <div class="page-header">
+                    <h2 class="header-title">{{ __('messages.job-management') }}</h2>
+                </div>
                 <div class="card">
                     <div class="card-body">
                         <div class="table-responsive">
@@ -16,7 +19,7 @@
                                         <th>{{ __('messages.company') }}</th>
                                         <th>{{ __('messages.job-close') }}</th>
                                         <th>{{ __('messages.status') }}</th>
-                                        <th></th>
+                                        <th width="20%"></th>
                                     </tr>
                                 </thead>
                             </table>

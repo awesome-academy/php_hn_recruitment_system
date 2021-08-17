@@ -54,11 +54,8 @@
 
 <body>
     @if (Auth::check())
-        @if (Auth::user()->isEmployee())
-            @include('layouts.employee_header')
-        @elseif (Auth::user()->isEmployer())
-            @include('layouts.employer_header')
-        @endif
+        @includeWhen(Auth::user()->isEmployee() || Auth::user()->isAdministrator(), 'layouts.employee_header')
+        @includeWhen(Auth::user()->isEmployer(), 'layouts.employer_header')
     @else
         @include('layouts.header')
     @endif
