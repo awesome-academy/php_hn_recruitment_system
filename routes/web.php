@@ -156,16 +156,27 @@ Route::middleware('auth')->group(function () {
                 ->name('manage-jobs');
         });
 
+    /* Employer */
+
+    Route::middleware('can:is-employer')->group(function () {
+        Route::prefix('/jobs')
+            ->name('jobs.')
+            ->group(function () {
+                Route::post('change-status', [
+                    JobController::class,
+                    'changeStatus',
+                ])->name('change_status');
+
+                Route::get('/{job}/candidates', [
+                    JobController::class,
+                    'showCandidates',
+                ])->name('candidates');
+            });
+    });
+
     Route::prefix('/jobs')
         ->name('jobs.')
         ->group(function () {
-            Route::get('/{job}/candidates', [
-                JobController::class,
-                'showCandidates',
-            ])
-                ->name('candidates')
-                ->middleware('can:is-employer');
-
             Route::name('comments.')->group(function () {
                 Route::post('/{job}/comments', [
                     CommentController::class,
@@ -222,6 +233,4 @@ Route::prefix('/jobs')
                 'index'
             ])->name('index');
         });
-        Route::post('change-status', [JobController::class, 'changeStatus'])
-            ->name('change_status');
     });
