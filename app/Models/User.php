@@ -39,16 +39,16 @@ class User extends Authenticatable
 
     public function isAdministrator()
     {
-        return Auth::user()->role === config('user.admin');
+        return $this->role === config('user.admin');
     }
 
     public function isEmployer()
     {
-        return Auth::user()->role === config('user.employer');
+        return $this->role === config('user.employer');
     }
 
     public function isEmployee()
     {
-        return Auth::user()->role === config('user.employee');
+        return $this->role === config('user.employee');
     }
 }
