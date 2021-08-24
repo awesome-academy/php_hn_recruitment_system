@@ -54,12 +54,16 @@ class Job extends Model
     {
         $date = new Carbon($value);
 
-        return $date->format('Y-m-d');
+        return $date->format('d/m/Y');
     }
 
     public function getSalaryAttribute($value)
     {
-        return Money::USD($value, true);
+        if (is_int($value)) {
+            return Money::USD($value, true);
+        }
+
+        return 0;
     }
 
     public function setTitleAttribute($value)
