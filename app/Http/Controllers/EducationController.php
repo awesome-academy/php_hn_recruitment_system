@@ -18,7 +18,6 @@ class EducationController extends Controller
 
     public function index()
     {
-        $this->authorize('viewAny', Education::class);
         $educationList = $this->educationRepo->getEducationByEmployeeProfile();
 
         return view('employee.education', compact('educationList'));
@@ -26,12 +25,12 @@ class EducationController extends Controller
 
     public function store(StoreEducationRequest $request)
     {
-        $this->authorize('create', Education::class);
         $data = $request->all();
         $data['employee_profile_id'] = Auth::user()->employeeProfile->id;
         $this->educationRepo->create($data);
 
-        return back()->with('success', __('messages.update-success'));
+        return redirect()->route('education.index')
+            ->with('success', __('messages.update-success'));
     }
 
     public function update(StoreEducationRequest $request, $id)
@@ -41,7 +40,8 @@ class EducationController extends Controller
         $data = $request->all();
         $this->educationRepo->update($id, $data);
 
-        return back()->with('success', __('messages.update-success'));
+        return redirect()->route('education.index')
+            ->with('success', __('messages.update-success'));
     }
 
     public function destroy($id)
@@ -50,6 +50,7 @@ class EducationController extends Controller
         $this->authorize('delete', $education);
         $this->educationRepo->delete($id);
 
-        return back()->with('success', __('messages.update-success'));
+        return redirect()->route('education.index')
+            ->with('success', __('messages.update-success'));
     }
 }
