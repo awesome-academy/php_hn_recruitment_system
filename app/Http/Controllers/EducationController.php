@@ -6,6 +6,7 @@ use App\Http\Requests\StoreEducationRequest;
 use App\Models\Education;
 use App\Repositories\Education\EducationRepositoryInterface;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class EducationController extends Controller
 {
@@ -36,7 +37,7 @@ class EducationController extends Controller
     public function update(StoreEducationRequest $request, $id)
     {
         $education = $this->educationRepo->find($id);
-        $this->authorize('update', $education);
+        Gate::authorize('update', $education);
         $data = $request->all();
         $this->educationRepo->update($id, $data);
 
@@ -47,7 +48,7 @@ class EducationController extends Controller
     public function destroy($id)
     {
         $education = $this->educationRepo->find($id);
-        $this->authorize('delete', $education);
+        Gate::authorize('delete', $education);
         $this->educationRepo->delete($id);
 
         return redirect()->route('education.index')
