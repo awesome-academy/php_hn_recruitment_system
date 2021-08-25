@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\HasOneThrough;
+use Illuminate\Database\Eloquent\Relations\Relation;
 
 abstract class ModelTestCase extends TestCase
 {
@@ -27,6 +29,19 @@ abstract class ModelTestCase extends TestCase
         parent::tearDown();
     }
 
+    /**
+     * @param Model $model
+     * @param array $fillable
+     * @param array $guarded
+     * @param array $hidden
+     * @param array $visible
+     * @param array $casts
+     * @param array $dates
+     * @param string $collectionClass
+     * @param null $table
+     * @param string $primaryKey
+     * @param null $connection
+     */
     protected function runConfigurationAssertions(
         Model $model,
         $fillable = [],
@@ -71,6 +86,12 @@ abstract class ModelTestCase extends TestCase
         $this->assertEquals($model->getTable() . '.' . $parent, $relation->getQualifiedParentKeyName());
     }
 
+    /**
+     * @param Relation $relation
+     * @param Model $model
+     * @param string $key
+     * @param string $parent
+     */
     protected function assertHasManyRelation($relation, Model $model, $key = null, $parent = null)
     {
         $this->assertInstanceOf(HasMany::class, $relation);
@@ -82,6 +103,46 @@ abstract class ModelTestCase extends TestCase
         $this->assertEquals($model->getTable() . '.' . $parent, $relation->getQualifiedParentKeyName());
     }
 
+    /**
+     * @param Relation $relation
+     * @param Model $model
+     * @param string $firstForeignKey the foreign key of the intermediate table
+     * @param string $secondForeignKey the foreign key of the related table
+     * @param string $firstLocalKey the local key
+     * @param string $secondLocalKey the local key of the intermediate table
+     */
+    protected function assertHasOneThroughRelation(
+        Relation $relation,
+        Model $model,
+        string $firstForeignKey = null,
+        string $secondForeignKey = null,
+        string $firstLocalKey = null,
+        string $secondLocalKey = null
+    ) {
+        $this->assertInstanceOf(HasOneThrough::class, $relation);
+
+        $intermediateModel = $relation->getParent();
+
+        $firstForeignKey = $firstForeignKey ?? $model->getForeignKey();
+        $this->assertEquals($relation->getFirstKeyName(), $firstForeignKey);
+
+        $secondForeignKey =
+            $secondForeignKey ?? $intermediateModel->getForeignKey();
+        $this->assertEquals($relation->getForeignKeyName(), $secondForeignKey);
+
+        $firstLocalKey = $firstLocalKey ?? $model->getKeyName();
+        $this->assertEquals($relation->getLocalKeyName(), $firstLocalKey);
+
+        $secondLocalKey = $secondLocalKey ?? $intermediateModel->getKeyName();
+        $this->assertEquals($relation->getSecondLocalKeyName(), $secondLocalKey);
+    }
+
+    /**
+     * @param Relation $relation
+     * @param Model $related
+     * @param string $key
+     * @param string $owner
+     */
     protected function assertBelongsToRelation($relation, Model $related, $key = null, $owner = null)
     {
         $this->assertInstanceOf(BelongsTo::class, $relation);
@@ -93,6 +154,13 @@ abstract class ModelTestCase extends TestCase
         $this->assertEquals($owner, $relation->getOwnerKeyName());
     }
 
+    /**
+     * @param Relation $relation
+     * @param Model $model
+     * @param Model $related
+     * @param string $key
+     * @param string $owner
+     */
     protected function assertBelongsToManyRelation($relation, Model $model, Model $related, $key = null, $owner = null)
     {
         $this->assertInstanceOf(BelongsToMany::class, $relation);
