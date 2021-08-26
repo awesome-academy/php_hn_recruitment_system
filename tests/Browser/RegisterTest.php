@@ -2,6 +2,7 @@
 
 namespace Tests\Browser;
 
+use Illuminate\Support\Str;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Laravel\Dusk\Browser;
 use Tests\Browser\Pages\Register;
@@ -17,6 +18,13 @@ class RegisterTest extends DuskTestCase
         $this->browse(function (Browser $browser) {
             $browser
                 ->visit(new Register())
+                ->assertSee(Str::title(__('messages.personal-account')))
+                ->assertSee(Str::title(__('messages.personal-title')))
+                ->assertSee(Str::title(__('messages.company-account')))
+                ->assertSee(Str::title(__('messages.company-title')))
+                ->assertSee(__('messages.already-member'))
+                ->assertSeeLink(__('messages.login-here'))
+
                 ->clickLink(__('messages.personal-account')) // check employee registration form elements
                 ->waitFor('@employee-registration-form')
                 ->assertVisible('@employee-name-input')
@@ -27,7 +35,15 @@ class RegisterTest extends DuskTestCase
                     '@employee-registration-submit-button',
                     __('messages.register')
                 )
-                ->assertSeeLink(__('messages.login-here'))
+                ->assertSeeIn(
+                    '@employee-registration-form',
+                    __('messages.agree')
+                )
+                ->assertSeeIn(
+                    '@employee-registration-form',
+                    __('messages.term')
+                )
+
                 ->clickLink(__('messages.company-account')) // check employer registration form elements
                 ->waitFor('@employer-registration-form')
                 ->assertVisible('@employer-name-input')
@@ -42,7 +58,14 @@ class RegisterTest extends DuskTestCase
                     '@employer-registration-submit-button',
                     __('messages.register')
                 )
-                ->assertSeeLink(__('messages.login-here'));
+                ->assertSeeIn(
+                    '@employer-registration-form',
+                    __('messages.agree')
+                )
+                ->assertSeeIn(
+                    '@employer-registration-form',
+                    __('messages.term')
+                );
         });
     }
 

@@ -4,12 +4,24 @@ namespace Tests\Browser;
 
 use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Support\Facades\Hash;
 use Laravel\Dusk\Browser;
 use Tests\Browser\Pages\Login;
 use Tests\DuskTestCase;
 
 class LoginTest extends DuskTestCase
 {
+    use DatabaseMigrations;
+
+    public function setUp(): void
+    {
+        parent::setUp();
+        User::factory()->create([
+            'role' => config('user.employee'),
+            'password' => Hash::make('123456'),
+        ]);
+    }
+
     public function testLoginView()
     {
         $this->browse(function ($browser) {
