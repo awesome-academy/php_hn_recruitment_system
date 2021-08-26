@@ -3,6 +3,9 @@
 namespace Tests\Unit\Http\Controllers;
 
 use App\Http\Controllers\CommentController;
+use App\Http\Requests\DestroyCommentRequest;
+use App\Http\Requests\StoreCommentRequest;
+use App\Http\Requests\UpdateCommentRequest;
 use App\Models\Comment;
 use App\Models\Job;
 use App\Models\User;
@@ -11,10 +14,8 @@ use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Auth\Access\Response as AccessResponse;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
-use Illuminate\Validation\ValidationException;
 use Mockery;
 use Tests\TestCase;
 
@@ -24,13 +25,11 @@ use Tests\TestCase;
  * @method testStoreNewComment
  * @method testStoreNewCommentOnInvalidRequest
  * @method testUpdateExistingComment
- * @method testUpdateUnexistedComment
+ * @method testUpdateNonexistentComment
  * @method testUpdateCommentOnUnauthorized
- * @method testUpdateCommentOnInvalidRequest
  * @method testDestroyExistingComment
- * @method testDestroyUnexistedComment
+ * @method testDestroyNonexistentComment
  * @method testDestroyCommentOnUnauthorized
- * @method testDestroyCommentOnInvalidRequest
  */
 class CommentControllerTest extends TestCase
 {
@@ -90,7 +89,7 @@ class CommentControllerTest extends TestCase
         $user = User::factory()->make(['id' => 1]);
         $job = Job::factory()->make(['id' => 1]);
         $comment = Comment::factory()->for($job)->make();
-        $request = new Request([
+        $request = new StoreCommentRequest([
             'content' => $comment->content,
             'job_id' => $job->id,
             'user_id' => $user->id,
@@ -111,19 +110,6 @@ class CommentControllerTest extends TestCase
             $response->getData(),
             json_decode($comment->toJson())
         );
-    }
-
-    /**
-     * Test: Store a comment when the request is invalid
-     */
-    public function testStoreNewCommentOnInvalidRequest()
-    {
-        $request = new Request();
-        $job = Job::factory()->make();
-
-        $this->expectException(ValidationException::class);
-
-        $this->commentController->store($request, $job);
     }
 
     /**
@@ -152,7 +138,7 @@ class CommentControllerTest extends TestCase
             ->andReturn($comment);
 
         // Test
-        $request = new Request([
+        $request = new UpdateCommentRequest([
             'comment_id' => $comment->id,
             'content' => $comment->content,
         ]);
@@ -187,7 +173,7 @@ class CommentControllerTest extends TestCase
         // Test
         $this->expectException(AuthorizationException::class);
 
-        $request = new Request([
+        $request = new UpdateCommentRequest([
             'comment_id' => $comment->id,
             'content' => $comment->content,
         ]);
@@ -195,43 +181,28 @@ class CommentControllerTest extends TestCase
     }
 
     /**
-     * Test: Update an unexisted comment
+     * Test: Update an nonexistent comment
      */
-    public function testUpdateUnexistedComment()
+    public function testUpdateNonexistentComment()
     {
         // Init model
         $comment = Comment::factory()->make(['id' => 1]);
-        $unexistedCommentId = 2;
+        $nonexistentCommentId = 2;
 
         // Set up mock
         $this->commentRepoMock
             ->shouldReceive('find')
             ->once()
-            ->with($unexistedCommentId)
+            ->with($nonexistentCommentId)
             ->andThrow(ModelNotFoundException::class);
 
         // Test
         $this->expectException(ModelNotFoundException::class);
 
-        $request = new Request([
-            'comment_id' => $unexistedCommentId,
+        $request = new UpdateCommentRequest([
+            'comment_id' => $nonexistentCommentId,
             'content' => $comment->content,
         ]);
-        $this->commentController->update($request);
-    }
-
-    /**
-     * Test: Update a comment when the request is invalid
-     */
-    public function testUpdateCommentOnInvalidRequest()
-    {
-        $request = new Request([
-            'comment_id' => null,
-            'content' => null,
-        ]);
-
-        $this->expectException(ValidationException::class);
-
         $this->commentController->update($request);
     }
 
@@ -259,7 +230,7 @@ class CommentControllerTest extends TestCase
             ->with($comment->id);
 
         // Test
-        $request = new Request(['comment_id' => $comment->id]);
+        $request = new DestroyCommentRequest(['comment_id' => $comment->id]);
         $response = $this->commentController->destroy($request);
 
         $this->assertInstanceOf(JsonResponse::class, $response);
@@ -290,41 +261,29 @@ class CommentControllerTest extends TestCase
         // Test
         $this->expectException(AuthorizationException::class);
 
-        $request = new Request(['comment_id' => $comment->id]);
+        $request = new DestroyCommentRequest(['comment_id' => $comment->id]);
         $this->commentController->destroy($request);
     }
 
     /**
-     * Test: Delete an unexisted comment
+     * Test: Delete an nonexistent comment
      */
-    public function testDestroyUnexistedComment()
+    public function testDestroyNonexistentComment()
     {
         // Init model
-        $unexistedCommentId = 2;
+        $nonexistentCommentId = 2;
 
         // Set up mock
         $this->commentRepoMock
             ->shouldReceive('find')
             ->once()
-            ->with($unexistedCommentId)
+            ->with($nonexistentCommentId)
             ->andThrow(ModelNotFoundException::class);
 
         // Test
         $this->expectException(ModelNotFoundException::class);
 
-        $request = new Request(['comment_id' => $unexistedCommentId]);
-        $this->commentController->destroy($request);
-    }
-
-    /**
-     * Test: Delete a comment when the request is invalid
-     */
-    public function testDestroyCommentOnInvalidRequest()
-    {
-        $request = new Request();
-
-        $this->expectException(ValidationException::class);
-
+        $request = new DestroyCommentRequest(['comment_id' => $nonexistentCommentId]);
         $this->commentController->destroy($request);
     }
 }
