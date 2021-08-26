@@ -44,6 +44,24 @@ class EmployerProfileTest extends ModelTestCase
         $this->assertHasManyRelation($relation, $this->model);
     }
 
+    public function testRecentJobsRelation()
+    {
+        $relation = $this->model->recentJobs();
+        $baseQuery = $relation->getBaseQuery();
+
+        $this->assertHasManyRelation($relation, $this->model);
+        $this->assertEquals(
+            config('user.num_top_recent_jobs'),
+            $baseQuery->limit
+        );
+        $this->assertEquals(
+            [
+                ['column' => 'created_at', 'direction' => 'desc'],
+            ],
+            $baseQuery->orders
+        );
+    }
+
     /**
      * @param string $testValue
      * @param string $expected
