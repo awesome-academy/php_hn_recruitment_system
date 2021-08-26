@@ -4,15 +4,20 @@ namespace App\Http\Controllers;
 
 use App\Models\Comment;
 use App\Models\Job;
+use App\Repositories\Comment\CommentRepositoryInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Log;
 
 class CommentController extends Controller
 {
-    const COMMENT_USER_PROFILE_RELATIONS = [
-        'employeeProfile:employee_profiles.id,name,avatar',
-        'employerProfile:employer_profiles.id,name,logo',
-    ];
+    protected $commentRepo;
+
+    public function __construct(CommentRepositoryInterface $commentRepo)
+    {
+        $this->commentRepo = $commentRepo;
+    }
 
     /**
      * Display a listing of the resource.
@@ -21,10 +26,7 @@ class CommentController extends Controller
      */
     public function index(Job $job)
     {
-        $comments = $job
-            ->comments()
-            ->with(static::COMMENT_USER_PROFILE_RELATIONS)
-            ->get();
+        $comments = $this->commentRepo->getCommentsByJob($job);
 
         return response()->json($comments);
     }
@@ -41,13 +43,12 @@ class CommentController extends Controller
             'content' => ['required', 'string'],
         ]);
 
-        $comment = new Comment();
-        $comment['content'] = $request->content;
-        $comment['job_id'] = $job->id;
-        $comment['user_id'] = Auth::user()->id;
-        $comment->save();
-
-        $comment->load(static::COMMENT_USER_PROFILE_RELATIONS);
+        $attributes = [
+            'content' => $request->content,
+            'job_id' => $job->id,
+            'user_id' => Auth::id(),
+        ];
+        $comment = $this->commentRepo->create($attributes);
 
         return response()->json($comment);
     }
@@ -66,9 +67,13 @@ class CommentController extends Controller
             'content' => ['required', 'string'],
         ]);
 
-        $comment = Comment::findOrFail($request->comment_id);
-        $this->authorize('update', $comment);
-        $comment->update(['content' => $request->content]);
+        $commentId = $request->comment_id;
+        $comment = $this->commentRepo->find($commentId);
+        Gate::authorize('update', $comment);
+
+        $comment = $this->commentRepo->update($commentId, [
+            'content' => $request->content
+        ]);
 
         return response()->json([
             'id' => $comment->id,
@@ -88,9 +93,11 @@ class CommentController extends Controller
             'comment_id' => ['required', 'integer'],
         ]);
 
-        $comment = Comment::findOrFail($request->comment_id);
-        $this->authorize('delete', $comment);
-        $comment->delete();
+        $commentId = $request->comment_id;
+        $comment = $this->commentRepo->find($commentId);
+        Gate::authorize('delete', $comment);
+
+        $this->commentRepo->delete($commentId);
 
         return response()->json([
             'message' => __('message.update-success'),
