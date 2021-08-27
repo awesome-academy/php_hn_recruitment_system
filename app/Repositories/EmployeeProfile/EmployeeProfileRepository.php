@@ -5,6 +5,9 @@ namespace App\Repositories\EmployeeProfile;
 use App\Models\EmployeeProfile;
 use App\Repositories\Repository;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Yajra\DataTables\Facades\DataTables;
 
 class EmployeeProfileRepository extends Repository implements EmployeeProfileRepositoryInterface
 {
@@ -103,5 +106,25 @@ class EmployeeProfileRepository extends Repository implements EmployeeProfileRep
             ->jobs()
             ->where('jobs.id', $jobId)
             ->firstOrFail()->application;
+    }
+    
+    public function getAll()
+    {
+        return DB::table('employee_profiles')
+            ->join('users', 'users.id', '=', 'employee_profiles.user_id')
+            ->get();
+    }
+
+    public function changeImage(EmployeeProfile $profile, $avatar, $image)
+    {
+        $fileName = time() . '-' . $profile->id . '.' . $avatar->extension();
+        $avatar->move(public_path('images'), $fileName);
+        $profile->$image = $fileName;
+        $profile->save();
+    }
+
+    public function showAppliedJobs()
+    {
+        return Auth::user()->employeeProfile->jobs;
     }
 }

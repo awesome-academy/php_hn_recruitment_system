@@ -16,4 +16,8 @@ interface EmployeeProfileRepositoryInterface extends RepositoryInterface
     public function deleteJobApplication(int $jobId);
 
     public function changeJobApplicationStatus(EmployeeProfile $profile, int $jobId, int $status);
+
+    public function changeImage(EmployeeProfile $profile, $avatar, $image);
+
+    public function showAppliedJobs();
 }
