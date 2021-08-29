@@ -2,86 +2,71 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Job;
-use Illuminate\Http\Request;
-use App\Models\EmployeeProfile;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Gate;
+use App\Http\Requests\ChangeJobApplicationStatusRequest;
 use App\Http\Requests\StoreApplicationFormRequest;
+use App\Models\EmployeeProfile;
+use App\Repositories\EmployeeProfile\EmployeeProfileRepositoryInterface;
+use App\Repositories\Job\JobRepositoryInterface;
+use Illuminate\Support\Facades\Gate;
 
 class ApplyJobController extends Controller
 {
+    private $jobRepo;
+    private $employeeProfileRepo;
+
+    public function __construct(
+        JobRepositoryInterface $jobRepo,
+        EmployeeProfileRepositoryInterface $employeeProfileRepo
+    ) {
+        $this->jobRepo = $jobRepo;
+        $this->employeeProfileRepo = $employeeProfileRepo;
+    }
+
     public function create($jobId)
     {
-        $job = Job::findOrFail($jobId);
+        $job = $this->jobRepo->find($jobId);
 
         return view('job.application_form', compact('job'));
     }
 
     public function store(StoreApplicationFormRequest $request, $jobId)
     {
-        $employeeProfile = Auth::user()->employeeProfile;
-        $appliedJobs = $employeeProfile->jobs;
-
-        foreach ($appliedJobs as $job) {
-            if ($job->application->job_id == $jobId) {
-                return back()->with('fail', __('messages.apply-fail'));
-            }
+        if ($this->employeeProfileRepo->createJobApplication($jobId, $request->all())) {
+            return redirect()
+                ->route('applied_jobs')
+                ->with('success', __('messages.apply-success'));
         }
 
-        $job = Job::findOrFail($jobId);
-        $cvFileName = time() . '-' . $employeeProfile->name . '-' .
-            $employeeProfile->id . '.' . $request->cv->extension();
-        $request->cv->move(public_path('images'), $cvFileName);
-
-        $job->employeeProfiles()->attach($employeeProfile->id, [
-            'cover_letter' => $request->cover_letter,
-            'cv' => $cvFileName,
-            'status' => config('user.application_form_status.pending'),
-        ]);
-
-        return redirect()->route('applied_jobs')->with('success', __('messages.apply-success'));
+        return back()->with('fail', __('messages.apply-fail'));
     }
 
     public function update(StoreApplicationFormRequest $request, $jobId)
     {
-        $employeeProfile = Auth::user()->employeeProfile;
-        $cvFileName = DB::table('employee_profile_job')
-            ->where('job_id', $jobId)->first()->cv;
-
-        if (isset($request->cv)) {
-            $cvFileName = time() . '-' . $employeeProfile->name . '-' .
-                $employeeProfile->id . '.' . $request->cv->extension();
-            $request->cv->move(public_path('images'), $cvFileName);
-        }
-
-        $employeeProfile->jobs()->updateExistingPivot($jobId, [
-            'cover_letter' => $request->cover_letter,
-            'cv' => $cvFileName,
-        ]);
+        $this->employeeProfileRepo->updateJobApplication($jobId, $request->all());
 
         return back()->with('success', __('messages.update-success'));
     }
 
-    public function destroy(Request $request, $jobId)
+    public function destroy($jobId)
     {
-        $employeeProfile = Auth::user()->employeeProfile;
-        $employeeProfile->jobs()->detach($jobId);
+        $this->employeeProfileRepo->deleteJobApplication($jobId);
 
         return back()->with('success', __('messages.update-success'));
     }
 
-    public function changeStatus(Request $request, EmployeeProfile $employeeProfile)
-    {
+    public function changeStatus(
+        ChangeJobApplicationStatusRequest $request,
+        EmployeeProfile $profile
+    ) {
         $jobId = $request->jobId;
-        $job = Job::findOrFail($jobId);
+        $job = $this->jobRepo->find($jobId);
         Gate::authorize('check-job-owner', $job);
 
-        $status = $request->status;
-        $employeeProfile->jobs()->updateExistingPivot($jobId, [
-            'status' => $status,
-        ]);
+        $this->employeeProfileRepo->changeJobApplicationStatus(
+            $profile,
+            $jobId,
+            $request->status
+        );
 
         return back()->with('success', __('messages.update-success'));
     }

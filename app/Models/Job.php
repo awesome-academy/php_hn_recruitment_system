@@ -2,12 +2,11 @@
 
 namespace App\Models;
 
-use Carbon\Carbon;
 use Akaunting\Money\Money;
-use Illuminate\Support\Str;
-use Akaunting\Money\Currency;
-use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class Job extends Model
 {
@@ -41,8 +40,17 @@ class Job extends Model
 
     public function employeeProfiles()
     {
-        return $this->belongsToMany(EmployeeProfile::class)->as('application')
-            ->withPivot('job_id', 'status', 'created_at', 'updated_at', 'cover_letter', 'cv');
+        return $this
+            ->belongsToMany(EmployeeProfile::class)
+            ->as('application')
+            ->withPivot(
+                'job_id',
+                'status',
+                'created_at',
+                'updated_at',
+                'cover_letter',
+                'cv'
+            );
     }
 
     public function comments()
@@ -96,5 +104,10 @@ class Job extends Model
         $date = new Carbon($value);
 
         return $date->format('d/m/Y');
+    }
+
+    public function scopeActive($query)
+    {
+        return $query->where('status', config('user.job_status.active'));
     }
 }

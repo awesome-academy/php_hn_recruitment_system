@@ -2,23 +2,28 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Http\Requests\EmployerUpdateRequest;
 use App\Models\EmployerProfile;
-use Illuminate\Support\Facades\DB;
+use App\Repositories\EmployerProfile\EmployerProfileRepositoryInterface;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\Facades\DataTables;
-use App\Http\Requests\EmployerUpdateRequest;
 
 class EmployerProfileController extends Controller
 {
+    protected $profileRepo;
+
+    public function __construct(EmployerProfileRepositoryInterface $profileRepo)
+    {
+        $this->profileRepo = $profileRepo;
+    }
+
     public function index(Request $request)
     {
         Gate::authorize('is-admin', EmployerProfile::class);
         if ($request->ajax()) {
-            $data = DB::table('employer_profiles')
-                ->join('users', 'users.id', '=', 'employer_profiles.user_id')
-                ->get();
+            $data = $this->profileRepo->getAll();
 
             return DataTables::of($data)
                 ->addColumn('logo', function ($data) {
@@ -36,9 +41,10 @@ class EmployerProfileController extends Controller
                 ->rawColumns(['logo', 'status', 'view', 'action'])
                 ->make(true);
         }
-        $profiles = EmployerProfile::select('industry')->distinct()->get();
 
-        return view('admin.employer', compact('profiles'));
+        $industries = $this->profileRepo->getAllIndustries();
+
+        return view('admin.employer', ['industries' => $industries]);
     }
 
     /**
@@ -83,30 +89,9 @@ class EmployerProfileController extends Controller
     ) {
         $this->authorize('update', $profile);
 
-        $profile->update([
-            'name' => $request->name,
-            'website' => $request->website,
-            'address' => $request->address,
-            'phone_number' => $request->phone_number,
-            'company_size' => $request->company_size,
-            'company_type' => $request->company_type,
-            'description' => $request->description,
-            'industry' => $request->industry,
-        ]);
-        $this->updateImageAttribute($request, $profile, 'logo');
-        $this->updateImageAttribute($request, $profile, 'cover_photo');
+        $this->profileRepo->update($profile->id, $request->all());
 
         return back()->with('success', __('messages.update-success'));
-    }
-
-    private function updateImageAttribute($request, $profile, $attributeName)
-    {
-        if ($request->hasFile($attributeName)) {
-            $photoPath = $request
-                ->file($attributeName)
-                ->storePublicly('public/images');
-            $profile->update([$attributeName => $photoPath]);
-        }
     }
 
     public function showEmployerJobs(EmployerProfile $profile)
