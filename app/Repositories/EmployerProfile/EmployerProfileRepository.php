@@ -69,4 +69,10 @@ class EmployerProfileRepository extends Repository implements EmployerProfileRep
             ->take(config('user.num_top_users'))
             ->get();
     }
+
+    public function searchByName($keyword)
+    {
+        return EmployerProfile::select('name')
+            ->where('name', 'like', "%{$keyword}%")->get();
+    }
 }

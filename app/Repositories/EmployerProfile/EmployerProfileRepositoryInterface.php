@@ -11,4 +11,6 @@ interface EmployerProfileRepositoryInterface extends RepositoryInterface
     public function getTopCompanies();
 
     public function getPendingCompanies();
+    
+    public function searchByName($keyword);
 }

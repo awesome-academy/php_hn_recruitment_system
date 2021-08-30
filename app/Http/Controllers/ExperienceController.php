@@ -4,48 +4,45 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreExperienceRequest;
 use App\Models\Experience;
+use App\Repositories\Experience\ExperienceRepositoryInterface;
 use Illuminate\Support\Facades\Auth;
 
 class ExperienceController extends Controller
 {
-    public function __construct()
+    protected $experienceRepo;
+
+    public function __construct(ExperienceRepositoryInterface $experienceRepo)
     {
         $this->authorizeResource(Experience::class, 'experience');
+        $this->experienceRepo = $experienceRepo;
     }
 
     public function index()
     {
-        $experienceList = Auth::user()->employeeProfile->experiences;
+        $experienceList = $this->experienceRepo->getExperienceByEmployeeProfile();
 
-        return view('employee.experience', [
-            'experienceList' => $experienceList,
-        ]);
+        return view('employee.experience', compact('experienceList'));
     }
 
     public function store(StoreExperienceRequest $request)
     {
-        Experience::create([
-            'employee_profile_id' => Auth::user()->employeeProfile->id,
-            'position' => $request->position,
-            'employment_type' => $request->employment_type,
-            'start_date' => $request->start_date,
-            'end_date' => $request->end_date,
-            'company' => $request->company,
-        ]);
+        $attributes = $request->all();
+        $attributes['employee_profile_id'] = Auth::user()->employeeProfile->id;
+        $this->experienceRepo->create($attributes);
 
         return back()->with('success', __('messages.update-success'));
     }
 
     public function update(StoreExperienceRequest $request, Experience $experience)
     {
-        $experience->update($request->all());
+        $this->experienceRepo->update($experience->id, $request->all());
 
         return back()->with('success', __('messages.update-success'));
     }
 
     public function destroy(Experience $experience)
     {
-        $experience->delete();
+        $this->experienceRepo->delete($experience->id);
 
         return back()->with('success', __('messages.update-success'));
     }
