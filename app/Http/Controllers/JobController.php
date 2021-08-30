@@ -5,12 +5,20 @@ namespace App\Http\Controllers;
 use App\Http\Requests\JobCreateOrUpdateRequest;
 use App\Models\Field;
 use App\Models\Job;
+use App\Repositories\Job\JobRepositoryInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Facades\DataTables;
 
 class JobController extends Controller
 {
+    protected $jobRepo;
+
+    public function __construct(JobRepositoryInterface $jobRepo)
+    {
+        $this->jobRepo = $jobRepo;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -18,8 +26,8 @@ class JobController extends Controller
      */
     public function index()
     {
-        $jobs = Job::paginate(config('user.num_pages'));
-        $cntJobs = Job::count();
+        $jobs = $this->jobRepo->paginate(config('user.num_pages'));
+        $cntJobs = $this->jobRepo->total();
 
         return view('job.list', [
             'jobs' => $jobs,
@@ -108,7 +116,8 @@ class JobController extends Controller
         $job->update($request->all());
         $profile = $job->employerProfile;
 
-        return redirect()->route('employer.jobs', ['profile' => $profile])
+        return redirect()
+            ->route('employer.jobs', ['profile' => $profile])
             ->with('success', __('messages.update-success'));
     }
 

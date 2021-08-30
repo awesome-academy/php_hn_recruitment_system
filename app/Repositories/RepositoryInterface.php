@@ -38,4 +38,17 @@ interface RepositoryInterface
      * @return mixed
      */
     public function delete($id);
+
+    /**
+     * Paginate
+     * @param $perPage
+     * @return mixed
+     */
+    public function paginate($perPage);
+
+    /**
+     * Total
+     * @return int
+     */
+    public function total();
 }

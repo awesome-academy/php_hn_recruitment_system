@@ -25,8 +25,8 @@
                                 <div class="form-group col-md-6">
                                     <select data-column="5" class="form-control filter-selector">
                                         <option value="">{{ __('messages.industry') }}</option>
-                                        @foreach ($profiles as $profile)
-                                            <option value="{{ $profile->industry }}">{{ $profile->industry }}
+                                        @foreach ($industries as $industry)
+                                            <option value="{{ $industry }}">{{ $industry }}
                                             </option>
                                         @endforeach
                                     </select>

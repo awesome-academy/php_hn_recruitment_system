@@ -2,8 +2,6 @@
 
 namespace App\Repositories;
 
-use App\Repositories\RepositoryInterface;
-
 abstract class Repository implements RepositoryInterface
 {
     protected $model;
@@ -59,5 +57,15 @@ abstract class Repository implements RepositoryInterface
         }
 
         return false;
+    }
+
+    public function paginate($perPage)
+    {
+        return $this->model->paginate($perPage);
+    }
+
+    public function total()
+    {
+        return $this->model->count();
     }
 }
