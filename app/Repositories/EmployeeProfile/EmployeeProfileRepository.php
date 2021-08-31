@@ -38,7 +38,7 @@ class EmployeeProfileRepository extends Repository implements EmployeeProfileRep
 
         $cvFileName = $this->storeCV($attributes['cv']);
 
-        $profile->jobs()->attach($profile->id, [
+        $profile->jobs()->attach($jobId, [
             'cover_letter' => $attributes['cover_letter'],
             'cv' => $cvFileName,
             'status' => config('user.application_form_status.pending'),

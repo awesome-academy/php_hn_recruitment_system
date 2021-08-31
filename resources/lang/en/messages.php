@@ -35,7 +35,7 @@ return [
     'register-now' => 'Register now!',
     'employee-registered' => 'Your account has been registered successfully!',
     'employer-registered' =>
-        'Your account has been registered successfully! Please wait for admin\'s approval!',
+    'Your account has been registered successfully! Please wait for admin\'s approval!',
     'profile' => 'See your profile',
     'edit-profile' => 'Edit Profile',
     'cv' => 'My CV',
@@ -193,4 +193,11 @@ return [
     'update' => 'Update',
     'update-email-password' => 'Update your email address and password',
     'add-comment' => 'Add a comment...',
+    'application-announcement-email-subject' => 'Announce the result of your job application',
+    'hello' => 'Hello',
+    'thanks-for-using' => 'Thank you for using JobPro.',
+    'announcement-title' => 'JobPro announces the results of your application for the job',
+    'result' => 'Result',
+    'best-regard' => 'Best regard',
+    'browser-more-jobs' => 'Browser more jobs',
 ];
