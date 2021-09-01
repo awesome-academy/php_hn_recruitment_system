@@ -4,6 +4,8 @@ namespace App\Providers;
 
 use App\Repositories\Comment\CommentRepository;
 use App\Repositories\Comment\CommentRepositoryInterface;
+use App\Repositories\Conversation\ConversationRepository;
+use App\Repositories\Conversation\ConversationRepositoryInterface;
 use App\Repositories\Education\EducationRepository;
 use App\Repositories\Education\EducationRepositoryInterface;
 use App\Repositories\EmployeeProfile\EmployeeProfileRepository;
@@ -16,6 +18,8 @@ use App\Repositories\Field\FieldRepository;
 use App\Repositories\Field\FieldRepositoryInterface;
 use App\Repositories\Job\JobRepository;
 use App\Repositories\Job\JobRepositoryInterface;
+use App\Repositories\Message\MessageRepository;
+use App\Repositories\Message\MessageRepositoryInterface;
 use App\Repositories\User\UserRepository;
 use App\Repositories\User\UserRepositoryInterface;
 use Illuminate\Support\ServiceProvider;
@@ -60,6 +64,14 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton(
             FieldRepositoryInterface::class,
             FieldRepository::class,
+        );
+        $this->app->singleton(
+            ConversationRepositoryInterface::class,
+            ConversationRepository::class,
+        );
+        $this->app->singleton(
+            MessageRepositoryInterface::class,
+            MessageRepository::class,
         );
     }
 

@@ -56,9 +56,8 @@ $employerProfile = Auth::user()->employerProfile;
                 </a>
             </li>
             <li class="notifications dropdown dropdown-animated scale-left">
-                <span class="counter">2</span>
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                    <i class="mdi mdi-bell-ring-outline"></i>
+                <a href="{{ route('chat') }}">
+                    <i class="mdi mdi-message-processing"></i>
                 </a>
             </li>
             <li class="user-profile dropdown dropdown-animated scale-left">

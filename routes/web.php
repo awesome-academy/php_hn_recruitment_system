@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\MessageController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\JobController;
@@ -199,6 +200,22 @@ Route::middleware('auth')->group(function () {
         ->name('account_info.show');
     Route::patch('account_info', [UserController::class, 'update'])
         ->name('account_info.update');
+
+    /* Chat */
+    Route::get('chat', [MessageController::class, 'showChatBox'])->name('chat');
+    Route::get('conversation/{partnerId}', [
+        MessageController::class,
+        'getMessages',
+    ])->name('conversation.messages');
+    Route::resource('messages', MessageController::class);
+    Route::get('read-messages/{conversationId}', [
+        MessageController::class,
+        'readMessages',
+    ])->name('read_messages');
+    Route::get('search-contact', [
+        MessageController::class,
+        'searchContact',
+    ])->name('search_contact');
 });
 
 Route::resource('employee-profiles', EmployeeProfileController::class);
