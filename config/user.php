@@ -42,4 +42,9 @@ return [
     'num_top_companies' => 10,
     'default_avt' => 'bower_components/job_light/images/avatar.png',
     'default_bg' => 'bower_components/job_light/images/cover.png',
+    'message_max_length' => 20,
+    'message' => [
+        'read' => 1,
+        'unread' => 0,
+    ],
 ];
