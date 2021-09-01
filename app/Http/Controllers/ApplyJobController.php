@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\JobApplicationStatusChanged;
 use App\Http\Requests\ChangeJobApplicationStatusRequest;
 use App\Http\Requests\StoreApplicationFormRequest;
 use App\Models\EmployeeProfile;
 use App\Repositories\EmployeeProfile\EmployeeProfileRepositoryInterface;
 use App\Repositories\Job\JobRepositoryInterface;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 
 class ApplyJobController extends Controller
@@ -56,17 +58,25 @@ class ApplyJobController extends Controller
 
     public function changeStatus(
         ChangeJobApplicationStatusRequest $request,
-        EmployeeProfile $profile
+        EmployeeProfile $employeeProfile
     ) {
         $jobId = $request->jobId;
         $job = $this->jobRepo->find($jobId);
         Gate::authorize('check-job-owner', $job);
 
         $this->employeeProfileRepo->changeJobApplicationStatus(
-            $profile,
+            $employeeProfile,
             $jobId,
             $request->status
         );
+
+        // Handler: App\Listeners\SendJobApplicationApprovalEmail;
+        event(new JobApplicationStatusChanged(
+            $employeeProfile,
+            Auth::user()->employerProfile,
+            $job,
+            $request->status
+        ));
 
         return back()->with('success', __('messages.update-success'));
     }

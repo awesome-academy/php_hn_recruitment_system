@@ -194,4 +194,10 @@ return [
     'update' => 'Cập nhật',
     'update-email-password' => 'Cập nhật địa chỉ email và mật khẩu',
     'add-comment' => 'Thêm bình luận...',
+    'hello' => 'Hello',
+    'thanks-for-using' => 'Cảm ơn bạn đã tin tường và sử dụng JobPro.',
+    'announcement-title' => 'JobPro thông báo kết quả ứng tuyển của bạn cho công việc',
+    'result' => 'Kết quả',
+    'best-regard' => 'Trân trọng',
+    'browser-more-jobs' => 'Browser more jobs',
 ];

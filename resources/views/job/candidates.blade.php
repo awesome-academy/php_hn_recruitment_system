@@ -86,7 +86,7 @@
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td class="text-center font-size-18">
+                                            <td class="text-center font-size-18" id="application-action">
                                                 @if ($status == config('user.application_form_status.pending'))
                                                     <form
                                                         action="{{ route('employer.change_application_status', ['employeeProfile' => $candidate]) }}"
@@ -141,8 +141,23 @@
                 </div>
             </div>
         </div>
-    @endsection
+    </div>
 
     @section('addtional_scripts')
         <script src="{{ asset('js/candidates.js') }}"></script>
     @endsection
+@endsection
+
+<div class="modal fade" id="modal-confirm" role="dialog">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body" style="padding:10px;">
+                <h4 class="text-center">{{ __('messages.sure-confirm') }}</h4>
+                <div class="text-center">
+                    <button id="btn-confirm" class="btn btn-gradient-success">Confirm</button>
+                    <button id="btn-cancel" class="btn btn-default btn-no">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
