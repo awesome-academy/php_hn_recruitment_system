@@ -177,8 +177,8 @@ class JobTest extends ModelTestCase
     public function providerTestDateAccessors()
     {
         return [
-            ['2018-10-18 14:15:43', '18/10/2018'],
-            ['10:30pm April 15 2014', '15/04/2014'],
+            ['2018-10-18 14:15:43', '2018-10-18'],
+            ['10:30pm April 15 2014', '2014-04-15'],
         ];
     }
 

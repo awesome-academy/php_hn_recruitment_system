@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Job;
 use App\Repositories\EmployeeProfile\EmployeeProfileRepositoryInterface;
 use App\Repositories\EmployerProfile\EmployerProfileRepositoryInterface;
 use App\Repositories\Job\JobRepositoryInterface;
@@ -68,5 +69,61 @@ class HomeController extends Controller
             'cntEmployees',
             'pendingCompanies'
         ));
+    }
+
+    public function getJobStatistics()
+    {
+        return view('admin.statistic');
+    }
+
+    public function getMonthlyJobData()
+    {
+        $jobCount = [];
+        $monthNames = [];
+        $months = $this->jobRepo->getAllMonths();
+
+        if (!empty($months)) {
+            foreach ($months as $monthNo => $monthName) {
+                $jobCount[] = $this->jobRepo->getMonthlyJobCount($monthNo);
+                $monthNames[] = $monthName;
+            }
+        }
+
+        return [
+            'months' => $monthNames,
+            'jobCount' => $jobCount,
+        ];
+    }
+
+    public function getJobTypeData()
+    {
+        $types = $this->jobRepo->getJobTypes();
+        $activeCount = [];
+        $inactiveCount = [];
+        foreach ($types as $type) {
+            $activeCount[] = $this->jobRepo->getJobTypeCount($type, config('user.job_status.active'));
+            $inactiveCount[] = $this->jobRepo->getJobTypeCount($type, config('user.job_status.hidden'));
+        }
+
+        return [
+            'types' => $types,
+            'activeCount' => $activeCount,
+            'inactiveCount' => $inactiveCount,
+        ];
+    }
+
+    public function getAppliedData($jobId)
+    {
+        $status = config('user.application_form_status');
+        $appliedStatus = [];
+        foreach ($status as $key => $value) {
+            $appliedStatus[] = $key;
+        }
+        $appliedCnt = $this->jobRepo->getAppliedData($jobId);
+
+        return [
+            'appliedStatus' => $appliedStatus,
+            'appliedCnt' => $appliedCnt,
+        ];
     }
 }

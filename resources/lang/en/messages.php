@@ -97,7 +97,7 @@ return [
     'advertisement' => 'Get Best Matched Jobs On your Email. Add Resume NOW!',
     'add-resume' => 'Add resume',
     'show' => 'SHOW',
-    'job-type' => 'Job types',
+    'job-type' => 'Job Types',
     'salary' => 'Salary',
     'search' => 'Search',
     'view' => 'View',
@@ -191,4 +191,6 @@ return [
     'best-regard' => 'Best regard',
     'browser-more-jobs' => 'Browser more jobs',
     'type-message' => 'Type a message...',
+    'job-statistic' => 'Job Statistics',
+    'job-total' => 'Job Total',
 ];

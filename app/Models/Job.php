@@ -62,7 +62,7 @@ class Job extends Model
     {
         $date = new Carbon($value);
 
-        return $date->format('d/m/Y');
+        return $date->format('Y-m-d');
     }
 
     public function getSalaryAttribute($value)
@@ -103,7 +103,7 @@ class Job extends Model
     {
         $date = new Carbon($value);
 
-        return $date->format('d/m/Y');
+        return $date->format('Y-m-d');
     }
 
     public function scopeActive($query)

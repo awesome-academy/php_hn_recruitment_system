@@ -7,6 +7,15 @@
                 <div class="page-header">
                     <h2 class="header-title">{{ __('messages.candidate') }} - {{ $job->title }}</h2>
                 </div>
+                <input type="hidden" id="jobId" value="{{ $job->id }}">
+                <div class="row">
+                    <div class="col-sm-3"></div>
+                    <div class="col-sm-6">
+                        <canvas class="chart" id="donut-chart" ></canvas>
+                    </div>
+                    <div class="col-sm-3"></div>
+                </div>
+
                 <div class="card">
                     <div class="card-body">
                         <div class="table-overflow">
