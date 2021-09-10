@@ -7,6 +7,7 @@ use App\Repositories\EmployeeProfile\EmployeeProfileRepositoryInterface;
 use App\Repositories\EmployerProfile\EmployerProfileRepositoryInterface;
 use App\Repositories\Job\JobRepositoryInterface;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class HomeController extends Controller
 {
@@ -42,10 +43,10 @@ class HomeController extends Controller
         return view('welcome', compact('jobs', 'topCompanies', 'topJobs', 'recentEmployees'));
     }
 
-    public function changeLanguage(Request $request, $locale)
+    public function changeLanguage($locale)
     {
         if ($locale && in_array($locale, config('app.languages'))) {
-            $request->session()->put('language', $locale);
+            Session::put('language', $locale);
         }
 
         return redirect()->back();
