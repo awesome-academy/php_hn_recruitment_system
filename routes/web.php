@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\MessageController;
+use App\Models\Job;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\JobController;
@@ -155,6 +156,13 @@ Route::middleware('auth')->group(function () {
 
             Route::get('manage-jobs', [JobController::class, 'showManagementForAdmin'])
                 ->name('manage-jobs');
+
+            Route::get('job-data', [HomeController::class, 'getMonthlyJobData']);
+            Route::get('job-type-data', [HomeController::class, 'getJobTypeData']);
+            Route::get('job-statistics', [
+                HomeController::class,
+                'getJobStatistics'
+            ])->name('job_statistics');
         });
 
     /* Employer */
@@ -184,6 +192,7 @@ Route::middleware('auth')->group(function () {
                     'store'
                 ])->name('store');
             });
+            Route::get('applied-data/{jobId}', [HomeController::class, 'getAppliedData']);
         });
 
     Route::name('comments.')->group(function () {

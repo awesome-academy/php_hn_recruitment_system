@@ -98,7 +98,7 @@ return [
     'Nhận thông tin về các việc làm phù hợp. Hãy tạo CV của bạn!',
     'add-resume' => 'Tạo CV',
     'show' => 'HIỆN',
-    'job-type' => 'Loại công việc',
+    'job-type' => 'Loại Việc Làm',
     'salary' => 'Mức lương',
     'search' => 'Tìm kiếm',
     'view' => 'Xem',
@@ -191,4 +191,6 @@ return [
     'best-regard' => 'Trân trọng',
     'browser-more-jobs' => 'Browser more jobs',
     'type-message' => 'Nhập tin nhắn...',
+    'job-statistic' => 'Thống Kê Việc Làm',
+    'job-total' => 'Thống Kê Số Việc Làm',
 ];

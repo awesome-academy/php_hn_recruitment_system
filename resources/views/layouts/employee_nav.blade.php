@@ -73,6 +73,14 @@
                     </a>
                 </li>
                 <li class="nav-item dropdown">
+                    <a class="dropdown-toggle" href="{{ route('admin.job_statistics') }}">
+                        <span class="icon-holder">
+                            <i class="fa fa-bar-chart" aria-hidden="true"></i>
+                        </span>
+                        <span class="title">{{ __('messages.job-statistic') }}</span>
+                    </a>
+                </li>
+                <li class="nav-item dropdown">
                     <a class="dropdown-toggle" href="{{ route('admin.employee-profiles.index') }}">
                         <span class="icon-holder">
                             <i class="fa fa-user-circle-o" aria-hidden="true"></i>

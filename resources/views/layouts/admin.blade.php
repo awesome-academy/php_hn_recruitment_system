@@ -45,6 +45,7 @@
     <script src="{{ asset('bower_components/job_light/admin/assets/js/tables/data-table.js') }}"></script>
     <script src="{{ asset('js/admin.js') }}"></script>
     <script src="{{ asset('js/main.js') }}"></script>
+    @yield('additional_scripts')
 </body>
 
 </html>

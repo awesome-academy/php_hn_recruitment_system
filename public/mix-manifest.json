@@ -8,6 +8,7 @@
     "/js/admin.js": "/js/admin.js",
     "/js/home.js": "/js/home.js",
     "/js/comment.js": "/js/comment.js",
+    "/js/chart.js": "/js/chart.js",
     "/css/app.css": "/css/app.css",
     "/css/style_cv.css": "/css/style_cv.css",
     "/css/intro.css": "/css/intro.css",
