@@ -597,3 +597,7 @@ main {
 .comment-action-wrapper #delete-comment {
     color: hsl(0, 100%, 70%);
 }
+
+.notifications .list-media {
+    max-height: 300px;
+}

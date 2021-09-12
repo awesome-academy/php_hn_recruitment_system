@@ -193,4 +193,6 @@ return [
     'type-message' => 'Nhập tin nhắn...',
     'job-statistic' => 'Thống Kê Việc Làm',
     'job-total' => 'Thống Kê Số Việc Làm',
+    'notifications' => 'Thông báo',
+    'recommend-jobs' => 'Chúng tôi có thêm công việc mới cho bạn. Ứng tuyển ngay!',
 ];

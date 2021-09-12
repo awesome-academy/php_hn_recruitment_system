@@ -49,6 +49,7 @@
     <script src="{{ asset('js/upload.js') }}"></script>
     <script src="{{ asset('js/main.js') }}"></script>
     <script src="{{ asset('js/home.js') }}"></script>
+    <script src="{{ asset('js/notification.js') }}"></script>
 
     <script src="{{ asset('bower_components/job_light/admin/assets/vendor/moment/min/moment.min.js') }}"></script>
     <script

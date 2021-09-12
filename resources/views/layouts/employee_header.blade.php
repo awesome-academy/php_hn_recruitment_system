@@ -3,6 +3,8 @@
     $employeeProfile = Auth::user()->employeeProfile;
     $role = Auth::user()->role;
 @endphp
+<input type="hidden" name="user-id" value="{{ auth()->id() }}">
+
 <div class="header navbar">
     <div class="header-container">
         <div class="nav-logo">
@@ -51,16 +53,17 @@
         </ul>
 
         <ul class="nav-right">
-            <li class="notifications dropdown dropdown-animated scale-left">
+            <li>
                 <a href="{{ route('jobs.index') }}">
                     <i class="mdi mdi-briefcase"></i>
                 </a>
             </li>
-            <li class="notifications dropdown dropdown-animated scale-left">
+            <li>
                 <a href="{{ route('chat') }}">
                     <i class="mdi mdi-message-processing"></i>
                 </a>
             </li>
+            @include('layouts.notifications')
             <li class="user-profile dropdown dropdown-animated scale-left">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                     @if ($role == config('user.employee'))

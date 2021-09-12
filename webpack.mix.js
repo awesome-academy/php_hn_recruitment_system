@@ -27,3 +27,5 @@ mix.js('resources/js/admin.js', 'public/js');
 mix.js('resources/js/home.js', 'public/js');
 mix.js('resources/js/comment.js', 'public/js');
 mix.js('resources/js/chart.js', 'public/js');
+mix.js('resources/js/chat.js', 'public/js');
+mix.js('resources/js/notification.js', 'public/js');
