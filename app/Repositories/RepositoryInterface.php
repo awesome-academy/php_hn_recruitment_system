@@ -25,6 +25,13 @@ interface RepositoryInterface
     public function create($attributes = []);
 
     /**
+     * Create or update
+     * @param array $attributes
+     * @return mixed
+     */
+    public function updateOrCreate($attributes = []);
+
+    /**
      * Update
      * @param $id
      * @param array $attributes

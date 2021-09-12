@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Job;
 use App\Repositories\EmployeeProfile\EmployeeProfileRepositoryInterface;
 use App\Repositories\EmployerProfile\EmployerProfileRepositoryInterface;
 use App\Repositories\Job\JobRepositoryInterface;
+use App\Repositories\UserPreference\UserPreferenceRepositoryInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
@@ -17,14 +17,18 @@ class HomeController extends Controller
 
     private $jobRepo;
 
+    private $userPreferenceRepo;
+
     public function __construct(
         EmployeeProfileRepositoryInterface $employeeProfileRepo,
         EmployerProfileRepositoryInterface $employerProfileRepo,
-        JobRepositoryInterface $jobRepo
+        JobRepositoryInterface $jobRepo,
+        UserPreferenceRepositoryInterface $userPreferenceRepo
     ) {
         $this->employeeProfileRepo = $employeeProfileRepo;
         $this->employerProfileRepo = $employerProfileRepo;
         $this->jobRepo = $jobRepo;
+        $this->userPreferenceRepo = $userPreferenceRepo;
     }
 
     public function index(Request $request)
@@ -47,6 +51,13 @@ class HomeController extends Controller
     {
         if ($locale && in_array($locale, config('app.languages'))) {
             Session::put('language', $locale);
+
+            if (auth()->check()) {
+                $this->userPreferenceRepo->updateOrCreate([
+                    'preferred_locale' => $locale,
+                    'user_id' => auth()->id(),
+                ]);
+            }
         }
 
         return redirect()->back();

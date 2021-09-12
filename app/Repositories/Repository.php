@@ -35,6 +35,11 @@ abstract class Repository implements RepositoryInterface
         return $this->model->create($attributes);
     }
 
+    public function updateOrCreate($attributes = [])
+    {
+        return $this->model->updateOrCreate($attributes);
+    }
+
     public function update($id, $attributes = [])
     {
         $result = $this->find($id);
