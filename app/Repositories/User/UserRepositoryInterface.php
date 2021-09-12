@@ -14,4 +14,6 @@ interface UserRepositoryInterface extends RepositoryInterface
     public function changeStatus($id);
 
     public function searchByName($keyword);
+
+    public function getUsersByRole($role);
 }

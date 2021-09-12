@@ -54,4 +54,12 @@ class UserRepository extends Repository implements UserRepositoryInterface
 
         return null;
     }
+
+    public function getUsersByRole($role)
+    {
+        return $this
+            ->model
+            ->where('role', $role)
+            ->get();
+    }
 }

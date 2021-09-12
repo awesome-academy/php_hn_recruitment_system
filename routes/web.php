@@ -1,19 +1,20 @@
 <?php
 
-use App\Http\Controllers\MessageController;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\JobController;
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\UserController;
-use App\Http\Controllers\SearchController;
-use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ApplyJobController;
-use App\Http\Controllers\EducationController;
-use App\Http\Controllers\ExperienceController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\CommentController;
+use App\Http\Controllers\EducationController;
 use App\Http\Controllers\EmployeeProfileController;
 use App\Http\Controllers\EmployerProfileController;
+use App\Http\Controllers\ExperienceController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\JobController;
+use App\Http\Controllers\MessageController;
+use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\SearchController;
+use App\Http\Controllers\UserController;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -133,6 +134,15 @@ Route::middleware('auth')->group(function () {
                     'destroy',
                 ])->name('destroy');
             });
+
+        Route::prefix('jobs')
+            ->name('jobs.')
+            ->group(function () {
+                Route::get(
+                    'recommended',
+                    [JobController::class, 'showRecommendedJobs']
+                )->name('recommended');
+            });
     });
 
     /* Admin */
@@ -224,6 +234,12 @@ Route::middleware('auth')->group(function () {
         MessageController::class,
         'searchContact',
     ])->name('search_contact');
+
+    /* Notification */
+    Route::get('notifications', [
+        NotificationController::class,
+        'index',
+    ])->name('notifications.list');
 });
 
 Route::resource('employee-profiles', EmployeeProfileController::class);
