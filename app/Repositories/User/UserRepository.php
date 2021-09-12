@@ -2,9 +2,10 @@
 
 namespace App\Repositories\User;
 
+use App\Models\EmployeeProfile;
+use App\Models\EmployerProfile;
 use App\Models\User;
 use App\Repositories\Repository;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class UserRepository extends Repository implements UserRepositoryInterface
@@ -45,12 +46,9 @@ class UserRepository extends Repository implements UserRepositoryInterface
     public function searchByName($keyword)
     {
         if ($keyword !== '') {
-            $employees = DB::table('employee_profiles')
-                ->where('name', 'like', '%' . $keyword . '%')
-                ->get();
-            $employers = DB::table('employer_profiles')
-                ->where('name', 'like', '%' . $keyword . '%')
-                ->get();
+            $employees = EmployeeProfile::search($keyword)->get();
+            $employers = EmployerProfile::search($keyword)->get();
+
             return $employers->merge($employees);
         }
 
