@@ -176,6 +176,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         Yajra\DataTables\DataTablesServiceProvider::class,
         Akaunting\Money\Provider::class,
+        \Matchish\ScoutElasticSearch\ElasticSearchServiceProvider::class,
 
     ],
 
