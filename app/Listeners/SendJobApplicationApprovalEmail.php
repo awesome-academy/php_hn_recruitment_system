@@ -43,5 +43,7 @@ class SendJobApplicationApprovalEmail
                         $appliedJob
                     ));
         }
+
+        return false;
     }
 }
