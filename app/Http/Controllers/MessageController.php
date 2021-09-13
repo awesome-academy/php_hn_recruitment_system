@@ -66,7 +66,6 @@ class MessageController extends Controller
 
         broadcast(new MessageSent($message))->toOthers();
         $receiver = $this->userRepo->find($toId);
-        $conversation = $this->conversationRepo->getConversation($fromId, $toId);
         $messages = $conversation->messages ?? [];
 
         return view('message.index', compact('conversation', 'messages', 'receiver'));
@@ -75,6 +74,8 @@ class MessageController extends Controller
     public function readMessages($conversationId)
     {
         $this->messageRepo->readMessages($conversationId, Auth::id());
+
+        return true;
     }
 
     public function showChatBox()

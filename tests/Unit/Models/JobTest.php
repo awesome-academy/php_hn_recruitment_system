@@ -174,6 +174,13 @@ class JobTest extends ModelTestCase
         $this->assertEquals($expectedResult, $this->model->getAttributes()['benefit']);
     }
 
+    public function testScopeActive()
+    {
+        $query = Job::factory()->count(10)->make();
+        $result = $query->where('status', config('user.job_status.active'));
+        $this->assertEquals($result, $this->model->scopeActive($query));
+    }
+
     public function providerTestDateAccessors()
     {
         return [
