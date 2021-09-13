@@ -92,6 +92,7 @@
     </script>
     <script src="{{ asset('bower_components/job_light/admin/assets/js/forms/form-elements.js') }}"></script>
     <script src="{{ asset('js/create_summernote.js') }}"></script>
+    <script src="{{ asset('js/notification.js') }}"></script>
     @yield('additional_scripts')
 </body>
 

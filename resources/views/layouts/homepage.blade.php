@@ -74,6 +74,7 @@
     <script src="{{ asset('bower_components/job_light/js/bootstrap3-typeahead.min.js') }}"></script>
     <script src="{{ asset('js/main.js') }}"></script>
     <script src="{{ asset('js/home.js') }}"></script>
+    <script src="{{ asset('js/notification.js') }}"></script>
 
     <script src="{{ asset('bower_components/job_light/admin/assets/js/vendor.js') }}"></script>
     <script src="{{ asset('bower_components/job_light/admin/assets/js/app.min.js') }}"></script>

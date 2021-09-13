@@ -193,4 +193,6 @@ return [
     'type-message' => 'Type a message...',
     'job-statistic' => 'Job Statistics',
     'job-total' => 'Job Total',
+    'notifications' => 'Notifications',
+    'recommend-jobs' => 'We have new jobs for you. Apply now!',
 ];
