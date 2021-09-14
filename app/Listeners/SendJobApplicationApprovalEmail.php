@@ -44,5 +44,7 @@ class SendJobApplicationApprovalEmail implements ShouldQueue
                         $appliedJob
                     ));
         }
+
+        return false;
     }
 }
