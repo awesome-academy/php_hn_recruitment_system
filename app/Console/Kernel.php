@@ -2,6 +2,7 @@
 
 namespace App\Console;
 
+use App\Jobs\SendRecommendedJobsNotification;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -24,7 +25,11 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')->hourly();
+        $schedule
+            ->job(new SendRecommendedJobsNotification())
+            ->weekly()
+            ->fridays()
+            ->at(config('user.job_recommendation_sent_time'));
     }
 
     /**

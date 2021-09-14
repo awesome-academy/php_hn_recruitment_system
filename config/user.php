@@ -47,4 +47,5 @@ return [
         'read' => 1,
         'unread' => 0,
     ],
+    'job_recommendation_sent_time' => '19:00',
 ];
