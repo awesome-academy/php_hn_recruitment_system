@@ -22,6 +22,8 @@ use App\Repositories\Message\MessageRepository;
 use App\Repositories\Message\MessageRepositoryInterface;
 use App\Repositories\User\UserRepository;
 use App\Repositories\User\UserRepositoryInterface;
+use App\Repositories\UserPreference\UserPreferenceRepository;
+use App\Repositories\UserPreference\UserPreferenceRepositoryInterface;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -72,6 +74,10 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton(
             MessageRepositoryInterface::class,
             MessageRepository::class,
+        );
+        $this->app->singleton(
+            UserPreferenceRepositoryInterface::class,
+            UserPreferenceRepository::class,
         );
     }
 

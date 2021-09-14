@@ -9,6 +9,7 @@ use App\Models\Job;
 use App\Repositories\EmployeeProfile\EmployeeProfileRepositoryInterface;
 use App\Repositories\EmployerProfile\EmployerProfileRepositoryInterface;
 use App\Repositories\Job\JobRepositoryInterface;
+use App\Repositories\UserPreference\UserPreferenceRepositoryInterface;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -20,6 +21,7 @@ class HomeControllerTest extends TestCase
     protected $employeeProfileRepoMock;
     protected $employerProfileRepoMock;
     protected $jobRepoMock;
+    protected $userPreferenceRepoMock;
     protected $homeController;
 
     public function setUp(): void
@@ -28,10 +30,12 @@ class HomeControllerTest extends TestCase
         $this->employeeProfileRepoMock = Mockery::mock(EmployeeProfileRepositoryInterface::class);
         $this->employerProfileRepoMock = Mockery::mock(EmployerProfileRepositoryInterface::class);
         $this->jobRepoMock = Mockery::mock(JobRepositoryInterface::class);
+        $this->userPreferenceRepoMock = Mockery::mock(UserPreferenceRepositoryInterface::class);
         $this->homeController = new HomeController(
             $this->employeeProfileRepoMock,
             $this->employerProfileRepoMock,
-            $this->jobRepoMock
+            $this->jobRepoMock,
+            $this->userPreferenceRepoMock
         );
     }
 
